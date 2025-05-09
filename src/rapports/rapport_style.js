@@ -124,24 +124,5 @@ export default StyleSheet.create({
     fontSize: 14,
     color: '#000',
   },
-    subReportsContainer: {
-    marginTop: 20,
-    width: '80%',
-    alignItems: 'center',
-  },
-  subReportButton: {
-    backgroundColor: '#fff',
-    borderColor: '#f28b4b',
-    borderWidth: 2,
-    padding: 10,
-    borderRadius: 8,
-    marginVertical: 5,
-    width: '100%',
-  },
-  subReportText: {
-    color: '#000',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-
 });
+

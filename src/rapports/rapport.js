@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import styles from './rapport_style';
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const RapportInterface = () => {
-  const [showSubReports, setShowSubReports] = useState(false);
-
   return (
     <View style={styles.container}>
       {/* Barre latérale */}
@@ -30,35 +27,16 @@ const RapportInterface = () => {
           <View style={styles.logoContainer}>
             <Text style={styles.logoText}>LOGO</Text>
           </View>
-          <Text style={styles.companyName}>GES</Text>
+          <Text style={styles.companyName}>NOM DE L'ENTREPRISE</Text>
         </View>
 
         <Text style={styles.moduleText}>Choisissez votre module</Text>
 
-        <TouchableOpacity
-          style={styles.moduleBox}
-          onPress={() => setShowSubReports(!showSubReports)}
-        >
+        <View style={styles.moduleBox}>
           <Text style={styles.boxLogo}>LOGO DE RAPPORT</Text>
           <Text style={styles.moduleTitle}>Rapport</Text>
           <Text style={styles.moduleDesc}>Les rapports</Text>
-        </TouchableOpacity>
-
-        {showSubReports && (
-          <View style={styles.subReportsContainer}>
-            <TouchableOpacity style={styles.subReportButton}>
-              <Text style={styles.subReportText}>Rapport de gestion des clients</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.subReportButton}>
-              <Text style={styles.subReportText}>Rapport de gestion des commandes</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.subReportButton}>
-              <Text style={styles.subReportText}>Rapport de gestion des fournisseurs</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        </View>
       </View>
     </View>
   );

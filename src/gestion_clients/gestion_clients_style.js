@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
   },
+  // Barre latérale
   sidebar: {
     width: '25%',
     backgroundColor: '#e67228',
@@ -37,10 +38,9 @@ export default StyleSheet.create({
   },
   menuButton: {
     backgroundColor: '#f8a35e',
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 20,
-    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 15,
   },
   menuText: {
     fontWeight: 'bold',
@@ -51,11 +51,12 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginBottom: 20,
-    alignItems: 'center',
   },
   logoutText: {
     color: '#000',
   },
+
+  // Zone principale
   mainContent: {
     flex: 1,
     backgroundColor: '#fff3cf',
@@ -67,6 +68,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 30,
+    backgroundColor: '#f4c7a1',
+    padding: 10,
   },
   logoContainer: {
     backgroundColor: '#000',
@@ -80,8 +83,9 @@ export default StyleSheet.create({
   companyName: {
     fontWeight: 'bold',
     fontSize: 16,
+    color: '#000',
   },
-  moduleText: {
+  moduleTitle: {
     fontSize: 18,
     marginBottom: 20,
   },
@@ -92,9 +96,9 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   boxLogo: {
-    marginBottom: 10,
     fontWeight: 'bold',
     color: '#000',
+    marginBottom: 10,
   },
   clientTitle: {
     fontSize: 18,
