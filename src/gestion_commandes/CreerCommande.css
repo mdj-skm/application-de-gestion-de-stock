@@ -1,0 +1,77 @@
+/* Container principal de la page */
+.creer-commande-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff3e0; /* Fond orange clair */
+  padding: 20px;
+}
+
+/* Formulaire de création de commande */
+.creer-commande-form {
+  background-color: #fff8e1; /* Fond orange encore plus clair */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Titres et texte */
+h3 {
+  text-align: center;
+  color: #e65100; /* Couleur sombre de l'orange */
+}
+
+/* Champs de formulaire */
+input {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border: 1px solid #ffcc80; /* Bordure orange claire */
+  border-radius: 5px;
+}
+
+/* Affichage du total */
+p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #e65100;
+}
+
+/* Boutons */
+button {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #ffcc80; /* Couleur orange claire */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px 0;
+  
+}
+
+/* Changement de couleur des boutons au survol */
+button:hover {
+  background-color: #ffa726;
+  transform: scale(1.05);
+}
+
+/* Désactivation du bouton de validation */
+button:disabled {
+  background-color: #ffb74d;
+  cursor: not-allowed;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  margin-top: 20px; /* Optionnel : espace au-dessus */
+}

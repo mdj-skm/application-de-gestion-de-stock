@@ -20,13 +20,16 @@
   }
   
   .profile-icon {
-    font-size: 40px;
-    margin-top: -100px;
+    font-size: 50px;
+    color: white;
+    margin-top: -300px;
+    height: 500px;
+
   }
   
   .username {
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: -400px;
   }
   
   .status-dot {
@@ -38,7 +41,7 @@
     margin-left: 5px;
   }
   
-  .menu-button {
+  .menu-button { 
     margin: 10px 0;
     padding: 10px 20px;
     border-radius: 20px;
@@ -46,8 +49,13 @@
     background-color: white;
     cursor: pointer;
     transition: transform 0.2s;
+    display: inline-block;
     
   }
+  .menu-button:hover {
+    transform: scale(1.05); /* Légèrement plus grand */
+  }
+  
 
   .logout-button {
     margin: 10px 0;
@@ -56,7 +64,12 @@
     border: 1px solid black;
     background-color: white;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease;
+    margin-top: 50px; 
+  }
+
+  .logout-button:hover {
+    transform: scale(1.05);
   }
   
   .menu-button.active {
@@ -65,10 +78,6 @@
     background-color: #fef1d5;
   }
   
-  .logout-button {
-    background-color: #fff;
-    transition: transform 0.2s;
-  }
   
   /* === MAIN CONTENT === */
   .main-content {
@@ -90,35 +99,41 @@
   }
   
   .logo {
-    width: 60px;
+    width: 100px;
     height: auto;
-    background-color: white;
     padding: 5px;
   }
   
   .company-name {
-    background-color: white;
     color: black;
-    padding: 10px;
+    padding: 50px;
     font-weight: bold;
   }
   
   /* === MODULE SECTION === */
   .module-section {
     margin-top: 60px;
+    flex-wrap: wrap; /* Permet de passer àla ligne si l'écran est trop petit */
+    gap: 20px; /* espace entre les modules */
+    justify-content: center; /* centrer les modules horizontale */
+    padding: 20px;
     text-align: center;
+    
   }
   
   .module-box {
-    background-color: #ec7d31;
-    padding: 20px;
-    border-radius: 10px;
+    width: 200px; /* largeur fixe pour chaque module */
+    background-color: blanchedalmond;
+    border: 5px solid orange;
+    padding: 15px;
+    border-radius: 8px;
     cursor: pointer;
     display: inline-block;
     margin-top: 20px;
     color: black;
     width: 220px;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
+    text-align: center;
   }
   
   .module-box:hover {
@@ -128,4 +143,7 @@
   .module-logo {
     width: 60px;
     margin-bottom: 10px;
+    
   }
+
+  

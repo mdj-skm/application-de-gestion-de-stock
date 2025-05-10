@@ -3,19 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import logo from '../assets/logo.png'; // Ajoute ton logo ici
 
+
+
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    alert(`Connexion avec username /{password}`);
+    alert(`Connexion réussie`);
     // Ici tu peux ajouter une vraie vérification plus tard
     if (username && password) {
-      navigate('/home'); // Redirige vers la page d'accueil
+      localStorage.setItem('username', username); // très important !
+      navigate('./page_d_accueil');
     } else {
       alert('Veuillez entrer votre nom d’utilisateur et mot de passe.');
     }
+  
 
     // Tu peux ajouter ici la logique d'authentification
   };
@@ -33,7 +37,7 @@ function LoginPage() {
         </div>
 
         <div className="login-form">
-          <h2>Choisissez votre module</h2>
+          <h2>Connectez vous</h2>
           <input
             type="text"
             placeholder="Nom d’utilisateur"
