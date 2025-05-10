@@ -10,6 +10,10 @@ import Imprimer from "./gestion_commandes/Imprimer";
 import Historique from "./gestion_commandes/Historique";
 import Accueil from "./gestion_commandes/Accueil";
 import RechercheBar from "./gestion_commandes/RechercheBar";
+import Clients from "./gestion_clients/clients"; 
+import GestionFournisseurs from "./gestion_fournisseurs/gestion_fournisseurs";
+import Rapports from "./rapports/rapport"; 
+import Configuration from "./configuration/configuration"; 
 
 
 
@@ -59,7 +63,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/page_d_accueil" element={<HomePage />} />
+        <Route path="/gestion_clients" element={<Clients />} />
         <Route path="/gestion_commandes" element={<GestionCommandes />} />
+        <Route path="/gestion_fournisseurs" element={<GestionFournisseurs />} />
+        <Route path="/rapports" element={<Rapports />} />
+        <Route path="/configuration" element={<Configuration />} />
       </Routes>
     
   );

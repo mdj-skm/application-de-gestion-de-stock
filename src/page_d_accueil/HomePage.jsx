@@ -27,10 +27,11 @@ function HomePage() {
     return null; // ou "Chargement..." si tu préfères
   }
 
-  const handleModuleClick = () => {
+  const handleModuleClick = (path) => {
     alert('Redirection vers le module de gestion des commandes...');
-    navigate('/gestion_commandes');
+    navigate(path);
   };
+
 
   const handleLogout = () => {
     alert('Déconnexion...');
@@ -60,43 +61,44 @@ function HomePage() {
 
         <div className="module-section">
           <h2>Choisissez votre module</h2>
-          <div className="module-box" onClick={handleModuleClick}>
-            <img src={logoGestionClients} alt="Module Gestion" className="module-logo" />
-            <h3>Gestion clients</h3>
-            <p>La gestion des clients</p>
+          <div className="module-box" onClick={() => handleModuleClick('/gestion_clients')}>
+          <img src={logoGestionClients} alt="Module Gestion" className="module-logo" />
+          <h3>Gestion clients</h3>
+          <p>La gestion des clients</p>
           </div>
+
         </div>
 
         <div className="module-section">
-          <div className="module-box" onClick={handleModuleClick}>
-            <img src={logoGestionFournisseurs} alt="Module Gestion" className="module-logo" />
-            <h3>Gestion fournisseurs</h3>
-            <p>La gestion des fournisseurs</p>
-          </div>
+          <div className="module-box" onClick={() => handleModuleClick('/gestion_fournisseurs')}>
+          <img src={logoGestionFournisseurs} alt="Module Gestion" className="module-logo" />
+          <h3>Gestion fournisseurs</h3>
+          <p>La gestion des fournisseurs</p>
+        </div>
         </div>
 
         <div className="module-section">
-          <div className="module-box" onClick={handleModuleClick}>
-            <img src={logoGestion} alt="Module Gestion" className="module-logo" />
-            <h3>Gestion commandes</h3>
-            <p>La gestion des commandes</p>
-          </div>
+          <div className="module-box" onClick={() => handleModuleClick('/gestion_commandes')}>
+          <img src={logoGestion} alt="Module Gestion" className="module-logo" />
+          <h3>Gestion commandes</h3>
+          <p>La gestion des commandes</p>
+        </div>
         </div>
 
         <div className="module-section">
-          <div className="module-box" onClick={handleModuleClick}>
-            <img src={logoRapports} alt="Module Gestion" className="module-logo" />
-            <h3>Rapport</h3>
-            <p>Rapports</p>
-          </div>
+          <div className="module-box" onClick={() => handleModuleClick('/rapports')}>
+          <img src={logoRapports} alt="Module Gestion" className="module-logo" />
+          <h3>Rapport</h3>
+          <p>Rapports</p>
+        </div>
         </div>
 
         <div className="module-section">
-          <div className="module-box" onClick={handleModuleClick}>
-            <img src={logoConfiguration} alt="Module Gestion" className="module-logo" />
-            <h3>Configuration</h3>
-            <p>Configuration</p>
-          </div>
+          <div className="module-box" onClick={() => handleModuleClick('/configuration')}>
+          <img src={logoConfiguration} alt="Module Gestion" className="module-logo" />
+          <h3>Configuration</h3>
+          <p>Configuration</p>
+        </div>
         </div>
 
 
