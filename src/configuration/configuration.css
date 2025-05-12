@@ -1,0 +1,117 @@
+/* ConfigurationUI.css */
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20%;
+  background-color: #f97316; /* orange-500 */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.user-icon {
+  font-size: 1.875rem; /* text-3xl */
+}
+
+.username {
+  font-size: 0.875rem; /* text-sm */
+}
+
+.status-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #22c55e; /* green-500 */
+  border-radius: 9999px;
+}
+
+.sidebar-button {
+  background-color: #fed7aa; /* orange-200 */
+  color: black;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  background-color: #ffedd5; /* orange-100 */
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdba74; /* orange-200 */
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  background-color: black;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+.company-name {
+  font-weight: bold;
+  color: black;
+}
+
+.refresh-button {
+  background-color: #ffedd5; /* orange-100 */
+  border: 1px solid #ccc;
+  border-radius: 9999px;
+  padding: 0.25rem 1rem;
+}
+
+.configuration-section {
+  background-color: #ffedd5;
+  padding: 1rem;
+}
+
+.configuration-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.config-button {
+  background-color: #fff7ed; /* orange-50 */
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+}
+
+.placeholder-box {
+  background-color: #fff7ed;
+  height: 16rem;
+  border-radius: 0.5rem;
+  border: 1px solid #fdba74;
+}
