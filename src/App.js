@@ -1,34 +1,31 @@
-
+import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom'; // ✅ PAS de BrowserRouter ici
+
+// Pages principales
 import LoginPage from './connexion/LoginPage'; 
 import HomePage from './page_d_accueil/HomePage'; 
-import React, { useState } from "react";
+
+// Modules de gestion des commandes
 import Sidebar from "./gestion_commandes/Sidebar";
 import CreerCommande from "./gestion_commandes/CreerCommande";
 import Imprimer from "./gestion_commandes/Imprimer";
 import Historique from "./gestion_commandes/Historique";
 import Accueil from "./gestion_commandes/Accueil";
 import RechercheBar from "./gestion_commandes/RechercheBar";
-import Clients from "./gestion_clients/clients"; 
+
+// Autres modules
+import Clients from './gestion_clients/clients';
+import GestionClient from './gestion_clients/gestion_client';
 import GestionFournisseurs from "./gestion_fournisseurs/gestion_fournisseurs";
 import Rapports from "./rapports/rapport"; 
-import Configuration from "./configuration/configuration"; 
-
-
-
-
-
-
-
-
+import GestionRapport from './rapports/gestion_rapport'; // ✅ Ajout ici
+import Configuration from "./configuration/configuration";
 
 function GestionCommandes() {
   const [module, setModule] = useState("accueil");
   const [commande, setCommande] = useState(null);
   const [recherche, setRecherche] = useState("");
-  
-
 
   const renderContent = () => {
     switch (module) {
@@ -59,19 +56,18 @@ function GestionCommandes() {
 
 function App() {
   return (
-    
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/page_d_accueil" element={<HomePage />} />
-        <Route path="/gestion_clients" element={<Clients />} />
-        <Route path="/gestion_commandes" element={<GestionCommandes />} />
-        <Route path="/gestion_fournisseurs" element={<GestionFournisseurs />} />
-        <Route path="/rapports" element={<Rapports />} />
-        <Route path="/configuration" element={<Configuration />} />
-      </Routes>
-    
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/page_d_accueil" element={<HomePage />} />
+      <Route path="/gestion_clients" element={<Clients />} />
+      <Route path="/gestion-client" element={<GestionClient />} />
+      <Route path="/gestion_commandes" element={<GestionCommandes />} />
+      <Route path="/gestion_fournisseurs" element={<GestionFournisseurs />} />
+      <Route path="/rapports" element={<Rapports />} />
+      <Route path="/rapport/gestion" element={<GestionRapport />} /> {/* ✅ Route ajoutée */}
+      <Route path="/configuration" element={<Configuration />} />
+    </Routes>
   );
 }
 
 export default App;
-
