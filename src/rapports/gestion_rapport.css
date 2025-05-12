@@ -6,101 +6,175 @@
 
 .rapport-sidebar {
   width: 200px;
-  background-color: #f3701d;
-  color: black;
-  padding: 20px;
+  background-color: #e1701a;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 }
 
 .user-info {
-  text-align: center;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
 .user-icon {
-  font-size: 40px;
+  font-size: 36px;
+  margin-bottom: 5px;
 }
 
 .username {
-  margin: 10px 0;
+  font-size: 14px;
   font-weight: bold;
 }
 
 .status-indicator {
   width: 10px;
   height: 10px;
-  background-color: green;
+  background-color: limegreen;
   border-radius: 50%;
-  margin: 5px auto;
+  margin-top: 5px;
 }
 
 .nav-button {
-  background-color: #fff;
-  border: 1px solid #000;
-  border-radius: 15px;
-  padding: 8px 15px;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .rapport-main {
   flex: 1;
-  background-color: #ffebcd;
+  background-color: #ffeecc;
   display: flex;
   flex-direction: column;
 }
 
 .rapport-header {
-  background-color: #f5c6a5;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  justify-content: space-between;
+  background-color: #f4b183;
+  padding: 10px 20px;
 }
 
 .logo {
   font-weight: bold;
-  border: 2px solid black;
-  padding: 5px 10px;
-  background: #000;
+  font-size: 18px;
+  background-color: black;
   color: white;
+  padding: 5px 10px;
+  margin-right: 10px;
 }
 
 .company-name {
+  color: white;
+  background-color: black;
+  padding: 5px 15px;
+  font-size: 16px;
   font-weight: bold;
-  font-size: 18px;
+  margin-right: auto;
 }
 
 .refresh-button {
-  border-radius: 15px;
+  background-color: orange;
+  border: none;
+  border-radius: 10px;
   padding: 8px 12px;
-  background-color: #fff;
-  border: 1px solid #000;
   cursor: pointer;
+  color: white;
+  font-weight: bold;
 }
 
 .rapport-body {
   padding: 20px;
 }
 
-.filter-bar {
-  display: flex;
-  gap: 15px;
-  margin: 10px 0;
+.rapport-body h2 {
+  margin-bottom: 20px;
 }
 
-.filter-button {
-  border-radius: 15px;
-  padding: 10px 20px;
-  background-color: #fff;
-  border: 1px solid #000;
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.left-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.date-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-input {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.search-button {
+  background-color: #f4b183;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
   cursor: pointer;
+  color: black;
+  font-weight: bold;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20px; /* Augmenté pour plus d'espace */
 }
 
 .rapport-content {
-  margin-top: 20px;
-  height: 300px;
-  background-color: #fff8dc;
+  background-color: #fff5d9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.search-input {
+  padding: 6px 10px;
+  border-radius: 10px;
   border: 1px solid #ccc;
+  width: 200px;
+  margin-top: 5px;
+}
+
+.search-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.search-button {
+  padding: 6px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.refresh-button {
+  padding: 6px 12px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }

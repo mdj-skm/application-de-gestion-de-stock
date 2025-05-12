@@ -9,7 +9,7 @@
   background-color: #e6742b;
   width: 200px;
   padding: 20px;
-  color: white;
+  color: #e6742b;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,18 +85,30 @@
   align-items: center;
 }
 
-.refresh-button {
-  background-color: #f3e4c8;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 8px 15px;
-  cursor: pointer;
-}
-
+/* Filter bar with date and search inputs */
 .filter-bar {
   margin-top: 20px;
   display: flex;
-  gap: 15px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.left-filters {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.date-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.date-group label {
+  margin-bottom: 4px;
+  font-weight: bold;
 }
 
 .date-input {
@@ -105,16 +117,132 @@
   border: 1px solid #ccc;
 }
 
-.search-button {
-  padding: 8px 15px;
+.search-input {
+  padding: 8px;
   border-radius: 10px;
-  border: 1px solid black;
-  background-color: #f3e4c8;
-  cursor: pointer;
+  border: 1px solid #ccc;
 }
 
+/* Buttons */
+.refresh-button,
+.add-client-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.refresh-button {
+  background-color: orange;
+  color: orangered;
+  border: none;
+}
+
+.refresh-button:hover {
+  background-color: darkorange;
+}
+
+.add-client-button {
+  background-color: #28a745; /* vert */
+  color: white;
+  border: none;
+}
+
+.add-client-button:hover {
+  background-color: #218838;
+}
+
+/* Right Actions - Aligning Refresh and Add buttons */
+.right-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Espace entre les boutons */
+}
+
+/* Data display section */
 .data-display {
   margin-top: 30px;
   min-height: 200px;
   border-top: 2px solid black;
+}
+.data-display ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.data-display li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.data-display li p {
+  margin: 5px 0;
+}
+
+.data-display li h4 {
+  margin-right: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.data-display li p strong {
+  font-weight: bold;
+}
+.data-display ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.data-display li {
+  display: flex;
+  flex-wrap: nowrap; /* Assurer que tout reste sur la même ligne */
+  gap: 20px; /* Espacement entre les éléments */
+  margin-bottom: 10px;
+  align-items: center; /* Aligner verticalement */
+  justify-content: flex-start; /* Aligner à gauche */
+  overflow-x: auto; /* Si la ligne est trop longue, permettre le défilement horizontal */
+}
+
+.data-display li p {
+  margin: 0; /* Enlever les marges par défaut */
+}
+
+.data-display li h4 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.data-display li p strong {
+  font-weight: bold;
+}
+.client-table {
+  width: 100%;
+  border-collapse: collapse; /* Supprime les espaces entre les cellules */
+  margin-top: 20px;
+}
+
+.client-table th, .client-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.client-table th {
+  background-color: #f3c3a2;
+  font-weight: bold;
+}
+
+.client-table td {
+  background-color: #fff3d6;
+}
+
+.client-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.client-table tr:hover {
+  background-color: #f1e1c1; /* Met en surbrillance une ligne au survol */
 }

@@ -25,7 +25,6 @@ const Clients = () => {
 
         {/* ✅ Appel de la fonction définie */}
         <div className="module-box" onClick={handleGestionClick} style={{ cursor: 'pointer' }}>
-          <div className="module-logo">LOGO DE<br />GESTION</div>
           <h2>Gestion client</h2>
           <p>La gestion des clients</p>
         </div>

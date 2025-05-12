@@ -21,13 +21,11 @@ const Rapport = () => {
       {/* Header + Main */}
       <header className="rapport-header">
         <div className="logo">LOGO</div>
-        <div className="company-name">NOM DE L'ENTREPRISE</div>
+        <div className="company-name">GEs</div>
       </header>
 
       <main className="rapport-main-content">
-        <h1>Choisissez votre module</h1>
         <div className="module-box" onClick={() => navigate('/rapport/gestion')}>
-          <div className="module-logo">LOGO DE<br />RAPPORT</div>
           <h2>Rapport</h2>
           <p>Les rapports</p>
         </div>
