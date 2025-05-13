@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './gestion_client.css';
+import { useNavigate } from 'react-router-dom';
 
 const GestionClient = () => {
-  const [clients, setClients] = useState([]); // Liste réelle à connecter à la base plus tard
+  const navigate = useNavigate();
+
+  const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDate, setSelectedDate] = useState(''); // État pour la date sélectionnée
-  const [isFormVisible, setIsFormVisible] = useState(false); // État pour afficher ou masquer le formulaire
+  const [selectedDate, setSelectedDate] = useState('');
+  const [isFormVisible, setIsFormVisible] = useState(false);
   const [newClient, setNewClient] = useState({
     nom: '',
     prenom: '',
@@ -14,7 +17,7 @@ const GestionClient = () => {
     email: '',
     profession: '',
     sexe: '',
-    dateInscription: new Date().toISOString().split('T')[0], // Défini à la date actuelle par défaut
+    dateInscription: new Date().toISOString().split('T')[0],
     produitsAchetes: '',
     montantTotal: '',
     nomVendeur: '',
@@ -23,7 +26,7 @@ const GestionClient = () => {
 
   const handleRefresh = () => {
     setSearchTerm('');
-    setSelectedDate(''); // Réinitialise la date de recherche
+    setSelectedDate('');
   };
 
   const handleInputChange = (e) => {
@@ -36,16 +39,15 @@ const GestionClient = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validation basique
-    if (!newClient.nom || !newClient.prenom || !newClient.telephone || !newClient.adresse) {
+    const { nom, prenom, telephone, adresse } = newClient;
+
+    if (!nom || !prenom || !telephone || !adresse) {
       alert('Les champs obligatoires doivent être remplis.');
       return;
     }
 
-    // Ajouter le client à la liste des clients
-    setClients((prevClients) => [...prevClients, newClient]);
+    setClients((prev) => [...prev, newClient]);
 
-    // Réinitialiser le formulaire
     setNewClient({
       nom: '',
       prenom: '',
@@ -61,25 +63,17 @@ const GestionClient = () => {
       modePaiement: ''
     });
 
-    // Cacher le formulaire
     setIsFormVisible(false);
   };
 
-  const handleToggleForm = () => {
-    setIsFormVisible(!isFormVisible);
+  const handleToggleForm = () => setIsFormVisible(!isFormVisible);
+
+  const filterClientsByDate = (list) => {
+    if (!selectedDate) return list;
+    return list.filter((client) => client.dateInscription === selectedDate);
   };
 
-  // Fonction pour filtrer les clients par date d'ajout (selon la date sélectionnée)
-  const filterClientsByDate = (clients) => {
-    if (!selectedDate) return clients; // Si aucune date n'est sélectionnée, retourne tous les clients
-
-    return clients.filter(client => {
-      const clientDate = client.dateInscription;
-      return clientDate === selectedDate; // Comparer la date du client avec la date sélectionnée
-    });
-  };
-
-  const filteredClients = filterClientsByDate(clients).filter(client =>
+  const filteredClients = filterClientsByDate(clients).filter((client) =>
     client.nom.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -91,8 +85,11 @@ const GestionClient = () => {
           <p className="username">Nom d'utilisateur</p>
           <div className="status-indicator" />
         </div>
-        <button className="nav-button">Accueil</button>
-        <button className="nav-acceuil">Se deconnecter</button>
+        <button className="logout-button" onClick={() => navigate('/page_d_accueil')}>
+          Accueil
+        </button><button className="logout-button" onClick={() => navigate('/page_d_accueil')}>
+          Se deconnecter
+        </button>
       </aside>
 
       <header className="gc-header">
@@ -114,7 +111,7 @@ const GestionClient = () => {
                 id="start-date"
                 className="date-input"
                 value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)} // Mise à jour de la date sélectionnée
+                onChange={(e) => setSelectedDate(e.target.value)}
               />
             </div>
             <input
@@ -128,12 +125,15 @@ const GestionClient = () => {
           </div>
 
           <div className="right-actions">
-            <button className="refresh-button" onClick={handleRefresh}>Rafraîchir</button>
-            <button className="add-client-button" onClick={handleToggleForm}>Ajouter client</button>
+            <button className="refresh-button" onClick={handleRefresh}>
+              Rafraîchir
+            </button>
+            <button className="add-client-button" onClick={handleToggleForm}>
+              {isFormVisible ? "Annuler" : "Ajouter client"}
+            </button>
           </div>
         </div>
 
-        {/* Formulaire d'ajout de client */}
         {isFormVisible && (
           <div className="form-container">
             <h3>Ajouter un client</h3>
@@ -142,107 +142,46 @@ const GestionClient = () => {
                 <tbody>
                   <tr>
                     <td><label>Nom (obligatoire):</label></td>
-                    <td><input
-                      type="text"
-                      name="nom"
-                      value={newClient.nom}
-                      onChange={handleInputChange}
-                      required
-                    /></td>
-                  
+                    <td><input type="text" name="nom" value={newClient.nom} onChange={handleInputChange} required /></td>
+
                     <td><label>Prénom (obligatoire):</label></td>
-                    <td><input
-                      type="text"
-                      name="prenom"
-                      value={newClient.prenom}
-                      onChange={handleInputChange}
-                      required
-                    /></td>
-                    <td><label>Téléphone (obligatoire et valide):</label></td>
-                    <td><input
-                      type="tel"
-                      name="telephone"
-                      value={newClient.telephone}
-                      onChange={handleInputChange}
-                      required
-                      pattern="[0-9]{10}" // Validation de numéro de téléphone
-                    /></td>
+                    <td><input type="text" name="prenom" value={newClient.prenom} onChange={handleInputChange} required /></td>
+
+                    <td><label>Téléphone :</label></td>
+                    <td><input type="tel" name="telephone" value={newClient.telephone} onChange={handleInputChange} required pattern="[0-9]{10}" /></td>
                   </tr>
+
                   <tr>
-                    <td><label>Adresse:</label></td>
-                    <td><input
-                      type="text"
-                      name="adresse"
-                      value={newClient.adresse}
-                      onChange={handleInputChange}
-                    /></td>
-                  
-                    <td><label>Email:</label></td>
-                    <td><input
-                      type="email"
-                      name="email"
-                      value={newClient.email}
-                      onChange={handleInputChange}
-                    /></td>
-                  
-                    <td><label>Profession:</label></td>
-                    <td><input
-                      type="text"
-                      name="profession"
-                      value={newClient.profession}
-                      onChange={handleInputChange}
-                    /></td>
+                    <td><label>Adresse :</label></td>
+                    <td><input type="text" name="adresse" value={newClient.adresse} onChange={handleInputChange} /></td>
+
+                    <td><label>Email :</label></td>
+                    <td><input type="email" name="email" value={newClient.email} onChange={handleInputChange} /></td>
+
+                    <td><label>Profession :</label></td>
+                    <td><input type="text" name="profession" value={newClient.profession} onChange={handleInputChange} /></td>
                   </tr>
+
                   <tr>
-                    <td><label>Sexe / Genre:</label></td>
-                    <td><input
-                      type="text"
-                      name="sexe"
-                      value={newClient.sexe}
-                      onChange={handleInputChange}
-                    /></td>
-                  
-                    <td><label>Date d'inscription:</label></td>
-                    <td><input
-                      type="date"
-                      name="dateInscription"
-                      value={newClient.dateInscription}
-                      onChange={handleInputChange}
-                      readOnly
-                    /></td>
-                  
-                    <td><label>Produit(s) acheté(s):</label></td>
-                    <td><input
-                      type="text"
-                      name="produitsAchetes"
-                      value={newClient.produitsAchetes}
-                      onChange={handleInputChange}
-                    /></td>
+                    <td><label>Sexe :</label></td>
+                    <td><input type="text" name="sexe" value={newClient.sexe} onChange={handleInputChange} /></td>
+
+                    <td><label>Date d'inscription :</label></td>
+                    <td><input type="date" name="dateInscription" value={newClient.dateInscription} readOnly /></td>
+
+                    <td><label>Produits achetés :</label></td>
+                    <td><input type="text" name="produitsAchetes" value={newClient.produitsAchetes} onChange={handleInputChange} /></td>
                   </tr>
+
                   <tr>
-                    <td><label>Montant total:</label></td>
-                    <td><input
-                      type="number"
-                      name="montantTotal"
-                      value={newClient.montantTotal}
-                      onChange={handleInputChange}
-                    /></td>
-                  
-                    <td><label>Nom du vendeur / caissière:</label></td>
-                    <td><input
-                      type="text"
-                      name="nomVendeur"
-                      value={newClient.nomVendeur}
-                      onChange={handleInputChange}
-                    /></td>
-                  
-                    <td><label>Mode de paiement:</label></td>
-                    <td><input
-                      type="text"
-                      name="modePaiement"
-                      value={newClient.modePaiement}
-                      onChange={handleInputChange}
-                    /></td>
+                    <td><label>Montant total :</label></td>
+                    <td><input type="number" name="montantTotal" value={newClient.montantTotal} onChange={handleInputChange} /></td>
+
+                    <td><label>Nom du vendeur :</label></td>
+                    <td><input type="text" name="nomVendeur" value={newClient.nomVendeur} onChange={handleInputChange} /></td>
+
+                    <td><label>Mode de paiement :</label></td>
+                    <td><input type="text" name="modePaiement" value={newClient.modePaiement} onChange={handleInputChange} /></td>
                   </tr>
                 </tbody>
               </table>
