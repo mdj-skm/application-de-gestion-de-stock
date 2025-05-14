@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
-import './Historique.css';
+import './CommandesLivrees.css';
 import Sidebar from '../components/Sidebar';
 
-const Historique = () => {
-  const { historique } = useContext(CommandeContext);
+const CommandesLivrees = () => {
+  const { commandesLivrees } = useContext(CommandeContext);
 
   return (
-    <div className="historique-container">
+    <div className="commandes-livrees-container">
         <Sidebar />
-      <h2>Historique des commandes</h2>
-      {historique.length === 0 ? (
-        <p>Aucune commande dans l'historique.</p>
+      <h2>Commandes Livrées</h2>
+      {commandesLivrees.length === 0 ? (
+        <p>Aucune commande livrée.</p>
       ) : (
         <table>
           <thead>
@@ -22,19 +22,17 @@ const Historique = () => {
               <th>Prix Unitaire</th>
               <th>Prix Total</th>
               <th>Statut</th>
-              <th>Date</th>
             </tr>
           </thead>
           <tbody>
-            {historique.map((commande, index) => (
+            {commandesLivrees.map((commande, index) => (
               <tr key={index}>
                 <td>{commande.produit}</td>
                 <td>{commande.categorie}</td>
                 <td>{commande.quantite}</td>
                 <td>{commande.prixUnitaire} FCFA</td>
                 <td>{commande.prixTotal} FCFA</td>
-                <td>{commande.statut}</td>
-                <td>{commande.date}</td>
+                <td style={{ color: 'blue' }}>Livré</td>
               </tr>
             ))}
           </tbody>
@@ -44,4 +42,4 @@ const Historique = () => {
   );
 };
 
-export default Historique;
+export default CommandesLivrees;

@@ -1,0 +1,104 @@
+/* Container principal */
+.commandes-validees-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenu principal */
+.commandes-validees-container > h2 {
+  margin-left: 270px;
+  padding: 20px;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Contenu du tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: 270px;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+td {
+  color: #333;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #2ecc71;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .commandes-validees-container > h2 {
+    margin-left: 220px;
+  }
+
+  table {
+    margin-left: 220px;
+    font-size: 0.9rem;
+  }
+
+  table th, table td {
+    padding: 8px;
+  }
+}
+
+/* Très petit écran */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 150px;
+  }
+
+  .commandes-validees-container > h2 {
+    margin-left: 170px;
+  }
+
+  table {
+    margin-left: 170px;
+    font-size: 0.8rem;
+    overflow-x: auto;
+    display: block;
+  }
+
+  table th, table td {
+    padding: 6px;
+  }
+}

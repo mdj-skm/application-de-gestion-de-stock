@@ -1,0 +1,15 @@
+.historique-container {
+  margin: 20px;
+}
+
+.historique-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.historique-container th, .historique-container td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}

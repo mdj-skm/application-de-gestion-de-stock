@@ -1,77 +1,95 @@
-/* Container principal de la page */
-.creer-commande-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #fff3e0; /* Fond orange clair */
-  padding: 20px;
-}
+/* CreerCommande.css */
 
-/* Formulaire de création de commande */
-.creer-commande-form {
-  background-color: #fff8e1; /* Fond orange encore plus clair */
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
+/* Container principal */
+.commande-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Pour que le contenu prenne toute la hauteur de l'écran */
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
-/* Titres et texte */
-h3 {
+/* Titre */
+.commande-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
   text-align: center;
-  color: #e65100; /* Couleur sombre de l'orange */
+  color: #333;
 }
 
-/* Champs de formulaire */
-input {
+/* Champ de saisie */
+.commande-container input {
+  width: 100%;
+  max-width: 400px; /* Limite la largeur des champs de saisie */
   padding: 10px;
-  font-size: 16px;
-  margin-bottom: 10px;
-  border: 1px solid #ffcc80; /* Bordure orange claire */
+  margin: 10px 0;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
-/* Affichage du total */
-p {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #e65100;
+/* Message d'erreur */
+.erreur {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
 
-/* Boutons */
-button {
+/* Affichage du prix total */
+.commande-container p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Bouton de validation */
+.commande-container button {
+  width: 100%;
+  max-width: 400px; /* Limite la largeur du bouton */
   padding: 12px;
-  font-size: 16px;
-  background-color: #ffcc80; /* Couleur orange claire */
+  background-color: #007bff;
   color: white;
+  font-size: 1rem;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 5px 0;
-  
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-/* Changement de couleur des boutons au survol */
-button:hover {
-  background-color: #ffa726;
-  transform: scale(1.05);
+.commande-container button:hover {
+  background-color: #0056b3;
 }
 
-/* Désactivation du bouton de validation */
-button:disabled {
-  background-color: #ffb74d;
-  cursor: not-allowed;
+/* Responsiveness */
+@media (max-width: 768px) {
+  .commande-container {
+    padding: 10px;
+  }
+
+  .commande-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .commande-container input {
+    max-width: 100%; /* Les champs prennent toute la largeur sur petits écrans */
+  }
+
+  .commande-container button {
+    max-width: 100%; /* Le bouton prend toute la largeur sur petits écrans */
+  }
 }
 
-.btn-container {
-  display: flex;
-  justify-content: center; /* Centre horizontalement */
-  margin-top: 20px; /* Optionnel : espace au-dessus */
+@media (max-width: 480px) {
+  .commande-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .commande-container input,
+  .commande-container button {
+    font-size: 0.9rem;
+  }
 }

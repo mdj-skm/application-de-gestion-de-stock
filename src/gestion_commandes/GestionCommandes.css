@@ -1,0 +1,136 @@
+/* GestionCommandes.css */
+
+.commandes-en-cours-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.commandes-en-cours-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+p {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+
+/* Responsive design pour petits écrans */
+@media (max-width: 768px) {
+  .commandes-en-cours-container {
+    padding: 10px;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #fff;
+  }
+
+  td {
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+    font-size: 14px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+  }
+}
+
+
+/* Layout général avec sidebar */
+layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar : largeur fixe */
+.sidebar {
+  width: 220px;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+}
+
+/* Contenu principal */
+.commandes-en-cours-container {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .commandes-en-cours-container {
+    padding: 15px;
+  }
+}

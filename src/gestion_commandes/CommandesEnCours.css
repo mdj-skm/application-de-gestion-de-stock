@@ -1,0 +1,143 @@
+/* Conteneur principal */
+.layout-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fff8e1;
+}
+
+/* Sidebar fixe à gauche */
+.sidebar {
+  width: 250px;
+  background-color: #ff9800; /* orange vif */
+  color: white;
+  padding: 1rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 2;
+}
+
+/* Conteneur du contenu centré à droite de la sidebar */
+.commandes-en-cours-container {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom right, #fefefe, #e3f2fd);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Titre visible */
+.commandes-en-cours-container h2 {
+  font-size: 28px;
+  color: #1e88e5;
+  margin-bottom: 1.5rem;
+}
+
+/* Table stylée */
+.commande-table {
+  width: 90%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.commande-table th,
+.commande-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.commande-table th {
+  background-color: #2196f3;
+  color: white;
+}
+
+.commande-table tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+/* Bouton dynamique */
+.valider-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.valider-btn:hover {
+  background-color: #388e3c;
+}
+
+/* Responsive : Affichage vertical sur petit écran */
+@media (max-width: 768px) {
+  .commandes-en-cours-container {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 1rem;
+    align-items: stretch;
+  }
+
+  .commande-table,
+  .commande-table thead,
+  .commande-table tbody,
+  .commande-table tr,
+  .commande-table th,
+  .commande-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .commande-table thead {
+    display: none;
+  }
+
+  .commande-table tr {
+    margin-bottom: 1rem;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .commande-table td {
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+    font-size: 15px;
+  }
+
+  .commande-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+  }
+
+  .valider-btn {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './gestion_fournisseurs.css';
 
-export default function gestion_fournisseurs() {
+export default function GestionFournisseurs() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
