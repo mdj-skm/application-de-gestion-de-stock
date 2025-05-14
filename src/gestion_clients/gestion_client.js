@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './gestion_client.css';
 import { useNavigate } from 'react-router-dom';
 
 const GestionClient = () => {
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState('');
   const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
@@ -23,6 +24,15 @@ const GestionClient = () => {
     nomVendeur: '',
     modePaiement: ''
   });
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('username');
+    if (!savedUsername) {
+      navigate('/');
+    } else {
+      setUsername(savedUsername);
+    }
+  }, [navigate]);
 
   const handleRefresh = () => {
     setSearchTerm('');
@@ -82,13 +92,21 @@ const GestionClient = () => {
       <aside className="gc-sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <p className="username">Nom d'utilisateur</p>
+          <p className="username">{username}</p>
           <div className="status-indicator" />
         </div>
         <button className="logout-button" onClick={() => navigate('/page_d_accueil')}>
           Accueil
-        </button><button className="logout-button" onClick={() => navigate('/page_d_accueil')}>
-          Se deconnecter
+        </button>
+        <button
+          className="logout-button"
+          onClick={() => {
+            alert('Déconnexion...');
+            localStorage.removeItem('username');
+            navigate('/');
+          }}
+        >
+          Se déconnecter
         </button>
       </aside>
 

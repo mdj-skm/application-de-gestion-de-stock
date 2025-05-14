@@ -27,6 +27,7 @@
 }
 
 .username {
+   color: white;
   font-size: 14px;
   font-weight: bold;
 }
@@ -278,54 +279,18 @@
     display: none;
   }
 }
-/* Par défaut, ne pas afficher le logo spécial impression à l'écran */
-.print-logo {
-  display: none;
-}
-
-/* Mais afficher uniquement ce logo à l'impression */
 @media print {
-  .print-logo {
-    display: block;
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-
-  /* Cacher tout le reste sauf la zone imprimable */
   body * {
     visibility: hidden;
   }
-
   .print-area, .print-area * {
     visibility: visible;
   }
-
   .print-area {
     position: absolute;
-    top: 0;
     left: 0;
+    top: 0;
     width: 100%;
-    background-color: white;
-    padding: 20px;
-    page-break-inside: avoid;
-  }
-
-  .rapport-table {
-    width: 100%;
-    border-collapse: collapse;
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  .rapport-table th, .rapport-table td {
-    border: 1px solid black;
-    padding: 5px;
-    font-size: 12px;
-  }
-
-  .print-button {
-    display: none;
   }
 }
 

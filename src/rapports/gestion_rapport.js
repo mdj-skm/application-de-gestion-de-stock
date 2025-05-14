@@ -10,45 +10,49 @@ const GestionRapport = () => {
   const [endDate, setEndDate] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const clients = [
+  const username = localStorage.getItem('username') || 'Utilisateur'; // ✅ Récupère le nom
+
+  const clients = [/* ... mêmes données clients ... */];
+  const fournisseurs = [/* ... mêmes données fournisseurs ... */];
+  const commandes = [
     {
-      nom: 'KOUASSI',
-      prenom: 'Jean',
-      telephone: '0102030405',
-      adresse: 'Abidjan',
-      email: 'jean@mail.com',
-      profession: 'Enseignant',
-      sexe: 'M',
-      dateInscription: '2025-05-13',
-      produitsAchetes: 'Ordinateur',
-      montantTotal: 100000,
-      nomVendeur: 'AKPA Hervé',
-      modePaiement: 'Mobile Money'
+      numero: 'CMD001',
+      client: 'Jean KOUASSI',
+      produit: 'Ordinateur',
+      quantite: 1,
+      montant: 100000,
+      dateCommande: '2025-05-13',
+      statut: 'Livrée'
     },
     {
-      nom: 'TOURE',
-      prenom: 'Aïcha',
-      telephone: '0506070809',
-      adresse: 'Yopougon',
-      email: 'aicha@mail.com',
-      profession: 'Commerçante',
-      sexe: 'F',
-      dateInscription: '2025-05-13',
-      produitsAchetes: 'Téléphone',
-      montantTotal: 75000,
-      nomVendeur: 'TRAORÉ Fatou',
-      modePaiement: 'Espèces'
+      numero: 'CMD002',
+      client: 'Aïcha TOURE',
+      produit: 'Téléphone',
+      quantite: 1,
+      montant: 75000,
+      dateCommande: '2025-05-12',
+      statut: 'En attente'
     }
   ];
 
-  const filteredClients = clients.filter(client => {
-    const fullName = `${client.nom} ${client.prenom}`.toLowerCase();
-    const dateInRange =
-      (!startDate || client.dateInscription >= startDate) &&
-      (!endDate || client.dateInscription <= endDate);
-    const matchesSearch = !searchTerm || fullName.includes(searchTerm.toLowerCase());
-    return dateInRange && matchesSearch;
-  });
+  const filterByDateAndSearch = (list, dateKey, searchKeys) => {
+    return list.filter(item => {
+      const date = item[dateKey];
+      const dateInRange = (!startDate || date >= startDate) && (!endDate || date <= endDate);
+      const searchText = searchTerm.toLowerCase();
+      const matchesSearch = searchKeys.some(key =>
+        item[key]?.toString().toLowerCase().includes(searchText)
+      );
+      return dateInRange && matchesSearch;
+    });
+  };
+
+  const filteredClients = filterByDateAndSearch(clients, 'dateInscription', ['nom', 'prenom']);
+  const filteredFournisseurs = filterByDateAndSearch(fournisseurs, 'dateAjout', ['nom', 'entreprise']);
+  const filteredCommandes = filterByDateAndSearch(commandes, 'dateCommande', ['client', 'produit']);
+
+  const totalMontantClients = filteredClients.reduce((sum, c) => sum + c.montantTotal, 0);
+  const totalMontantCommandes = filteredCommandes.reduce((sum, c) => sum + c.montant, 0);
 
   const handlePrint = () => {
     window.print();
@@ -59,13 +63,21 @@ const GestionRapport = () => {
       <aside className="rapport-sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <p className="username">Nom d'utilisateur</p>
+          <p className="username">{username}</p> {/* ✅ Affiche le nom de l'utilisateur */}
           <div className="status-indicator" />
         </div>
         <button className="nav-button" onClick={() => navigate('/page_d_accueil')}>
           Accueil
         </button>
-        <button className="nav-acceuil">Se déconnecter</button>
+        <button
+          className="nav-acceuil"
+          onClick={() => {
+            localStorage.removeItem('username');
+            navigate('/');
+          }}
+        >
+          Se déconnecter
+        </button>
       </aside>
 
       <div className="rapport-main">
@@ -79,36 +91,21 @@ const GestionRapport = () => {
 
           <div className="filter-bar">
             <div className="left-filters">
-              <div className="date-group">
-                <label htmlFor="start-date">Date de début</label>
-                <input type="date" id="start-date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-              </div>
-              <div className="date-group">
-                <label htmlFor="end-date">Date de fin</label>
-                <input type="date" id="end-date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-              </div>
-              <div className="search-group">
-                <input
-                  type="text"
-                  placeholder="Rechercher"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
+              <label>Date de début</label>
+              <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
+              <label>Date de fin</label>
+              <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+              <input type="text" placeholder="Rechercher" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
             <div className="action-buttons">
-              <button onClick={() => {
-                setStartDate('');
-                setEndDate('');
-                setSearchTerm('');
-              }}>
+              <button onClick={() => { setStartDate(''); setEndDate(''); setSearchTerm(''); }}>
                 Rafraîchir
               </button>
             </div>
           </div>
 
           <div className="rapport-dropdown-container">
-            <select value={selectedRapport} onChange={(e) => setSelectedRapport(e.target.value)}>
+            <select value={selectedRapport} onChange={e => setSelectedRapport(e.target.value)}>
               <option value="">-- Sélectionner un rapport --</option>
               <option value="clients">Rapport Gestions Clients</option>
               <option value="fournisseurs">Rapports gestion fournisseurs</option>
@@ -118,58 +115,113 @@ const GestionRapport = () => {
 
           <div className="rapport-content">
             {selectedRapport === 'clients' && (
-  <div className="print-area">
-    <h3>Liste des clients</h3>
-    <table className="rapport-table">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Téléphone</th>
-          <th>Adresse</th>
-          <th>Email</th>
-          <th>Profession</th>
-          <th>Sexe</th>
-          <th>Date</th>
-          <th>Produit</th>
-          <th>Montant</th>
-          <th>Vendeur</th>
-          <th>Paiement</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredClients.map((client, index) => (
-          <tr key={index}>
-            <td>{client.nom} {client.prenom}</td>
-            <td>{client.telephone}</td>
-            <td>{client.adresse}</td>
-            <td>{client.email}</td>
-            <td>{client.profession}</td>
-            <td>{client.sexe}</td>
-            <td>{client.dateInscription}</td>
-            <td>{client.produitsAchetes}</td>
-            <td>{client.montantTotal} FCFA</td>
-            <td>{client.nomVendeur}</td>
-            <td>{client.modePaiement}</td>
-          </tr>
-        ))}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan="8" style={{ textAlign: 'right', fontWeight: 'bold' }}>Total :</td>
-          <td style={{ fontWeight: 'bold' }}>
-            {filteredClients.reduce((sum, client) => sum + client.montantTotal, 0)} FCFA
-          </td>
-          <td colSpan="2"></td>
-        </tr>
-      </tfoot>
-    </table>
+              <div className="print-area">
+                <h3>Liste des clients</h3>
+                <table className="rapport-table">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Téléphone</th>
+                      <th>Adresse</th>
+                      <th>Email</th>
+                      <th>Profession</th>
+                      <th>Sexe</th>
+                      <th>Date</th>
+                      <th>Produit</th>
+                      <th>Montant</th>
+                      <th>Vendeur</th>
+                      <th>Paiement</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredClients.map((client, index) => (
+                      <tr key={index}>
+                        <td>{client.nom} {client.prenom}</td>
+                        <td>{client.telephone}</td>
+                        <td>{client.adresse}</td>
+                        <td>{client.email}</td>
+                        <td>{client.profession}</td>
+                        <td>{client.sexe}</td>
+                        <td>{client.dateInscription}</td>
+                        <td>{client.produitsAchetes}</td>
+                        <td>{client.montantTotal} FCFA</td>
+                        <td>{client.nomVendeur}</td>
+                        <td>{client.modePaiement}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="total-amount">Total : {totalMontantClients} FCFA</p>
+                <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
+              </div>
+            )}
 
-    <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
-    </div>
-    )}
+            {selectedRapport === 'fournisseurs' && (
+              <div className="print-area">
+                <h3>Liste des fournisseurs</h3>
+                <table className="rapport-table">
+                  <thead>
+                    <tr>
+                      <th>Entreprise</th>
+                      <th>Nom</th>
+                      <th>Téléphone</th>
+                      <th>Email</th>
+                      <th>Adresse</th>
+                      <th>Produits</th>
+                      <th>Date d’ajout</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredFournisseurs.map((fournisseur, index) => (
+                      <tr key={index}>
+                        <td>{fournisseur.entreprise}</td>
+                        <td>{fournisseur.nom}</td>
+                        <td>{fournisseur.telephone}</td>
+                        <td>{fournisseur.email}</td>
+                        <td>{fournisseur.adresse}</td>
+                        <td>{fournisseur.produits}</td>
+                        <td>{fournisseur.dateAjout}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
+              </div>
+            )}
 
-            {selectedRapport === 'fournisseurs' && <p>Affichage du rapport de gestion des fournisseurs.</p>}
-            {selectedRapport === 'commandes' && <p>Affichage du rapport de gestion des commandes.</p>}
+            {selectedRapport === 'commandes' && (
+              <div className="print-area">
+                <h3>Liste des commandes</h3>
+                <table className="rapport-table">
+                  <thead>
+                    <tr>
+                      <th>Numéro</th>
+                      <th>Client</th>
+                      <th>Produit</th>
+                      <th>Quantité</th>
+                      <th>Montant</th>
+                      <th>Date</th>
+                      <th>Statut</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredCommandes.map((cmd, index) => (
+                      <tr key={index}>
+                        <td>{cmd.numero}</td>
+                        <td>{cmd.client}</td>
+                        <td>{cmd.produit}</td>
+                        <td>{cmd.quantite}</td>
+                        <td>{cmd.montant} FCFA</td>
+                        <td>{cmd.dateCommande}</td>
+                        <td>{cmd.statut}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="total-amount">Total : {totalMontantCommandes} FCFA</p>
+                <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
+              </div>
+            )}
           </div>
         </div>
       </div>
