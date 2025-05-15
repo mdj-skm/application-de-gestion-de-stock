@@ -12,7 +12,10 @@ const CreerCommande = () => {
   const [prixUnitaire, setPrixUnitaire] = useState('');
   const [erreur, setErreur] = useState('');
 
-  const prixTotal = quantite && prixUnitaire ? quantite * prixUnitaire : 0;
+  // const prixTotal = quantite && prixUnitaire ? quantite * prixUnitaire : 0;
+  const prixTotal = Number(quantite)  && Number(prixUnitaire) 
+  ? Number(quantite) * Number(prixUnitaire)
+  : 0;
 
   const handleValidation = () => {
     if (!produit || !categorie || !quantite || !prixUnitaire) {
@@ -37,7 +40,7 @@ const CreerCommande = () => {
     setQuantite('');
     setPrixUnitaire('');
     setErreur('');
-    alert("Commande ajoutée !");
+    // alert("Commande ajoutée !");
   };
 
   return (
@@ -49,7 +52,8 @@ const CreerCommande = () => {
       <input type="number" placeholder="Quantité" value={quantite} onChange={e => setQuantite(e.target.value)} />
       <input type="number" placeholder="Prix unitaire" value={prixUnitaire} onChange={e => setPrixUnitaire(e.target.value)} />
 
-      <p><strong>Prix total :</strong> {prixTotal} FCFA</p>
+      <input type="text" value={`Total = ${prixTotal} FCFA`} disabled />
+      {/* <p><strong>Prix total :</strong> {prixTotal} FCFA</p> */}
       {erreur && <p className="erreur">{erreur}</p>}
 
       <button onClick={handleValidation}>Valider</button>

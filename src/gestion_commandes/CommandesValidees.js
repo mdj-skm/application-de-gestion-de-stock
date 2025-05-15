@@ -22,7 +22,7 @@ const CommandesValidees = () => {
       <div className="commandes-en-cours-container">
       <h2>Commandes Validées</h2>
       {commandesValidees.length === 0 ? (
-        <p>Aucune commande validée.</p>
+        <p>Aucune commande à valider.</p>
       ) : (
         <div style={{ overflowX: 'auto', width: '100%' }}>
         

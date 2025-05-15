@@ -17,12 +17,15 @@ const Imprimer = () => {
     if (commandeImpression) {
       const doc = new jsPDF();
 
-      doc.text('Reçu de Commande', 20, 20);
-      doc.text(`Produit: ${commandeImpression.produit}`, 20, 30);
-      doc.text(`Catégorie: ${commandeImpression.categorie}`, 20, 40);
-      doc.text(`Quantité: ${commandeImpression.quantite}`, 20, 50);
-      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 20, 60);
-      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 20, 70);
+      doc.text('Reçu de Commande', 80, 20);
+      doc.text(`Produit: ${commandeImpression.produit}`, 80, 40);
+      doc.text(`Catégorie: ${commandeImpression.categorie}`, 80, 50);
+      doc.text(`Quantité: ${commandeImpression.quantite}`, 80, 60);
+      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 80, 70);
+      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 80);
+      doc.text('PAYÉ', 100, 100);
+      doc.text('------------------------------------------------------------------------------------------', 20, 110);
+      
 
       doc.save('reçu_commande.pdf');
     }
