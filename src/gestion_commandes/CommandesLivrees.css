@@ -1,0 +1,111 @@
+/* Conteneur principal : sidebar + contenu */
+.commandes-validees-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar fixe à gauche */
+.sidebar {
+  width: 200px;
+  background-color: #ff9800;
+  color: white;
+  padding: 1rem 0.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Contenu principal à droite, avec marge à gauche pour la sidebar */
+.commandes-en-cours-container {
+  margin-left: 200px; /* espace sidebar */
+  padding: 2rem;
+  width: calc(100% - 200px);
+  display: flex;
+  flex-direction: column; /* empile titre puis tableau */
+  align-items: center; /* centre horizontalement titre + tableau */
+  box-sizing: border-box;
+  background-color: white;
+  min-height: 100vh;
+}
+
+/* Titre centré */
+.commandes-en-cours-container h2 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Tableau centré sous le titre */
+.commandes-en-cours-container table {
+  width: 90%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Styles tableau (en-têtes et cellules) */
+.commandes-en-cours-container th,
+.commandes-en-cours-container td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 1rem;
+  
+}
+
+.commandes-en-cours-container th {
+  background-color: #f0f0f0;
+  font-weight: 700;
+}
+
+/* Couleur statut */
+.commandes-en-cours-container td:nth-child(6) {
+  color: green;
+  font-weight: 700;
+}
+
+/* Boutons */
+.commandes-en-cours-container button {
+  padding: 7px 14px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.commandes-en-cours-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive basique */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 150px;
+  }
+
+  .commandes-en-cours-container {
+    margin-left: 150px;
+    width: calc(100% - 150px);
+    padding: 1rem;
+  }
+
+  .commandes-en-cours-container table {
+    width: 100%;
+  }
+}

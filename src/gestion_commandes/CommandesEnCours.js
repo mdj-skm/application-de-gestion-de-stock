@@ -11,6 +11,11 @@ const CommandesEnCours = () => {
     validerCommande(index);
   };
 
+   // Fonction pour calculer le prix total
+  const calculatePrixTotal = (prixUnitaire, quantite) => {
+    return prixUnitaire * quantite;
+  };
+
   return (
     <div className="layout-container">
       <div className="sidebar">
@@ -34,7 +39,9 @@ const CommandesEnCours = () => {
               </tr>
             </thead>
             <tbody>
-              {commandes.map((commande, index) => (
+              {commandes.map((commande, index) => {
+                const prixTotal = calculatePrixTotal(commande.prixUnitaire, commande.quantite); // Calcul dynamique du prix total
+                return (
                 <tr key={index}>
                   <td data-label="Produit">{commande.produit}</td>
                   <td data-label="Catégorie">{commande.categorie}</td>
@@ -48,7 +55,8 @@ const CommandesEnCours = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         )}

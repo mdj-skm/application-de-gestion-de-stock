@@ -9,6 +9,7 @@ const Historique = () => {
   return (
     <div className="historique-container">
         <Sidebar />
+      <div className="main-content">
       <h2>Historique des commandes</h2>
       {historique.length === 0 ? (
         <p>Aucune commande dans l'historique.</p>
@@ -40,6 +41,7 @@ const Historique = () => {
           </tbody>
         </table>
       )}
+    </div>
     </div>
   );
 };

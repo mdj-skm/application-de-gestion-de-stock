@@ -8,7 +8,7 @@ const GestionCommandes = () => {
 
   const handleValider = (index) => {
     validerCommande(index);
-  };
+  }
 
   return (
     <div className="layout-container">

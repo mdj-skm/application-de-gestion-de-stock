@@ -19,11 +19,14 @@ const CommandesValidees = () => {
       <div className="sidebar">
         <Sidebar />
       </div>
+      <div className="commandes-en-cours-container">
       <h2>Commandes Validées</h2>
       {commandesValidees.length === 0 ? (
         <p>Aucune commande validée.</p>
       ) : (
-        <table>
+        <div style={{ overflowX: 'auto', width: '100%' }}>
+        
+          <table className="responsive-table">
           <thead>
             <tr>
               <th>Produit</th>
@@ -37,7 +40,9 @@ const CommandesValidees = () => {
           </thead>
           <tbody>
             {commandesValidees.map((commande, index) => (
+              
               <tr key={index}>
+                
                 <td>{commande.produit}</td>
                 <td>{commande.categorie}</td>
                 <td>{commande.quantite}</td>
@@ -47,11 +52,15 @@ const CommandesValidees = () => {
                 <td>
                   <button onClick={() => handleLivrer(index)}>Livré</button>
                 </td>
+                
               </tr>
+              
             ))}
           </tbody>
         </table>
+        </div>
       )}
+    </div>
     </div>
   );
 };

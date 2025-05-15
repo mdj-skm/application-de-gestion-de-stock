@@ -19,6 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "clean": "rimraf node_modules && rimraf build && npm cache clean --force",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1"
   }
 }

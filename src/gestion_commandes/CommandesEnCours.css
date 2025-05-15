@@ -1,14 +1,14 @@
-/* Conteneur principal */
+/* Structure globale avec sidebar + contenu principal */
 .layout-container {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #fff8e1;
+  min-height: 100vh;
+  background-color: white;
+  flex-direction: row;
 }
 
-/* Sidebar fixe à gauche */
+/* Sidebar à gauche */
 .sidebar {
-  width: 250px;
+   width: 250px;
   background-color: #ff9800; /* orange vif */
   color: white;
   padding: 1rem;
@@ -22,86 +22,94 @@
   z-index: 2;
 }
 
-/* Conteneur du contenu centré à droite de la sidebar */
+/* Conteneur principal centré */
 .commandes-en-cours-container {
-  margin-left: 250px;
-  width: calc(100% - 250px);
-  height: 100vh;
+  flex: 1;
   padding: 2rem;
-  box-sizing: border-box;
-  background: linear-gradient(to bottom right, #fefefe, #e3f2fd);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  overflow-y: auto;
+  
 }
 
-/* Titre visible */
+/* Titre centré */
 .commandes-en-cours-container h2 {
-  font-size: 28px;
-  color: #1e88e5;
-  margin-bottom: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 24px;
+  color: #333;
+  margin-left: 50px;
 }
 
-/* Table stylée */
+/* Message en cas de liste vide */
+.commandes-en-cours-container p {
+  font-size: 16px;
+  color: #666;
+  margin-left: 50px;
+}
+
+/* Style de base du tableau */
 .commande-table {
-  width: 90%;
   border-collapse: collapse;
+  width: 90%;
+  max-width: 1000px;
   background-color: white;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 30px;
 }
 
+/* En-têtes et cellules */
 .commande-table th,
 .commande-table td {
+  border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ccc;
+  text-align: center;
   font-size: 16px;
 }
 
+/* En-têtes du tableau */
 .commande-table th {
-  background-color: #2196f3;
-  color: white;
-}
-
-.commande-table tr:nth-child(even) {
   background-color: #f1f1f1;
+  font-weight: bold;
+  color: #333;
 }
 
-/* Bouton dynamique */
+/* Cellules du tableau */
+.commande-table td {
+  background-color: #fff;
+}
+
+/* Bouton "Payé" */
 .valider-btn {
-  background-color: #4caf50;
+  padding: 8px 14px;
+  background-color: #28a745;
   color: white;
   border: none;
-  padding: 8px 16px;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
 }
 
 .valider-btn:hover {
-  background-color: #388e3c;
+  background-color: #218838;
 }
 
-/* Responsive : Affichage vertical sur petit écran */
-@media (max-width: 768px) {
-  .commandes-en-cours-container {
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    padding: 1rem;
-    align-items: stretch;
+/* --------- Responsive --------- */
+@media screen and (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    text-align: center;
   }
 
   .commande-table,
   .commande-table thead,
   .commande-table tbody,
-  .commande-table tr,
   .commande-table th,
-  .commande-table td {
+  .commande-table td,
+  .commande-table tr {
     display: block;
     width: 100%;
   }
@@ -111,33 +119,28 @@
   }
 
   .commande-table tr {
-    margin-bottom: 1rem;
-    background: white;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
   .commande-table td {
     text-align: right;
-    position: relative;
     padding-left: 50%;
-    font-size: 15px;
+    position: relative;
+    font-size: 14px;
   }
 
   .commande-table td::before {
     content: attr(data-label);
     position: absolute;
-    left: 15px;
+    left: 10px;
     top: 12px;
     font-weight: bold;
-    color: #333;
     text-align: left;
+    color: #333;
   }
 
   .valider-btn {
     width: 100%;
-    font-size: 16px;
-    margin-top: 10px;
   }
 }

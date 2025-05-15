@@ -7,8 +7,11 @@ const CommandesLivrees = () => {
   const { commandesLivrees } = useContext(CommandeContext);
 
   return (
-    <div className="commandes-livrees-container">
-        <Sidebar />
+    <div className="layout-container">
+      <div className="sidebar">
+          <Sidebar />
+      </div>
+      <div className="module-content">
       <h2>Commandes Livrées</h2>
       {commandesLivrees.length === 0 ? (
         <p>Aucune commande livrée.</p>
@@ -27,17 +30,19 @@ const CommandesLivrees = () => {
           <tbody>
             {commandesLivrees.map((commande, index) => (
               <tr key={index}>
-                <td>{commande.produit}</td>
-                <td>{commande.categorie}</td>
-                <td>{commande.quantite}</td>
-                <td>{commande.prixUnitaire} FCFA</td>
-                <td>{commande.prixTotal} FCFA</td>
-                <td style={{ color: 'blue' }}>Livré</td>
+                <td data-label="Produit">{commande.produit}</td>
+                <td data-label="Catégorie">{commande.categorie}</td>
+                <td data-label="Quantité">{commande.quantite}</td>
+                <td data-label="Prix Unitaire">{commande.prixUnitaire} FCFA</td>
+                <td data-label="Prix Total">{commande.prixTotal} FCFA</td>
+                <td data-label="Statut" style={{ color: 'blue' }}>Livré</td>
+
               </tr>
             ))}
           </tbody>
         </table>
       )}
+    </div>
     </div>
   );
 };

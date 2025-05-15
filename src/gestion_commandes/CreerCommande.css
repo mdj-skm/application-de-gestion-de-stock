@@ -1,34 +1,55 @@
-/* CreerCommande.css */
+/* Page globale avec sidebar */
+.creer-commande-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
 
-/* Container principal */
+/* Sidebar fixe */
+.sidebar {
+  width: 200px;
+  background-color: #ff9800;
+  color: white;
+  padding: 1rem 0.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+/* Conteneur du formulaire à droite */
 .commande-container {
+  margin-left: 200px;
+  padding: 2rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* Pour que le contenu prenne toute la hauteur de l'écran */
-  padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #fff;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 
 /* Titre */
 .commande-container h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  text-align: center;
   color: #333;
+  text-align: center;
 }
 
-/* Champ de saisie */
+/* Champs de formulaire */
 .commande-container input {
-  width: 100%;
-  max-width: 400px; /* Limite la largeur des champs de saisie */
-  padding: 10px;
+  width: 90%;
+  max-width: 500px;
+  padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   box-sizing: border-box;
 }
 
@@ -37,59 +58,78 @@
   color: red;
   font-size: 0.9rem;
   margin-top: 10px;
+  text-align: center;
 }
 
-/* Affichage du prix total */
+/* Prix total */
 .commande-container p {
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1.1rem;
   margin-top: 10px;
+  color: #333;
+  text-align: center;
 }
 
-/* Bouton de validation */
+/* Bouton */
 .commande-container button {
-  width: 100%;
-  max-width: 400px; /* Limite la largeur du bouton */
+  width: 90%;
+  max-width: 500px;
   padding: 12px;
+  margin-top: 20px;
+  font-size: 1rem;
   background-color: #007bff;
   color: white;
-  font-size: 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 20px;
 }
 
 .commande-container button:hover {
   background-color: #0056b3;
 }
 
-/* Responsiveness */
+/* Responsive */
 @media (max-width: 768px) {
+  .sidebar {
+    width: 150px;
+  }
+
   .commande-container {
-    padding: 10px;
+    margin-left: 200px;
+    padding: 1rem;
   }
 
   .commande-container h2 {
     font-size: 1.5rem;
   }
 
-  .commande-container input {
-    max-width: 100%; /* Les champs prennent toute la largeur sur petits écrans */
-  }
-
+  .commande-container input,
   .commande-container button {
-    max-width: 100%; /* Le bouton prend toute la largeur sur petits écrans */
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .commande-container {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
   .commande-container h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .commande-container input,
   .commande-container button {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    padding: 10px;
   }
 }
