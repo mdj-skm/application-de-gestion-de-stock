@@ -1,9 +1,6 @@
 import React, { useState, useEffect  } from 'react';
 import './gestion_fournisseurs.css';
-<<<<<<< HEAD
-=======
 import logo from '../assets/logo.png';
->>>>>>> 62994a5 (actualisation et correction de plusieurs modules ainsi que css)
 import { useNavigate } from 'react-router-dom';
 
 export default function GestionFournisseurs() {
@@ -34,7 +31,6 @@ export default function GestionFournisseurs() {
     setEditingIndex(null);
     setShowFormPage(false);
   };
-  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
 
@@ -109,10 +105,8 @@ export default function GestionFournisseurs() {
           <div className="status-dot"></div>
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
-<<<<<<< HEAD
-=======
         {/* <button className="btn">Accueil</button> */}
->>>>>>> 62994a5 (actualisation et correction de plusieurs modules ainsi que css)
+
         <button className="btn">Commande en attente</button>
         <button className="btn">Commande validée</button>
         <button className="btn">Commande effectuée</button>

@@ -15,8 +15,8 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
+      <div className="user-icon">👤</div>
       {username} <span className="status-dot"></span>
-      <br /><br />
       <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
       <button onClick={() => navigate('/commande/creer')}>Créer une commande</button>
       <button onClick={() => navigate('/commandes_en_cours')}>Commandes en cours</button>

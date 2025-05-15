@@ -165,10 +165,10 @@ const GestionClient = () => {
                     <td><label>Nom (obligatoire):</label></td>
                     <td><input type="text" name="nom" value={newClient.nom} onChange={handleInputChange} required /></td>
 
-                    <td><label>Prénom (obligatoire):</label></td>
+                    <td><label>Prénom(obligatoire):</label></td>
                     <td><input type="text" name="prenom" value={newClient.prenom} onChange={handleInputChange} required /></td>
 
-                    <td><label>Téléphone :</label></td>
+                    <td><label>Téléphone:</label></td>
                     <td><input type="tel" name="telephone" value={newClient.telephone} onChange={handleInputChange} required pattern="[0-9]{10}" /></td>
                   </tr>
 
@@ -187,15 +187,15 @@ const GestionClient = () => {
                     <td><label>Sexe :</label></td>
                     <td><input type="text" name="sexe" value={newClient.sexe} onChange={handleInputChange} /></td>
 
-                    <td><label>Date d'inscription :</label></td>
+                    <td><label>Date d'inscription:</label></td>
                     <td><input type="date" name="dateInscription" value={newClient.dateInscription} readOnly /></td>
 
-                    <td><label>Produits achetés :</label></td>
+                    <td><label>Produits achetés:</label></td>
                     <td><input type="text" name="produitsAchetes" value={newClient.produitsAchetes} onChange={handleInputChange} /></td>
                   </tr>
 
                   <tr>
-                    <td><label>Montant total :</label></td>
+                    <td><label>Montant total:</label></td>
                     <td><input type="number" name="montantTotal" value={newClient.montantTotal} onChange={handleInputChange} /></td>
 
                     <td><label>Nom du vendeur :</label></td>

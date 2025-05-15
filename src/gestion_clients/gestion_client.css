@@ -25,6 +25,7 @@
   font-size: 40px;
 }
 
+
 .username {
   color: white;
   margin-top: 10px;
@@ -227,7 +228,7 @@
 }
 
 .client-table th, .client-table td {
-  padding: 10px;
+  padding: 20px;
   text-align: left;
   border: 1px solid #ddd;
 }
