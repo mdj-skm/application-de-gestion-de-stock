@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './gestion_fournisseurs.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function GestionFournisseurs() {
   const [fournisseurs, setFournisseurs] = useState([]);
@@ -51,6 +52,7 @@ export default function GestionFournisseurs() {
     setFournisseurs(newList);
   };
 
+   const navigate = useNavigate();
   const handleEdit = (index) => {
     setFormData(fournisseurs[index]);
     setEditingIndex(index);
@@ -90,7 +92,7 @@ export default function GestionFournisseurs() {
           <div>Nom d’utilisateur</div>
           <div className="status-dot"></div>
         </div>
-        <button className="btn">Accueil</button>
+        <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
         <button className="btn">Commande en attente</button>
         <button className="btn">Commande validée</button>
         <button className="btn">Commande effectuée</button>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './configuration.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Configuration() {
+   const navigate = useNavigate();
   const [utilisateurs, setUtilisateurs] = useState([]);
   const [showFormPage, setShowFormPage] = useState(false);
   const [formData, setFormData] = useState({
@@ -79,7 +81,7 @@ export default function Configuration() {
           <div>Nom d’utilisateur</div>
           <div className="status-dot"></div>
         </div>
-        <button className="btn">Accueil</button>
+        <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
         <button className="btn">Utilisateur</button>
       </div>
 
