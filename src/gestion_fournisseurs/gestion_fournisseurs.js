@@ -117,8 +117,6 @@ export default function GestionFournisseurs() {
         <div className="header">
           <img src={logo} alt="Logo" className="logo" />
           <div className="company-name">G E S</div>
-          {/* <div className="logo">📦</div> */}
-          {/* <div className="company-name">NOM DE L’ENTREPRISE</div> */}
         </div>
 
         <div className="content">

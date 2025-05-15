@@ -24,7 +24,7 @@
     font-size: 50px;
     color: white;
     margin-top: -100px;
-    height: 500px;
+    height: 80px;
 
   }
   
@@ -90,7 +90,7 @@
   }
   
   .header {
-    background-color: #f3c7a3;
+    background-color: #f3c3a2;
     width: 200%;
     padding: 50px 0;
     display: flex;
@@ -101,17 +101,17 @@
   
   .logo {
     width: 100px;
-    height: auto;
-    padding: 5px;
-    margin: 0 auto;
+    height: 100px;
     display: block;
-    /* background-color: #f3c7a3; */
+    background-color: transparent; 
   }
   
   .company-name {
-    padding: 10px;
-    font-weight: bold;
-    /* background-color: #f3c7a3; */
+    padding: 10px; 
+    font-weight: bold; 
+  margin-left: 15px;
+  letter-spacing: 10px; /* pour espacer les lettres comme "G E S" */
+  font-family: 'Arial', sans-serif; /* personnalise la police si besoin */
   }
   
   H2 {
@@ -149,7 +149,6 @@
   .module-logo {
     width: 60px;
     margin-bottom: 10px;
-    
   }
 
   
