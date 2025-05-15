@@ -59,8 +59,13 @@ body, html {
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: bold;
+  width: 100px;
+    height: auto;
+    padding: 5px;
+    margin: 0 auto;
+    display: block;
+  /* font-size: 24px;
+  font-weight: bold; */
 }
 
 .company-name {

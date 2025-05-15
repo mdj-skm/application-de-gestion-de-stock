@@ -6,7 +6,7 @@
 
 .rapport-sidebar {
   width: 200px;
-  background-color: #e1701a;
+  background-color: orange;
   color: white;
   display: flex;
   flex-direction: column;

@@ -44,10 +44,10 @@
   }
   
   .logo {
-     width: 100px;
+  width: 100px;
   height: auto;
   padding: 5px;
-  margin: 0 auto;
+  margin: 0 auto; 
   display: block;
   background-color: #f3c7a3;
   

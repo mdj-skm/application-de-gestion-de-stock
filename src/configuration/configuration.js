@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect  } from 'react';
 import './configuration.css';
+
 import { useNavigate } from 'react-router-dom';
 
+import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
+
+
+
 export default function Configuration() {
-   const navigate = useNavigate();
+  
   const [utilisateurs, setUtilisateurs] = useState([]);
   const [showFormPage, setShowFormPage] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,6 +39,17 @@ export default function Configuration() {
     setUtilisateurs(updatedList);
   };
 
+  const navigate = useNavigate();
+
+   const [username, setUsername] = useState('');
+  
+    useEffect(() => {
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+    }, []);
+    
   const handleModuleChange = (e) => {
     const selected = Array.from(e.target.selectedOptions, option => option.value);
     setFormData({ ...formData, modules: selected });
@@ -78,17 +96,21 @@ export default function Configuration() {
       <div className="sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <div>Nom d’utilisateur</div>
+          <div>{username}</div>
           <div className="status-dot"></div>
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
+
+
+        {/* <button className="btn">Accueil</button> */}
+
         <button className="btn">Utilisateur</button>
       </div>
 
       <div className="main-content">
         <div className="header">
-          <div className="logo">Logo</div>
-          <div className="company-name">NOM DE L’ENTREPRISE</div>
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name">G E S</div>
         </div>
 
         <div className="content">

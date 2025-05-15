@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import './gestion_fournisseurs.css';
+<<<<<<< HEAD
+=======
+import logo from '../assets/logo.png';
+>>>>>>> 62994a5 (actualisation et correction de plusieurs modules ainsi que css)
 import { useNavigate } from 'react-router-dom';
 
 export default function GestionFournisseurs() {
+  
   const [fournisseurs, setFournisseurs] = useState([]);
   const [showFormPage, setShowFormPage] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -29,6 +34,16 @@ export default function GestionFournisseurs() {
     setEditingIndex(null);
     setShowFormPage(false);
   };
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+  const savedUsername = localStorage.getItem('username');
+  if (savedUsername) {
+    setUsername(savedUsername);
+  }
+  }, []);
 
   const handleAddOrEdit = () => {
     if (!formData.nom || !formData.email) {
@@ -89,10 +104,15 @@ export default function GestionFournisseurs() {
       <div className="sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <div>Nom d’utilisateur</div>
+          
+          <div>{username}</div>
           <div className="status-dot"></div>
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
+<<<<<<< HEAD
+=======
+        {/* <button className="btn">Accueil</button> */}
+>>>>>>> 62994a5 (actualisation et correction de plusieurs modules ainsi que css)
         <button className="btn">Commande en attente</button>
         <button className="btn">Commande validée</button>
         <button className="btn">Commande effectuée</button>
@@ -101,8 +121,10 @@ export default function GestionFournisseurs() {
 
       <div className="main-content">
         <div className="header">
-          <div className="logo">📦</div>
-          <div className="company-name">NOM DE L’ENTREPRISE</div>
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name">G E S</div>
+          {/* <div className="logo">📦</div> */}
+          {/* <div className="company-name">NOM DE L’ENTREPRISE</div> */}
         </div>
 
         <div className="content">

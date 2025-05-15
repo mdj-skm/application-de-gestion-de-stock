@@ -1,5 +1,5 @@
 // src/rapports/gestion_rapport.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './gestion_rapport.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const GestionRapport = () => {
   const [endDate, setEndDate] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const username = localStorage.getItem('username') || 'Utilisateur'; // ✅ Récupère le nom
+  const [username, setUsername] = useState('');
 
   const clients = [/* ... mêmes données clients ... */];
   const fournisseurs = [/* ... mêmes données fournisseurs ... */];
@@ -34,6 +34,14 @@ const GestionRapport = () => {
       statut: 'En attente'
     }
   ];
+
+
+  useEffect(() => {
+  const savedUsername = localStorage.getItem('username');
+  if (savedUsername) {
+    setUsername(savedUsername);
+  }
+  }, []);
 
   const filterByDateAndSearch = (list, dateKey, searchKeys) => {
     return list.filter(item => {
@@ -63,7 +71,7 @@ const GestionRapport = () => {
       <aside className="rapport-sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <p className="username">{username}</p> {/* ✅ Affiche le nom de l'utilisateur */}
+          <div>{username}</div>
           <div className="status-indicator" />
         </div>
         <button className="nav-button" onClick={() => navigate('/page_d_accueil')}>

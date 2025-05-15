@@ -7,9 +7,9 @@
 
 /* Barre latérale */
 .rapport-sidebar {
-  background-color: #e6742b;
+  background-color: orange;
   width: 200px;
-  padding: 20px;
+  padding: 50px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -67,7 +67,7 @@
 }
 
 .logo {
-  background-color: black;
+  
   color: white;
   padding: 10px;
   margin-right: 20px;
@@ -97,7 +97,7 @@
 
 .module-logo {
   background-color: #e6742b;
-  color: black;
+  /* color: black; */
   padding: 10px;
   margin-bottom: 10px;
   font-weight: bold;

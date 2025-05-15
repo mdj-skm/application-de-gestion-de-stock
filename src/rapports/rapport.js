@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './rapport.css';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import './gestion_rapport.css';
+
+
 
 const Rapport = () => {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+  const savedUsername = localStorage.getItem('username');
+  if (savedUsername) {
+    setUsername(savedUsername);
+  }
+  }, []);
+
+
   const navigate = useNavigate();
+  const handleLogout = () => {
+    alert('Déconnexion...');
+    localStorage.removeItem('username');
+    navigate('/');
+  };
 
   return (
     <div className="rapport-container">
@@ -11,17 +30,19 @@ const Rapport = () => {
       <aside className="rapport-sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <p className="username">Nom d'utilisateur</p>
+          <div>{username}</div>
           <div className="status-indicator" />
         </div>
-        <button className="nav-button">Accueil</button>
-        <button className="logout-button">Se déconnecter</button>
+        <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
+        {/* <button className="nav-button">Accueil</button> */}
+        {/* <button className="logout-button">Se déconnecter</button> */}
+        <button className="logout-button" onClick={handleLogout}>Se déconnecter</button>
       </aside>
 
       {/* Header + Main */}
       <header className="rapport-header">
-        <div className="logo">LOGO</div>
-        <div className="company-name">GEs</div>
+       <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name">G E S</div>
       </header>
 
       <main className="rapport-main-content">

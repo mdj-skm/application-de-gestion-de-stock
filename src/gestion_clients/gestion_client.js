@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './gestion_client.css';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const GestionClient = () => {
   const navigate = useNavigate();
@@ -111,8 +112,10 @@ const GestionClient = () => {
       </aside>
 
       <header className="gc-header">
-        <div className="logo">LOGO</div>
-        <div className="company-name">GES</div>
+        <img src={logo} alt="Logo" className="logo" />
+        {/* <div className="logo">LOGO</div> */}
+        {/* <div className="company-name">GES</div> */}
+        <div className="company-name">G E S</div>
       </header>
 
       <main className="gc-main-content">
