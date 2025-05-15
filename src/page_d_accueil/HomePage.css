@@ -22,14 +22,14 @@
   .profile-icon {
     font-size: 50px;
     color: white;
-    margin-top: -300px;
+    margin-top: -100px;
     height: 500px;
 
   }
   
   .username {
     font-size: 14px;
-    margin-top: -400px;
+    margin-top: -200px;
   }
   
   .status-dot {
@@ -99,41 +99,46 @@
   }
   
   .logo {
-    width: 100px;
+     width: 100px;
     height: auto;
     padding: 5px;
+    margin: 0 auto;
+    display: block;
+    background-color: #f3c7a3;
   }
   
   .company-name {
-    color: black;
     padding: 50px;
     font-weight: bold;
+    background-color: #f3c7a3;
   }
   
+  H2 {
+    color: aqua;
+    text-align: center;
+  }
   /* === MODULE SECTION === */
   .module-section {
+    display: flex;             /* Permet l'alignement horizontal */
+    flex-wrap: wrap;           /* Permet de passer à la ligne si trop large */
+    justify-content: center;   /* Centre horizontalement */
+    gap: 20px;                 /* Espace entre les modules */
     margin-top: 60px;
-    flex-wrap: wrap; /* Permet de passer àla ligne si l'écran est trop petit */
-    gap: 20px; /* espace entre les modules */
-    justify-content: center; /* centrer les modules horizontale */
     padding: 20px;
     text-align: center;
-    
+    flex-direction: row;
   }
   
   .module-box {
-    width: 200px; /* largeur fixe pour chaque module */
-    background-color: blanchedalmond;
-    border: 5px solid orange;
-    padding: 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 20px;
-    color: black;
-    width: 220px;
-    transition: transform 0.3s;
-    text-align: center;
+   width: 220px;              /* Largeur fixe */
+  background-color: blanchedalmond;
+  border: 5px solid orange;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  color: black;
+  text-align: center;
   }
   
   .module-box:hover {

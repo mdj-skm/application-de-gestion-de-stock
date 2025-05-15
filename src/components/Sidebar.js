@@ -7,7 +7,7 @@ const Sidebar = () => {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const storedUsername = sessionStorage.getItem('username');
+    const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
     }

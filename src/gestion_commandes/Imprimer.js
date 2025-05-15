@@ -13,18 +13,26 @@ const Imprimer = () => {
     }
   }, [commandeImpression]);
 
+  
   const handleImprimer = () => {
     if (commandeImpression) {
       const doc = new jsPDF();
 
+      const username = localStorage.getItem('username');
+      const now = new Date();
+      const heurePaiement = now.toLocaleString(); // format local, ex: "15/05/2025, 14:30:00"
+
+
       doc.text('Reçu de Commande', 80, 20);
-      doc.text(`Produit: ${commandeImpression.produit}`, 80, 40);
-      doc.text(`Catégorie: ${commandeImpression.categorie}`, 80, 50);
-      doc.text(`Quantité: ${commandeImpression.quantite}`, 80, 60);
-      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 80, 70);
-      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 80);
-      doc.text('PAYÉ', 100, 100);
-      doc.text('------------------------------------------------------------------------------------------', 20, 110);
+      doc.text(`Utilisateur: ${username}`, 80, 40);          // NOM UTILISATEUR
+      doc.text(`Heure paiement: ${heurePaiement}`, 80, 50);  // HEURE PAIEMENT
+      doc.text(`Produit: ${commandeImpression.produit}`, 80, 60);
+      doc.text(`Catégorie: ${commandeImpression.categorie}`, 80, 70);
+      doc.text(`Quantité: ${commandeImpression.quantite}`, 80, 80);
+      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 80, 90);
+      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 100);
+      doc.text('PAYÉ', 100, 120);
+      doc.text('------------------------------------------------------------------------------------------', 20, 130);
       
 
       doc.save('reçu_commande.pdf');

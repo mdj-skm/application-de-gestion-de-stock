@@ -40,19 +40,26 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    background-color: #f3c7a3
   }
   
   .logo {
-    width: 100px;
-    height: auto;
-    padding: 5px;
+     width: 100px;
+  height: auto;
+  padding: 5px;
+  margin: 0 auto;
+  display: block;
+  background-color: #f3c7a3;
+  
   
   }
   
   .company-name {
-    color: black;
+    
     padding: 50px;
     font-weight: bold;
+    background-color: #f3c7a3;
+    color: white;
   }
   
   /* Formulaire de connexion */
