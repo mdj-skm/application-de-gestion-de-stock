@@ -5,13 +5,14 @@
 }
 
 .rapport-sidebar {
-  width: 200px;
   background-color: orange;
-  color: white;
+  width: 200px;
+  padding: 50px;
+  color: orange;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  align-items: center;        /* Centrage horizontal */
+  justify-content: center;
 }
 
 .user-info {
@@ -22,8 +23,12 @@
 }
 
 .user-icon {
-  font-size: 36px;
-  margin-bottom: 5px;
+  font-size: 50px;
+    color: white;
+     height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .username {

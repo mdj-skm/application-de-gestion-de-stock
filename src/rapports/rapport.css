@@ -22,7 +22,12 @@
 }
 
 .user-icon {
-  font-size: 40px;
+ font-size: 50px;
+    color: white;
+     height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .username {
