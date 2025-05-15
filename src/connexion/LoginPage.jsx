@@ -11,7 +11,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    alert(`Connexion réussie`);
+    
     // Ici tu peux ajouter une vraie vérification plus tard
     if (username && password) {
       localStorage.setItem('username', username); // très important !

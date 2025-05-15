@@ -33,7 +33,16 @@ const Imprimer = () => {
       doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 100);
       doc.text('PAYÉ', 100, 120);
       doc.text('------------------------------------------------------------------------------------------', 20, 130);
-      
+      doc.text('Reçu de Commande', 80, 140);
+      doc.text(`Utilisateur: ${username}`, 80, 160);          // NOM UTILISATEUR
+      doc.text(`Heure paiement: ${heurePaiement}`, 80, 170);  // HEURE PAIEMENT
+      doc.text(`Produit: ${commandeImpression.produit}`, 80, 180);
+      doc.text(`Catégorie: ${commandeImpression.categorie}`, 80, 190);
+      doc.text(`Quantité: ${commandeImpression.quantite}`, 80, 200);
+      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 80, 210);
+      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 220);
+      doc.text('PAYÉ', 100, 240);
+      doc.text('------------------------------------------------------------------------------------------', 20, 250);
 
       doc.save('reçu_commande.pdf');
     }
