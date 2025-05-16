@@ -14,13 +14,13 @@ body, html {
 }
 
 .sidebar {
-  background-color: #ff7f50;
+  background-color: #ec7d31;
   padding: 20px;
   width: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  color: black;
 }
 
 .user-info {

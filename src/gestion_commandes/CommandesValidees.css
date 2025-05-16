@@ -20,6 +20,16 @@
   white-space: nowrap;
 }
 
+.header {
+    background-color: #f3c3a2;
+    width: 200%;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
 .responsive-table th {
   background-color: #f0f0f0;
   font-weight: bold;

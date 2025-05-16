@@ -7,7 +7,7 @@
 
 /* Barre latérale */
 .sidebar {
-  background-color: orange;
+  background-color: #ec7d31;
   width: 200px;
   padding: 40px;
   color: white;
@@ -43,7 +43,7 @@
   margin: 10px 0;
   padding: 10px;
   width: 100%;
-  background-color: white;
+  background-color: orange;
   border: none;
   border-radius: 10px;
   font-weight: bold;
@@ -53,7 +53,7 @@
 }
 
 .nav-button:hover, .logout-button:hover {
-  background-color: white;
+  background-color: orange;
 }
 
 /* En-tête */
@@ -95,7 +95,7 @@
 }
 
 .module-logo {
-  background-color: #e6742b;
+  background-color: #ec7d31;
   
   padding: 10px;
   margin-bottom: 10px;

@@ -9,7 +9,7 @@
 /* Sidebar fixe à gauche */
 .sidebar {
   width: 200px;
-  background-color: #ff9800;
+  background-color: #ec7d31;
   color: white;
   padding: 1rem 0.5rem;
   position: fixed;
@@ -22,6 +22,16 @@
   align-items: center;
   z-index: 10;
 }
+
+.header {
+    background-color: #f3c3a2;
+    width: 200%;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
 
 /* Contenu principal à droite, avec marge à gauche pour la sidebar */
 .commandes-en-cours-container {

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './gestion_rapport.css';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png'; 
 
 const GestionRapport = () => {
   const navigate = useNavigate();
@@ -77,10 +78,7 @@ const GestionRapport = () => {
         <button className="nav-button" onClick={() => navigate('/page_d_accueil')}>
           Accueil
         </button>
-        <button
-          className="nav-acceuil"
-          onClick={() => {
-            localStorage.removeItem('username');
+        <button className="nav-acceuil" onClick={() => { localStorage.removeItem('username');
             navigate('/');
           }}
         >
@@ -90,8 +88,8 @@ const GestionRapport = () => {
 
       <div className="rapport-main">
         <header className="rapport-header">
-          <div className="logo">LOGO</div>
-          <div className="company-name">GES</div>
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name"><h1>G.E.S</h1></div>
         </header>
 
         <div className="rapport-body">

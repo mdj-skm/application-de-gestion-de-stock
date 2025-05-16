@@ -3,6 +3,7 @@ import { CommandeContext } from '../contexts/CommandeContext';
 import './CommandesValidees.css';
 import Sidebar from '../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const CommandesValidees = () => {
   const { commandesValidees, livrerCommande, setCommandeImpression } = useContext(CommandeContext);
@@ -20,6 +21,10 @@ const CommandesValidees = () => {
         <Sidebar />
       </div>
       <div className="commandes-en-cours-container">
+        <div className="header">
+            <img src={logo} alt="Logo" className="logo" />
+            <div className="company-name"><h1>G.E.S</h1></div>
+        </div>
       <h2>Commandes Validées</h2>
       {commandesValidees.length === 0 ? (
         <p>Aucune commande à valider.</p>

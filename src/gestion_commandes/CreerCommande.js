@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
 import './CreerCommande.css';
 import Sidebar from '../components/Sidebar';
+import logo from '../assets/logo.png';
 
  
 const CreerCommande = () => {
@@ -46,6 +47,10 @@ const CreerCommande = () => {
   return (
     <div className="commande-container">
         <Sidebar />
+        <div className="header">
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name"><h1>G.E.S</h1></div>
+        </div>
       <h2>Créer une commande</h2>
       <input type="text" placeholder="Nom du produit" value={produit} onChange={e => setProduit(e.target.value)} />
       <input type="text" placeholder="Catégorie" value={categorie} onChange={e => setCategorie(e.target.value)} />

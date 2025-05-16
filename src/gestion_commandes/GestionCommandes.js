@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
 import Sidebar from '../components/Sidebar'; // chemin correct
 import './GestionCommandes.css';
+import logo from '../assets/logo.png';
 
 const GestionCommandes = () => {
   const { commandes, validerCommande } = useContext(CommandeContext);
@@ -13,8 +14,11 @@ const GestionCommandes = () => {
   return (
     <div className="layout-container">
       <Sidebar />
-
       <div className="commandes-en-cours-container">
+        <div className="header">
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name"><h1>G.E.S</h1></div>
+        </div>
         <h2>Commandes en cours</h2>
         {commandes.length === 0 ? (
           <p>Aucune commande en cours.</p>

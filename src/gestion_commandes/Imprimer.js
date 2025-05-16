@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import { CommandeContext } from '../contexts/CommandeContext';
 import './Imprimer.css';
 import { jsPDF } from "jspdf";
+import logo from '../assets/logo.png';
 
 const Imprimer = () => {
   const { commandeImpression } = useContext(CommandeContext);
@@ -53,6 +54,10 @@ const Imprimer = () => {
     <div className="layout-container">
       <Sidebar />
       <div className="module-content">
+        <div className="header">
+            <img src={logo} alt="Logo" className="logo" />
+            <div className="company-name"><h1>G.E.S</h1></div>
+        </div>
         <h2>Module Imprimer</h2>
         {commandeImpression ? (
           <div>

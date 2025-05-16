@@ -8,7 +8,7 @@
   background-color: orange;
   width: 200px;
   padding: 50px;
-  color: orange;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;        /* Centrage horizontal */
@@ -45,6 +45,10 @@
   margin-top: 5px;
 }
 
+.nav-accueil:hover {
+  transform: scale(1.05);
+}
+
 .nav-button {
   margin-top: 20px;
   padding: 10px 15px;
@@ -53,6 +57,10 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.nav-button:hover {
+  transform: scale(1.05);
 }
 
 .rapport-main {
@@ -73,7 +81,7 @@
 .logo {
   font-weight: bold;
   font-size: 18px;
-  background-color: black;
+  
   color: white;
   padding: 5px 10px;
   margin-right: 10px;
@@ -81,7 +89,6 @@
 
 .company-name {
   color: white;
-  background-color: black;
   padding: 5px 15px;
   font-size: 16px;
   font-weight: bold;
@@ -96,6 +103,9 @@
   cursor: pointer;
   color: rgb(14, 12, 12);
   font-weight: bold;
+}
+.refresh-button:hover {
+  transform: scale(1.05);
 }
 
 .rapport-body {
@@ -141,6 +151,9 @@
   color: black;
   font-weight: bold;
 }
+.search-button:hover {
+  transform: scale(1.05);
+}
 
 .action-buttons {
   display: flex;
@@ -174,6 +187,9 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+.search-button:hover {
+  transform: scale(1.05);
 }
 
 .refresh-button {
@@ -213,6 +229,11 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+.download-button:hover {
+  transform: scale(1.05);
+}
+
 .print-button {
   margin-top: 15px;
   background-color: #008CBA;
@@ -224,6 +245,7 @@
 }
 .print-button:hover {
   background-color: #005f75;
+  transform: scale(1.05);
 }
 @media print {
   body * {

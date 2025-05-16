@@ -6,11 +6,10 @@
 
 /* Sidebar */
 .gc-sidebar {
-  background-color: orange;
+  background-color: #ec7d31;
   width: 200px;
   padding: 50px;
-  /* color: #e6742b; */
-  color: orange;
+  color: #ec7d31;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +23,7 @@
 
 .user-icon {
   font-size: 50px;
-    color: white;
+    color: black;
      height: 80px;
   display: flex;
   align-items: center;
@@ -133,6 +132,11 @@
 }
 
 /* Buttons */
+.logout-button{
+  background-color: white;
+  color: orange;
+}
+
 .refresh-button,
 .add-client-button {
   padding: 8px 16px;
@@ -143,12 +147,13 @@
 
 .refresh-button {
   background-color: white;
-  color: orangered;
+  color: #ec7d31;
   border: none;
 }
 
 .refresh-button:hover {
   background-color: orange;
+  transform: scale(1.05);
 }
 
 .add-client-button {
@@ -159,6 +164,7 @@
 
 .add-client-button:hover {
   background-color: #218838;
+  transform: scale(1.05);
 }
 
 /* Right Actions - Aligning Refresh and Add buttons */
@@ -255,3 +261,4 @@
 .client-table tr:hover {
   background-color: #f1e1c1; /* Met en surbrillance une ligne au survol */
 }
+

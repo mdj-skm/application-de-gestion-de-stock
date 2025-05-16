@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
 import './CommandesLivrees.css';
 import Sidebar from '../components/Sidebar';
+import logo from '../assets/logo.png';
+
 
 const CommandesLivrees = () => {
   const { commandesLivrees } = useContext(CommandeContext);
@@ -12,6 +14,10 @@ const CommandesLivrees = () => {
           <Sidebar />
       </div>
       <div className="module-content">
+      <div className="header">
+            <img src={logo} alt="Logo" className="logo" />
+            <div className="company-name"><h1>G.E.S</h1></div>
+        </div>
       <h2>Commandes Livrées</h2>
       {commandesLivrees.length === 0 ? (
         <p>Aucune commande livrée.</p>

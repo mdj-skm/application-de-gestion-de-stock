@@ -2,13 +2,13 @@
 .app {
   display: flex; /* Utilisation de Flexbox */
   height: 100vh; /* Hauteur de l'écran */
-  background-color: orange; /* Fond orange clair */
+  background-color: #ec7d31; /* Fond orange clair */
 }
 
 /* Sidebar (barre de navigation) */
 .sidebar {
   width: 250px; /* Largeur de la sidebar */
-  background-color: #ff9800; /* Fond orange de la sidebar */
+  background-color: #ec7d31; /* Fond orange de la sidebar */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@
 }
 
 .sidebar button:hover {
-  background-color: #e65100; /* Effet de survol */
+  background-color: #ec7d31; /* Effet de survol */
 }
 
 /* Zone principale de contenu (à droite de la sidebar) */

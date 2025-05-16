@@ -42,7 +42,7 @@ const Rapport = () => {
       {/* Header + Main */}
       <header className="rapport-header">
        <img src={logo} alt="Logo" className="logo" />
-          <div className="company-name">G E S</div>
+       <div className="company-name"><h1>G.E.S</h1></div>
       </header>
 
       <main className="rapport-main-content">

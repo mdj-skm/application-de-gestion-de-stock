@@ -100,17 +100,13 @@ export default function Configuration() {
           <div className="status-dot"></div>
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
-
-
-        {/* <button className="btn">Accueil</button> */}
-
-        <button className="btn">Utilisateur</button>
+        <button className="">Utilisateur</button>
       </div>
 
       <div className="main-content">
         <div className="header">
           <img src={logo} alt="Logo" className="logo" />
-          <div className="company-name">G E S</div>
+          <div className="company-name"><h1>G.E.S</h1></div>
         </div>
 
         <div className="content">

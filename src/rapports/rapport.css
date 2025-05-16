@@ -7,7 +7,7 @@
 
 /* Barre latérale */
 .rapport-sidebar {
-  background-color: orange;
+  background-color: #ec7d31;
   width: 200px;
   padding: 50px;
   color: white;
@@ -59,6 +59,10 @@
 
 .nav-button:hover, .logout-button:hover {
   background-color: #e66400;
+  transform: scale(1.05);
+}
+.logout-button:hover {
+  transform: scale(1.05);
 }
 
 /* En-tête */

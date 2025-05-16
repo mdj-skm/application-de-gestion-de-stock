@@ -24,7 +24,7 @@ const Sidebar = () => {
       <button onClick={() => navigate('/commandes_livrees')}>Commandes livrées</button>
       <button onClick={() => navigate('/imprimer')}>Imprimer</button>
       <button onClick={() => navigate('/historique')}>Voir historique</button>
-      <button onClick={() => window.location.reload()}>Retour</button>
+      <button onClick={() => window.location.reload()}>Reinitialise</button>
     </div>
   );
 };

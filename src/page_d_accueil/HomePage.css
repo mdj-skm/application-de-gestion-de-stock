@@ -109,9 +109,9 @@
   .company-name {
     padding: 10px; 
     font-weight: bold; 
-  margin-left: 15px;
-  letter-spacing: 10px; /* pour espacer les lettres comme "G E S" */
-  font-family: 'Arial', sans-serif; /* personnalise la police si besoin */
+    margin-left: 15px;
+    letter-spacing: 10px; /* pour espacer les lettres comme "G E S" */
+    font-family: 'Arial', sans-serif; /* personnalise la police si besoin */
   }
   
   H2 {

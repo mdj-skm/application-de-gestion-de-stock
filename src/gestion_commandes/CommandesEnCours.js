@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
 import Sidebar from '../components/Sidebar';
 import './CommandesEnCours.css';
+import logo from '../assets/logo.png';
 
 const CommandesEnCours = () => {
   const { commandes, validerCommande } = useContext(CommandeContext);
@@ -21,8 +22,11 @@ const CommandesEnCours = () => {
       <div className="sidebar">
         <Sidebar setModule={setModule} />
       </div>
-
       <div className="commandes-en-cours-container">
+        <div className="header">
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="company-name"><h1>G.E.S</h1></div>
+        </div>
         <h2>Commandes en cours</h2>
         {commandes.length === 0 ? (
           <p>Aucune commande en cours.</p>

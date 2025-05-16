@@ -9,7 +9,7 @@
 /* Sidebar à gauche */
 .sidebar {
    width: 250px;
-  background-color: #ff9800; /* orange vif */
+  background-color: #ec7d31; /* orange vif */
   color: white;
   padding: 1rem;
   box-sizing: border-box;
@@ -21,6 +21,16 @@
   overflow-y: auto;
   z-index: 2;
 }
+
+.header {
+    background-color: #f3c3a2;
+    width: 200%;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
 
 /* Conteneur principal centré */
 .commandes-en-cours-container {

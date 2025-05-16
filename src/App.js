@@ -15,7 +15,7 @@ import CommandesEnCours from './gestion_commandes/CommandesEnCours';
 // Autres modules
 import Clients from './gestion_clients/gestion_client'; 
 import GestionFournisseurs from "./gestion_fournisseurs/gestion_fournisseurs";
-import Rapports from "./rapports/rapport"; 
+import Rapports from "./rapports/gestion_rapport"; 
 import GestionRapport from './rapports/gestion_rapport';
 import Configuration from "./configuration/configuration";
 
@@ -40,10 +40,8 @@ function App() {
           <Route path="/gestion_clients" element={<Clients />} />
           <Route path="/gestion_fournisseurs" element={<GestionFournisseurs />} />
           <Route path="/rapports" element={<Rapports />} />
-          <Route path="/rapport/gestion" element={<GestionRapport />} />
           <Route path="/configuration" element={<Configuration />} />
-         
-
+          
          <Route path="/commande/creer" element={<CreerCommande />} />
          <Route path="/gestion_commandes" element={<GestionCommandes />} />
          <Route path="/commandes_en_cours" element={<CommandesEnCours />} />
