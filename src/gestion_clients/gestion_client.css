@@ -262,3 +262,23 @@
   background-color: #f1e1c1; /* Met en surbrillance une ligne au survol */
 }
 
+
+.centered-select {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.username {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
