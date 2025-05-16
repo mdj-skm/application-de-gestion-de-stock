@@ -162,10 +162,10 @@ const GestionClient = () => {
               <table>
                 <tbody>
                   <tr>
-                    <td><label>Nom (obligatoire):</label></td>
+                    <td><label>Nom :</label></td>
                     <td><input type="text" name="nom" value={newClient.nom} onChange={handleInputChange} required /></td>
 
-                    <td><label>Prénom(obligatoire):</label></td>
+                    <td><label>Prénom:</label></td>
                     <td><input type="text" name="prenom" value={newClient.prenom} onChange={handleInputChange} required /></td>
 
                     <td><label>Téléphone:</label></td>

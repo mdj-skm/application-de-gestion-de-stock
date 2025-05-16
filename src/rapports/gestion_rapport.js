@@ -71,7 +71,7 @@ const GestionRapport = () => {
       <aside className="rapport-sidebar">
         <div className="user-info">
           <div className="user-icon">👤</div>
-          <div>{username}</div>
+          <div className="username">{username}</div>
           <div className="status-indicator" />
         </div>
         <button className="nav-button" onClick={() => navigate('/page_d_accueil')}>
@@ -95,7 +95,7 @@ const GestionRapport = () => {
         </header>
 
         <div className="rapport-body">
-          <h2>RAPPORT</h2>
+          <h2>LE RAPPORT DE NOS ACTIVITES</h2>
 
           <div className="filter-bar">
             <div className="left-filters">
@@ -103,7 +103,7 @@ const GestionRapport = () => {
               <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
               <label>Date de fin</label>
               <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
-              <input type="text" placeholder="Rechercher" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <input type="text" placeholder="Rechercher par le Nom" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
             <div className="action-buttons">
               <button onClick={() => { setStartDate(''); setEndDate(''); setSearchTerm(''); }}>
@@ -112,19 +112,20 @@ const GestionRapport = () => {
             </div>
           </div>
 
-          <div className="rapport-dropdown-container">
-            <select value={selectedRapport} onChange={e => setSelectedRapport(e.target.value)}>
-              <option value="">-- Sélectionner un rapport --</option>
-              <option value="clients">Rapport Gestions Clients</option>
-              <option value="fournisseurs">Rapports gestion fournisseurs</option>
-              <option value="commandes">Rapports gestion commandes</option>
-            </select>
-          </div>
+          <div className="rapport-dropdown-container centered-select">
+          <select value={selectedRapport} onChange={e => setSelectedRapport(e.target.value)}>
+          <option value="">-- Sélectionner un rapport --</option>
+          <option value="clients">Rapport Gestions Clients</option>
+          <option value="fournisseurs">Rapports gestion fournisseurs</option>
+          <option value="commandes">Rapports gestion commandes</option>
+       </select>
+       </div>
+
 
           <div className="rapport-content">
             {selectedRapport === 'clients' && (
               <div className="print-area">
-                <h3>Liste des clients</h3>
+                <center><h3>Liste des clients</h3></center>
                 <table className="rapport-table">
                   <thead>
                     <tr>
@@ -166,7 +167,7 @@ const GestionRapport = () => {
 
             {selectedRapport === 'fournisseurs' && (
               <div className="print-area">
-                <h3>Liste des fournisseurs</h3>
+                <center><h3>Liste des fournisseurs</h3></center>
                 <table className="rapport-table">
                   <thead>
                     <tr>
@@ -199,7 +200,7 @@ const GestionRapport = () => {
 
             {selectedRapport === 'commandes' && (
               <div className="print-area">
-                <h3>Liste des commandes</h3>
+                <center><h3>Liste des commandes</h3></center>
                 <table className="rapport-table">
                   <thead>
                     <tr>
