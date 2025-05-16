@@ -28,7 +28,6 @@ function HomePage() {
   }
 
   const handleModuleClick = (path) => {
-    
     navigate(path);
   };
 
