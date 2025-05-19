@@ -166,6 +166,13 @@
   border: 1px solid #ddd;
   border-radius: 10px;
 }
+
+
+
+
+
+
+
 .search-input {
   padding: 6px 10px;
   border-radius: 10px;
@@ -200,7 +207,7 @@
   border-radius: 10px;
   cursor: pointer;
 }
-.rapport-table {
+ .rapport-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -211,14 +218,14 @@
 .rapport-table th,
 .rapport-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px 16px;;
   text-align: left;
 }
 
 .rapport-table th {
   background-color: #f4b183;
   color: black;
-}
+} 
 
 .download-button {
   margin-top: 15px;
@@ -320,5 +327,4 @@
     width: 100%;
   }
 }
-
 

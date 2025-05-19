@@ -25,6 +25,7 @@ const CreerCommande = () => {
     }
 
     const nouvelleCommande = {
+      
       produit,
       categorie,
       quantite: parseInt(quantite),
@@ -36,11 +37,13 @@ const CreerCommande = () => {
     ajouterCommande(nouvelleCommande);
 
     // Réinitialiser les champs
+    
     setProduit('');
     setCategorie('');
     setQuantite('');
     setPrixUnitaire('');
     setErreur('');
+    
     // alert("Commande ajoutée !");
   };
 
@@ -52,6 +55,11 @@ const CreerCommande = () => {
           <div className="company-name"><h1>G.E.S</h1></div>
         </div>
       <h2>Créer une commande</h2>
+      
+      <select value={categorie} onChange={e => setCategorie(e.target.value)}>
+      <option value="">Numero commande</option>
+      <option value="number">CMD0025</option>
+      </select>
       <input type="text" placeholder="Nom du produit" value={produit} onChange={e => setProduit(e.target.value)} />
       {/* <input type="text" placeholder="Catégorie" value={categorie} onChange={e => setCategorie(e.target.value)} /> */}     
       <select value={categorie} onChange={e => setCategorie(e.target.value)}>

@@ -202,13 +202,12 @@ const GestionRapport = () => {
                 <table className="rapport-table">
                   <thead>
                     <tr>
-                      <th>Numéro</th>
-                      <th>Client</th>
+                      <th>Numero commande</th>
                       <th>Produit</th>
+                      <th>Catégorie</th>
                       <th>Quantité</th>
-                      <th>Montant</th>
-                      <th>Date</th>
-                      <th>Statut</th>
+                      <th>Prix unitaire</th>
+                      <th>Prix Total</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -220,7 +219,7 @@ const GestionRapport = () => {
                         <td>{cmd.quantite}</td>
                         <td>{cmd.montant} FCFA</td>
                         <td>{cmd.dateCommande}</td>
-                        <td>{cmd.statut}</td>
+                        
                       </tr>
                     ))}
                   </tbody>

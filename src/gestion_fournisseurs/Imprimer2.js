@@ -6,7 +6,11 @@ import { jsPDF } from "jspdf";
 import logo from '../assets/logo.png';
 
 const Imprimer = () => {
-  const { commandeImpression } = useContext(CommandeContext);
+  const { 
+    commandeImpression, 
+    commandesImprimees, 
+    ajouterCommandeImprimee 
+  } = useContext(CommandeContext);
   
   useEffect(() => {
     if (commandeImpression) {
@@ -15,8 +19,10 @@ const Imprimer = () => {
   }, [commandeImpression]);
 
   
-  const handleImprimer = () => {
-    if (commandeImpression) {
+  // Fonction générique pour générer le PDF d'une commande
+  const genererPDF = (commande) => {
+      if (!commande) return;
+
       const doc = new jsPDF();
 
       const username = localStorage.getItem('username');
@@ -27,27 +33,39 @@ const Imprimer = () => {
       doc.text('Reçu de Commande', 80, 20);
       doc.text(`Utilisateur: ${username}`, 80, 40);          // NOM UTILISATEUR
       doc.text(`Heure paiement: ${heurePaiement}`, 80, 50);  // HEURE PAIEMENT
-      doc.text(`Produit: ${commandeImpression.produit}`, 80, 60);
-      doc.text(`Catégorie: ${commandeImpression.categorie}`, 80, 70);
-      doc.text(`Quantité: ${commandeImpression.quantite}`, 80, 80);
-      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 80, 90);
-      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 100);
+      doc.text(`Produit: ${commande.produit}`, 80, 60);
+      doc.text(`Catégorie: ${commande.categorie}`, 80, 70);
+      doc.text(`Quantité: ${commande.quantite}`, 80, 80);
+      doc.text(`Prix Unitaire: ${commande.prixUnitaire} FCFA`, 80, 90);
+      doc.text(`Prix Total: ${commande.prixTotal} FCFA`, 80, 100);
       doc.text('PAYÉ', 100, 120);
       doc.text('------------------------------------------------------------------------------------------', 20, 130);
       doc.text('Reçu de Commande', 80, 140);
       doc.text(`Utilisateur: ${username}`, 80, 160);          // NOM UTILISATEUR
       doc.text(`Heure paiement: ${heurePaiement}`, 80, 170);  // HEURE PAIEMENT
-      doc.text(`Produit: ${commandeImpression.produit}`, 80, 180);
-      doc.text(`Catégorie: ${commandeImpression.categorie}`, 80, 190);
-      doc.text(`Quantité: ${commandeImpression.quantite}`, 80, 200);
-      doc.text(`Prix Unitaire: ${commandeImpression.prixUnitaire} FCFA`, 80, 210);
-      doc.text(`Prix Total: ${commandeImpression.prixTotal} FCFA`, 80, 220);
+      doc.text(`Produit: ${commande.produit}`, 80, 180);
+      doc.text(`Catégorie: ${commande.categorie}`, 80, 190);
+      doc.text(`Quantité: ${commande.quantite}`, 80, 200);
+      doc.text(`Prix Unitaire: ${commande.prixUnitaire} FCFA`, 80, 210);
+      doc.text(`Prix Total: ${commande.prixTotal} FCFA`, 80, 220);
       doc.text('PAYÉ', 100, 240);
       doc.text('------------------------------------------------------------------------------------------', 20, 250);
 
       doc.save('reçu_commande.pdf');
+    };
+  
+
+   const handleImprimer = () => {
+    if (commandeImpression) {
+      genererPDF(commandeImpression);
+      ajouterCommandeImprimee(commandeImpression);
     }
   };
+  // Pour réimprimer une commande déjà imprimée
+  const handleReimprimer = (commande) => {
+    genererPDF(commande);
+  };
+
 
   return (
     
@@ -88,6 +106,26 @@ const Imprimer = () => {
           </div>
         ) : (
           <p>Aucune commande à imprimer.</p>
+        )}
+        <hr />
+
+        <h3>Historique des commandes imprimées :</h3>
+        {commandesImprimees.length === 0 ? (
+          <p>Aucune commande imprimée pour le moment.</p>
+        ) : (
+          <div className="historique-impression">
+            {commandesImprimees.map((cmd, idx) => (
+              <div key={idx} className="impression-item">
+                <p><strong>Produit:</strong> {cmd.produit}</p>
+                <p><strong>Catégorie:</strong> {cmd.categorie}</p>
+                <p><strong>Quantité:</strong> {cmd.quantite}</p>
+                <p><strong>Prix Unitaire:</strong> {cmd.prixUnitaire} FCFA</p>
+                <p><strong>Prix Total:</strong> {cmd.prixTotal} FCFA</p>
+                <button onClick={() => handleReimprimer(cmd)}>Imprimer à nouveau</button>
+                <hr />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>

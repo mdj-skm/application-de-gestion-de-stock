@@ -3,6 +3,9 @@ import './gestion_client.css';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
+
+
+
 const GestionClient = () => {
   const navigate = useNavigate();
 
@@ -28,10 +31,12 @@ const GestionClient = () => {
 
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
+
     if (!savedUsername) {
       navigate('/');
     } else {
       setUsername(savedUsername);
+      setNewClient((prev) => ({ ...prev, nomVendeur: savedUsername }));
     }
   }, [navigate]);
 
@@ -154,8 +159,8 @@ const GestionClient = () => {
         </div>
 
         {isFormVisible && (
-          <div className="form-container">
-            <h3>Ajouter un client</h3>
+          <div className="form-container2">
+            <h3><center>Ajouter un client</center></h3>
             <form onSubmit={handleSubmit}>
               <table>
                 <tbody>
@@ -183,7 +188,12 @@ const GestionClient = () => {
 
                   <tr>
                     <td><label>Sexe :</label></td>
-                    <td><input type="text" name="sexe" value={newClient.sexe} onChange={handleInputChange} /></td>
+                    <td>
+                      <select name="sexe" value={newClient.sexe} onChange={handleInputChange}>
+                      <option value="">-- Sélectionnez --</option>
+                      <option value="Homme">Homme</option>
+                      <option value="Femme">Femme</option> </select>
+                    </td>
 
                     <td><label>Date d'inscription:</label></td>
                     <td><input type="date" name="dateInscription" value={newClient.dateInscription} readOnly /></td>
@@ -197,10 +207,19 @@ const GestionClient = () => {
                     <td><input type="number" name="montantTotal" value={newClient.montantTotal} onChange={handleInputChange} /></td>
 
                     <td><label>Nom du vendeur :</label></td>
-                    <td><input type="text" name="nomVendeur" value={newClient.nomVendeur} onChange={handleInputChange} /></td>
+                    <td><input type="text" name="nomVendeur" value={newClient.nomVendeur} onChange={handleInputChange} readOnly /></td>
 
                     <td><label>Mode de paiement :</label></td>
-                    <td><input type="text" name="modePaiement" value={newClient.modePaiement} onChange={handleInputChange} /></td>
+                    <td>
+                      <select name="modePaiement" value={newClient.modePaiement} onChange={handleInputChange}>
+                      <option text="">-- Sélectionnez --</option>
+                      <option text="mtn">MTN</option>
+                      <option text="orange">ORANGE</option> 
+                      <option text="moov">MOOV</option> 
+                      <option text="wave">WAVE</option> 
+                      </select>
+                    </td>
+                    
                   </tr>
                 </tbody>
               </table>
@@ -222,7 +241,7 @@ const GestionClient = () => {
                   <th>Sexe</th>
                   <th>Date d'inscription</th>
                   <th>Produits achetés</th>
-                  <th>Montant total</th>
+                  <th>Prix</th>
                   <th>Nom du vendeur</th>
                   <th>Mode de paiement</th>
                 </tr>
