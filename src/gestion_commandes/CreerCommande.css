@@ -9,7 +9,7 @@
 /* Sidebar fixe */
 .sidebar {
   width: 200px;
-  background-color: #ff9800;
+  background-color: #ec7d31;
   color: white;
   padding: 1rem 0.5rem;
   position: fixed;
@@ -22,15 +22,17 @@
 
 /* Conteneur du formulaire à droite */
 .commande-container {
-  margin-left: 200px;
+  margin-left: 250px;
   padding: 2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
   box-sizing: border-box;
-  min-height: 100vh;
+  min-height: 100vh; 
+  /* margin: 0px ; */
+  background-color: #fdfdfd;
+  
 }
 
 /* Titre */

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
-import Sidebar from '../components/Sidebar';
-import './CommandesEnCours.css';
+import Sidebar from '../components/Sidebar2';
+import './CommandesEnCours2.css';
 import logo from '../assets/logo.png';
 
 const CommandesEnCours = () => {
@@ -27,9 +27,9 @@ const CommandesEnCours = () => {
           <img src={logo} alt="Logo" className="logo" />
           <div className="company-name"><h1>G.E.S</h1></div>
         </div>
-        <h2>Commandes en cours</h2>
+        <h2>Commandes en attentes</h2>
         {commandes.length === 0 ? (
-          <p>Aucune commande en cours, Voir Commande validées.</p>
+          <p>Aucune commande en attente, Voir dans Commande validée.</p>
         ) : (
           <table className="commande-table">
             <thead>
@@ -54,7 +54,9 @@ const CommandesEnCours = () => {
                   <td data-label="Prix Total">{commande.prixTotal} FCFA</td>
 
                   <td>
-                    <button className="valider-btn"> Paiement en cours... </button>
+                    <button className="valider-btn" onClick={() => handleValider(index)}>
+                      Payé
+                    </button>
                   </td>
                 </tr>
                 );

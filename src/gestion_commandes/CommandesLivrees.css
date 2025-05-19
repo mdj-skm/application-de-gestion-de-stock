@@ -1,7 +1,11 @@
-/* Conteneur principal : sidebar + contenu */
-.commandes-validees-container {
+/* Layout principal : sidebar + contenu */
+.layout-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: #f9f9f9;
   font-family: Arial, sans-serif;
 }
@@ -11,113 +15,103 @@
   width: 200px;
   background-color: #ec7d31;
   color: white;
-  padding: 1rem 0.5rem;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   z-index: 10;
 }
 
-.header {
-    background-color: #f3c3a2;
-    width: 200%;
-    padding: 50px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-
-/* Contenu principal à droite, avec marge à gauche pour la sidebar */
-.commandes-en-cours-container {
-  margin-left: 200px; /* espace sidebar */
-  padding: 2rem;
+/* Contenu principal à droite */
+.module-content {
+  margin-left: 200px; /* espace pour la sidebar */
   width: calc(100% - 200px);
   display: flex;
-  flex-direction: column; /* empile titre puis tableau */
-  align-items: center; /* centre horizontalement titre + tableau */
-  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
   background-color: white;
   min-height: 100vh;
+  padding: 0; /* aucune marge intérieure */
+  box-sizing: border-box;
 }
 
- 
-
-/* Titre centré */
-.commandes-en-cours-container h2 {
+/* Header en haut, centré */
+.header {
   width: 100%;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
+  padding: 1.5rem 0;
+  background-color: #f3c3a2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
-/* Tableau centré sous le titre */
-.commandes-en-cours-container table {
+/* Logo */
+.logo {
+  height: 50px;
+}
+
+/* Nom de l'entreprise */
+.company-name h1 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Titre de la section */
+.module-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Message vide */
+.module-content p {
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+/* Tableau des commandes */
+table {
   width: 90%;
   max-width: 1000px;
+  margin: 1rem auto 2rem auto;
   border-collapse: collapse;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   background-color: #fff;
   border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/* Styles tableau (en-têtes et cellules) */
-.commandes-en-cours-container th,
-.commandes-en-cours-container td {
+/* En-têtes et cellules */
+th, td {
   padding: 12px 15px;
   border: 1px solid #ddd;
   text-align: center;
   font-size: 1rem;
-  
 }
 
-.commandes-en-cours-container th {
+th {
   background-color: #f0f0f0;
-  font-weight: 700;
+  font-weight: bold;
 }
 
-/* Couleur statut */
-.commandes-en-cours-container td:nth-child(6) {
-  color: green;
-  font-weight: 700;
-}
-
-/* Boutons */
-.commandes-en-cours-container button {
-  padding: 7px 14px;
-  background-color: #007bff;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.commandes-en-cours-container button:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive basique */
+/* Responsive */
 @media (max-width: 768px) {
   .sidebar {
     width: 150px;
   }
 
-  .commandes-en-cours-container {
+  .module-content {
     margin-left: 150px;
     width: calc(100% - 150px);
-    padding: 1rem;
   }
 
-  .commandes-en-cours-container table {
+  table {
     width: 100%;
   }
 }

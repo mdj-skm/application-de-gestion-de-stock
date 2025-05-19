@@ -1,12 +1,12 @@
 /* GestionCommandes.css */
 
 .commandes-en-cours-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
+  max-width: 1250px;
+  margin: 0px ;
+  padding: 0px;
   background-color: #fdfdfd;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 0px;
+  /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -109,7 +109,7 @@ layout-container {
 /* Sidebar : largeur fixe */
 .sidebar {
   width: 250px;
-  background-color: #ff9800; /* orange vif */
+  background-color: #ec7d31; /* orange vif */
   color: white;
   padding: 1rem;
   box-sizing: border-box;

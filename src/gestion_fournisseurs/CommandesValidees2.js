@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
-import './CommandesValidees.css';
-import Sidebar from '../components/Sidebar';
+import './CommandesValidees2.css';
+import Sidebar from '../components/Sidebar2';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
@@ -12,7 +12,7 @@ const CommandesValidees = () => {
   const handleLivrer = (index) => {
     livrerCommande(index);
     setCommandeImpression(commandesValidees[index]);
-    navigate('/imprimer'); // ✅ Nouvelle syntaxe
+    navigate('/imprimer2'); // ✅ Nouvelle syntaxe
   };
 
   return (
@@ -27,7 +27,7 @@ const CommandesValidees = () => {
         </div>
       <h2>Commandes Validées</h2>
       {commandesValidees.length === 0 ? (
-        <p>Aucune commande à valider, Voir commande livrées.</p>
+        <p>Aucune commande à valider, Voir dans Commande effectuée.</p>
       ) : (
         <div style={{ overflowX: 'auto', width: '100%' }}>
         
@@ -55,7 +55,7 @@ const CommandesValidees = () => {
                 <td>{commande.prixTotal} FCFA</td>
                 <td style={{ color: 'green' }}>Payé</td>
                 <td>
-                  <button> Livraison en cours ... </button>
+                  <button onClick={() => handleLivrer(index)}>Livré</button>
                 </td>
                 
               </tr>

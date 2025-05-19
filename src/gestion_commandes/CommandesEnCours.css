@@ -1,156 +1,141 @@
-/* Structure globale avec sidebar + contenu principal */
+/* Layout principal : sidebar + contenu */
 .layout-container {
   display: flex;
-  min-height: 100vh;
-  background-color: white;
-  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
 }
 
-/* Sidebar à gauche */
+/* Sidebar fixe à gauche */
 .sidebar {
-   width: 250px;
-  background-color: #ec7d31; /* orange vif */
+  width: 200px;
+  background-color: #ec7d31;
   color: white;
-  padding: 1rem;
-  box-sizing: border-box;
-  flex-shrink: 0;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   overflow-y: auto;
-  z-index: 2;
+  z-index: 10;
 }
 
-.header {
-    background-color: #f3c3a2;
-    width: 200%;
-    padding: 50px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-
-/* Conteneur principal centré */
+/* Contenu principal à droite, prend tout l’espace restant */
 .commandes-en-cours-container {
-  flex: 1;
-  padding: 2rem;
+  margin-left: 335px; /* espace pour la sidebar */
+  width: calc(100% - 200px);
+  min-height: 100vh;
+  background-color: white;
+
   display: flex;
   flex-direction: column;
+  align-items: center; /* CENTRAGE HORIZONTAL */
+  padding: 0;  /* PAS de padding */
+  box-sizing: border-box;
+}
+
+/* Header centré horizontalement, collé en haut */
+.header {
+  width: 100%;
+  background-color: #f3c3a2;
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: center; /* centré horizontalement */
   align-items: center;
-  
+  gap: 1rem;
+  box-sizing: border-box;
 }
 
-/* Titre centré */
-.commandes-en-cours-container h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 24px;
+/* Logo */
+.logo {
+  height: 50px;
+}
+
+/* Nom de l'entreprise */
+.company-name h1 {
+  font-size: 2rem;
   color: #333;
-  margin-left: 50px;
+  margin: 0;
 }
 
-/* Message en cas de liste vide */
+/* Titre centré sous le header */
+.commandes-en-cours-container h2 {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+  width: 100%;
+  max-width: 1000px; /* limite la largeur du titre */
+}
+
+/* Message quand aucune commande */
 .commandes-en-cours-container p {
-  font-size: 16px;
+  font-size: 1rem;
   color: #666;
-  margin-left: 50px;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 1000px;
 }
 
-/* Style de base du tableau */
+/* Tableau des commandes centré */
 .commande-table {
-  border-collapse: collapse;
   width: 90%;
   max-width: 1000px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-left: 30px;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 /* En-têtes et cellules */
 .commande-table th,
 .commande-table td {
+  padding: 12px 15px;
   border: 1px solid #ddd;
-  padding: 12px;
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
-/* En-têtes du tableau */
 .commande-table th {
-  background-color: #f1f1f1;
-  font-weight: bold;
-  color: #333;
+  background-color: #f0f0f0;
+  font-weight: 700;
 }
 
-/* Cellules du tableau */
-.commande-table td {
-  background-color: #fff;
-}
-
-/* Bouton "Payé" */
+/* Bouton valider */
 .valider-btn {
-  padding: 8px 14px;
-  background-color: #28a745;
-  color: white;
+  padding: 7px 14px;
+  background-color: #007bff;
   border: none;
+  color: white;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: default;
+  font-weight: 600;
 }
 
 .valider-btn:hover {
-  background-color: #218838;
+  background-color: #0056b3;
+  cursor: pointer;
 }
 
-/* --------- Responsive --------- */
-@media screen and (max-width: 768px) {
-  .layout-container {
-    flex-direction: column;
-  }
-
+/* Responsive */
+@media (max-width: 768px) {
   .sidebar {
-    width: 100%;
-    text-align: center;
+    width: 150px;
   }
 
-  .commande-table,
-  .commande-table thead,
-  .commande-table tbody,
-  .commande-table th,
-  .commande-table td,
-  .commande-table tr {
-    display: block;
-    width: 100%;
+  .commandes-en-cours-container {
+    margin-left: 150px;
+    width: calc(100% - 150px);
   }
 
-  .commande-table thead {
-    display: none;
-  }
-
-  .commande-table tr {
-    margin-bottom: 15px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .commande-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-    font-size: 14px;
-  }
-
-  .commande-table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-weight: bold;
-    text-align: left;
-    color: #333;
-  }
-
-  .valider-btn {
+  .commande-table {
     width: 100%;
   }
 }
