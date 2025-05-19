@@ -10,6 +10,7 @@ const CommandesValidees = () => {
   const navigate = useNavigate();
 
   const handleLivrer = (index) => {
+    const commande = commandesValidees[index];
     livrerCommande(index);
     setCommandeImpression(commandesValidees[index]);
     navigate('/imprimer2'); // ✅ Nouvelle syntaxe

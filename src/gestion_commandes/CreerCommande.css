@@ -135,3 +135,24 @@
     padding: 10px;
   }
 }
+
+
+select {
+  width: 500px;          /* Largeur un peu plus grande */
+  padding: 8px 12px;     /* Un peu d’espace intérieur */
+  font-size: 16px;       /* Taille de texte lisible */
+  border: 1px solid #ccc; /* Bordure légère */
+  border-radius: 4px;    /* Bords arrondis */
+  display: block;        /* Pour que margin auto fonctionne */
+  margin: 10px auto;     /* Centre horizontalement avec marge verticale */
+  box-sizing: border-box; /* Pour inclure padding dans la largeur */
+  background-color: white;
+  cursor: pointer;       /* Curseur pointeur */
+  transition: border-color 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff; /* Bordure bleue au focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

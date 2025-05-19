@@ -6,7 +6,12 @@ import { jsPDF } from "jspdf";
 import logo from '../assets/logo.png';
 
 const Imprimer = () => {
-  const { commandeImpression } = useContext(CommandeContext);
+  // const { commandeImpression } = useContext(CommandeContext);
+  const { 
+    commandeImpression, 
+    commandesImprimees, 
+    ajouterCommandeImprimee 
+  } = useContext(CommandeContext);
   
   useEffect(() => {
     if (commandeImpression) {
@@ -46,8 +51,12 @@ const Imprimer = () => {
       doc.text('------------------------------------------------------------------------------------------', 20, 250);
 
       doc.save('reçu_commande.pdf');
+
+
+      // Ajoute la commande imprimée à la liste
+      ajouterCommandeImprimee(commandeImpression);
     }
-  };
+}
 
   return (
     
@@ -88,6 +97,26 @@ const Imprimer = () => {
           </div>
         ) : (
           <p>Aucune commande à imprimer.</p>
+        )}
+
+        <hr />
+
+        <h3>Historique des commandes imprimées :</h3>
+        {commandesImprimees.length === 0 ? (
+          <p>Aucune commande imprimée pour le moment.</p>
+        ) : (
+          <div className="historique-impression">
+            {commandesImprimees.map((cmd, idx) => (
+              <div key={idx} className="impression-item">
+                <p><strong>Produit:</strong> {cmd.produit}</p>
+                <p><strong>Catégorie:</strong> {cmd.categorie}</p>
+                <p><strong>Quantité:</strong> {cmd.quantite}</p>
+                <p><strong>Prix Unitaire:</strong> {cmd.prixUnitaire} FCFA</p>
+                <p><strong>Prix Total:</strong> {cmd.prixTotal} FCFA</p>
+                <hr />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>

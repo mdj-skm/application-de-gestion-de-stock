@@ -53,7 +53,14 @@ const CreerCommande = () => {
         </div>
       <h2>Créer une commande</h2>
       <input type="text" placeholder="Nom du produit" value={produit} onChange={e => setProduit(e.target.value)} />
-      <input type="text" placeholder="Catégorie" value={categorie} onChange={e => setCategorie(e.target.value)} />
+      {/* <input type="text" placeholder="Catégorie" value={categorie} onChange={e => setCategorie(e.target.value)} /> */}     
+      <select value={categorie} onChange={e => setCategorie(e.target.value)}>
+      <option value="">-- Sélectionnez une catégorie --</option>
+      <option value="Electronique">Electronique</option>
+      <option value="Vêtements">Vêtements</option>
+      <option value="Alimentation">Alimentation</option>
+      <option value="Autre">Autre</option>
+      </select>
       <input type="number" placeholder="Quantité" value={quantite} onChange={e => setQuantite(e.target.value)} />
       <input type="number" placeholder="Prix unitaire" value={prixUnitaire} onChange={e => setPrixUnitaire(e.target.value)} />
 
