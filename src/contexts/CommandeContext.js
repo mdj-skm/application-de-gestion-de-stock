@@ -40,6 +40,11 @@ export const CommandeProvider = ({ children }) => {
     setCommandeImpression(commande);
   };
 
+  const supprimerCommande = (index) => {
+  setCommandes(prevCommandes => prevCommandes.filter((_, i) => i !== index));
+  };
+
+
   // Fonction pour ajouter une commande à la liste des imprimées
   const ajouterCommandeImprimee = (commande) => {
     setCommandesImprimees(prev => [...prev, commande]);
@@ -55,7 +60,7 @@ export const CommandeProvider = ({ children }) => {
         livrerCommande,
 
       commandes, commandesValidees, commandesLivrees, historique,
-      ajouterCommande, validerCommande, livrerCommande
+      ajouterCommande, validerCommande, supprimerCommande, livrerCommande
     }}>
       {children}
     </CommandeContext.Provider>

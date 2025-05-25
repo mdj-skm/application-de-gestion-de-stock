@@ -1,28 +1,45 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { CommandeContext } from '../contexts/CommandeContext';
 import './CreerCommande.css';
 import Sidebar from '../components/Sidebar';
 import logo from '../assets/logo.png';
 
- 
+const genererNumeroCommande = () => {
+  const dernierNumero = localStorage.getItem('dernierNumeroCommande');
+  const prochainNumero = dernierNumero ? parseInt(dernierNumero) + 1 : 1;
+  localStorage.setItem('dernierNumeroCommande', prochainNumero);
+  return `CMD${String(prochainNumero).padStart(4, '0')}`; // Ex : CMD0004
+};
+
 const CreerCommande = () => {
   const { ajouterCommande } = useContext(CommandeContext);
+
+  const [numeroCommande, setNumeroCommande] = useState('');
   const [produit, setProduit] = useState('');
   const [categorie, setCategorie] = useState('');
   const [quantite, setQuantite] = useState('');
   const [prixUnitaire, setPrixUnitaire] = useState('');
   const [erreur, setErreur] = useState('');
 
+
+
   // const prixTotal = quantite && prixUnitaire ? quantite * prixUnitaire : 0;
   const prixTotal = Number(quantite)  && Number(prixUnitaire) 
   ? Number(quantite) * Number(prixUnitaire)
   : 0;
+
+  useEffect(() => {
+    // Génère le numéro dès que le composant est monté
+    const numero = genererNumeroCommande();
+    setNumeroCommande(numero);
+  }, []);
 
   const handleValidation = () => {
     if (!produit || !categorie || !quantite || !prixUnitaire) {
       setErreur('Veuillez remplir toutes les cases.');
       return;
     }
+
 
     const nouvelleCommande = {
       
@@ -44,7 +61,9 @@ const CreerCommande = () => {
     setPrixUnitaire('');
     setErreur('');
     
-    // alert("Commande ajoutée !");
+      // Génère un nouveau numéro pour la prochaine commande
+    setNumeroCommande(genererNumeroCommande());
+  
   };
 
   return (
@@ -56,10 +75,14 @@ const CreerCommande = () => {
         </div>
       <h2>Créer une commande</h2>
       
-      <select value={categorie} onChange={e => setCategorie(e.target.value)}>
-      <option value="">Numero commande</option>
-      <option value="number">CMD0025</option>
-      </select>
+       {/* Numéro de commande généré automatiquement */}
+      <input
+        type="text"
+        value={numeroCommande}
+        disabled
+        className="numero-commande"
+      />
+
       <input type="text" placeholder="Nom du produit" value={produit} onChange={e => setProduit(e.target.value)} />
       {/* <input type="text" placeholder="Catégorie" value={categorie} onChange={e => setCategorie(e.target.value)} /> */}     
       <select value={categorie} onChange={e => setCategorie(e.target.value)}>

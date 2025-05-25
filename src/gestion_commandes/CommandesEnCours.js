@@ -5,11 +5,15 @@ import './CommandesEnCours.css';
 import logo from '../assets/logo.png';
 
 const CommandesEnCours = () => {
-  const { commandes, validerCommande } = useContext(CommandeContext);
+  const { commandes, validerCommande, supprimerCommande } = useContext(CommandeContext);
   const [module, setModule] = useState("en cours");
 
   const handleValider = (index) => {
     validerCommande(index);
+  };
+
+  const handleSupprimer = (index) => {
+    supprimerCommande(index);
   };
 
    // Fonction pour calculer le prix total
@@ -55,6 +59,7 @@ const CommandesEnCours = () => {
 
                   <td>
                     <button className="valider-btn"> Paiement en cours... </button>
+                    <button className="supprimer-btn" onClick={() => handleSupprimer(index)}>Supprimer</button>
                   </td>
                 </tr>
                 );
