@@ -3,6 +3,8 @@ import { CommandeContext } from '../contexts/CommandeContext';
 import './CreerCommande.css';
 import Sidebar from '../components/Sidebar';
 import logo from '../assets/logo.png';
+import axios from 'axios';
+
 
 const genererNumeroCommande = () => {
   const dernierNumero = localStorage.getItem('dernierNumeroCommande');
@@ -40,26 +42,39 @@ const CreerCommande = () => {
       return;
     }
 
-
     const nouvelleCommande = {
-      
-      produit,
-      categorie,
-      quantite: parseInt(quantite),
-      prixUnitaire: parseFloat(prixUnitaire),
-      prixTotal,
-      date: new Date().toLocaleString()
-    };
+  numero_commande: numeroCommande,
+  produit,
+  categorie,
+  quantite: parseInt(quantite),
+  prix_unitaire: parseFloat(prixUnitaire),
+  prix_total: prixTotal,
+  date: new Date().toLocaleString()
+};
 
-    ajouterCommande(nouvelleCommande);
-
-    // Réinitialiser les champs
-    
+// Envoie vers Django
+axios.post('http://localhost:8000/api/commandes/', nouvelleCommande)
+  .then(response => {
+    console.log('Commande envoyée à Django :', response.data);
+    ajouterCommande(nouvelleCommande); // Local (facultatif)
     setProduit('');
     setCategorie('');
     setQuantite('');
     setPrixUnitaire('');
     setErreur('');
+    setNumeroCommande(genererNumeroCommande());
+  })
+ .catch(error => {
+  if (error.response) {
+    console.error('Erreur réponse :', error.response.data);
+  } else if (error.request) {
+    console.error('Aucune réponse reçue :', error.request);
+  } else {
+    console.error('Erreur générale :', error.message);
+  }
+  setErreur("Échec de l'envoi au serveur.");
+});
+
     
       // Génère un nouveau numéro pour la prochaine commande
     setNumeroCommande(genererNumeroCommande());
