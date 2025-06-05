@@ -96,6 +96,7 @@ const navigate = useNavigate();
     
     setFormData({
       nom: '',
+      motDePasse: '',
       email: '',
       role: '',
       telephone: '',
@@ -159,7 +160,7 @@ const handleDelete = (index) => {
             >
               <option value="">Sélectionner un rôle</option>
               <option value="Administrateur">Administrateur</option>
-              <option value="Fournisseur">Fournisseur</option>
+              <option value="Fournisseur">Gestionnaire</option>
             </select>
 
             <input 

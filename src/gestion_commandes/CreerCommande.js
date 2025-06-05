@@ -6,6 +6,7 @@ import logo from '../assets/logo.png';
 import axios from 'axios';
 
 
+
 const genererNumeroCommande = () => {
   const dernierNumero = localStorage.getItem('dernierNumeroCommande');
   const prochainNumero = dernierNumero ? parseInt(dernierNumero) + 1 : 1;
@@ -49,14 +50,33 @@ const CreerCommande = () => {
   quantite: parseInt(quantite),
   prix_unitaire: parseFloat(prixUnitaire),
   prix_total: prixTotal,
-  date: new Date().toLocaleString()
+  date_commande: new Date().toISOString(),
 };
 
-// Envoie vers Django
-axios.post('http://localhost:8000/api/commandes/', nouvelleCommande)
+
+fetch("http://localhost:8000/api/commandes/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(nouvelleCommande),
+})
   .then(response => {
-    console.log('Commande envoyée à Django :', response.data);
-    ajouterCommande(nouvelleCommande); // Local (facultatif)
+    if (!response.ok) {
+      return response.json().then(data => {
+        console.error("Erreur du serveur :", data);
+        throw new Error("Erreur du serveur");
+      });
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log("Commande enregistrée :", data);
+
+    // ✅ Ajouter dans le contexte (pour "Commandes en cours")
+    ajouterCommande(nouvelleCommande);
+
+    // Réinitialiser les champs
     setProduit('');
     setCategorie('');
     setQuantite('');
@@ -64,16 +84,17 @@ axios.post('http://localhost:8000/api/commandes/', nouvelleCommande)
     setErreur('');
     setNumeroCommande(genererNumeroCommande());
   })
- .catch(error => {
-  if (error.response) {
-    console.error('Erreur réponse :', error.response.data);
-  } else if (error.request) {
-    console.error('Aucune réponse reçue :', error.request);
-  } else {
-    console.error('Erreur générale :', error.message);
-  }
-  setErreur("Échec de l'envoi au serveur.");
+  .catch(error => {
+    if (error.response) {
+      console.error('Erreur réponse :', error.response.data);
+    } else if (error.request) {
+      console.error('Aucune réponse reçue :', error.request);
+    } else {
+      console.error('Erreur générale :', error.message);
+    }
+    setErreur("Échec de l'envoi au serveur.");
 });
+
 
     
       // Génère un nouveau numéro pour la prochaine commande
@@ -98,21 +119,55 @@ axios.post('http://localhost:8000/api/commandes/', nouvelleCommande)
         className="numero-commande"
       />
 
-      <input type="text" placeholder="Nom du produit" value={produit} onChange={e => setProduit(e.target.value)} />
+      <select value={produit} onChange={e => setProduit(e.target.value)}>
+      <option value="">-- Choisir un produit --</option>
+      <option value="lait">lait</option>
+      <option value="sucre">sucre</option>
+      <option value="riz">riz</option>
+      <option value="huile">huile</option>
+      <option value="eau minérale">eau minérale</option>
+      <option value="sardine">sardine</option>
+      <option value="sel">sel</option>
+      <option value="chaussure">chaussure</option>
+      <option value="teeshirt">teeshirt</option>
+      <option value="pantalon">pantalon</option>
+      <option value="casquette">casquette</option>
+      <option value="moto">moto</option>
+      <option value="velo">velo</option>
+      <option value="voiture">voiture</option>
+      <option value="ventilateur">ventilateur</option>
+      <option value="climatiseur">climatiseur</option>
+      <option value="ampoule">ampoule</option>
+      <option value="matelas">matelas</option>
+      <option value="natte">natte</option>
+      <option value="tv plasma">tv plasma</option>
+      <option value="chaise">chaise</option>
+      <option value="ordinateur bureau">ordinateur bureau</option>
+      <option value="ordinateur portable">ordinateur portable</option>
+      <option value="téléphone">téléphone</option>
+      <option value="chargeur">chargeur</option>
+      <option value="tablette">tablette</option>
+      <option value="savon">savon</option>
+      <option value="parfum">parfum</option>
+      </select>
+
       {/* <input type="text" placeholder="Catégorie" value={categorie} onChange={e => setCategorie(e.target.value)} /> */}     
       <select value={categorie} onChange={e => setCategorie(e.target.value)}>
       <option value="">-- Sélectionnez une catégorie --</option>
       <option value="Electronique">Electronique</option>
       <option value="Vêtements">Vêtements</option>
       <option value="Alimentation">Alimentation</option>
-      <option value="Autre">Autre</option>
+      <option value="Ménage">Ménage</option>
+      <option value="Automobile">Automobile</option>
+      <option value="Autres">Autres</option>
       </select>
       <input type="number" placeholder="Quantité" value={quantite} onChange={e => setQuantite(e.target.value)} />
       <input type="number" placeholder="Prix unitaire" value={prixUnitaire} onChange={e => setPrixUnitaire(e.target.value)} />
 
       <input type="text" value={`Total = ${prixTotal} FCFA`} disabled />
       {/* <p><strong>Prix total :</strong> {prixTotal} FCFA</p> */}
-      {erreur && <p className="erreur">{erreur}</p>}
+     {erreur && <p className="erreur" style={{ color: 'red' }}>{erreur}</p>}
+
 
       <button onClick={handleValidation}>Valider</button>
     </div>

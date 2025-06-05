@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import PrivateRoute from './components/PrivateRoute';
 
 // Pages principales
 import LoginPage from './connexion/LoginPage'; 
@@ -42,13 +42,39 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/page_d_accueil" element={<HomePage />} />
-          <Route path="/gestion_clients" element={<Clients />} />
-          <Route path="/gestion_fournisseurs" element={<GestionFournisseurs />} />
-          <Route path="/rapports" element={<Rapports />} />
-          <Route path="/configuration" element={<Configuration />} />
+
+          <Route path="/gestion_clients" element={
+            <PrivateRoute moduleName="Gestion client">
+            <Clients />
+            </PrivateRoute>
+            }/>
+
+          <Route path="/gestion_fournisseurs" element={
+            <PrivateRoute moduleName="Gestion fournisseurs">
+            <GestionFournisseurs />
+            </PrivateRoute>
+            }/>
+
+          <Route path="/rapports" element={
+            <PrivateRoute moduleName="Rapport">
+            <Rapports />
+            </PrivateRoute>
+            }/>
+
+          <Route path="/configuration" element={
+            <PrivateRoute moduleName="Configuration">
+            <Configuration />
+            </PrivateRoute>
+            }/>
           
          <Route path="/commande/creer" element={<CreerCommande />} />
-         <Route path="/gestion_commandes" element={<GestionCommandes />} />
+
+         <Route path="/gestion_commandes" element={
+          <PrivateRoute moduleName="Gestion commande">
+          <GestionCommandes />
+          </PrivateRoute>
+          }/>
+
          <Route path="/commandes_en_cours" element={<CommandesEnCours />} />
          <Route path="/commandes_en_cours2" element={<CommandesEnCours2 />} />
          <Route path="/commandes_validees" element={<CommandesValidees />} />

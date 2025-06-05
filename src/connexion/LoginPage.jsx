@@ -10,19 +10,22 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    
-    // Ici tu peux ajouter une vraie vérification plus tard
-    if (username && password) {
-      localStorage.setItem('username', username); // très important !
-      navigate('./page_d_accueil');
-    } else {
-      alert('Veuillez entrer votre nom d’utilisateur et mot de passe.');
-    }
-  
+ const handleLogin = () => {
+  const savedUsers = JSON.parse(localStorage.getItem('utilisateurs')) || [];
 
-    // Tu peux ajouter ici la logique d'authentification
-  };
+  const userFound = savedUsers.find(
+    (user) =>
+      user.nom === username && user.motDePasse === password
+  );
+
+  if (userFound) {
+    localStorage.setItem('username', username); // utile pour l'affichage
+    navigate('./page_d_accueil');
+  } else {
+    alert("Nom d'utilisateur ou mot de passe incorrect !");
+  }
+};
+
 
   return (
     <div className="login-container">

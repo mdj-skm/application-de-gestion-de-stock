@@ -35,35 +35,83 @@ export default function GestionFournisseurs() {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-  const savedUsername = localStorage.getItem('username');
-  if (savedUsername) {
-    setUsername(savedUsername);
-  }
-  }, []);
+  fetch('http://localhost:8000/api/fournisseurs/')
+    .then(res => res.json())
+    .then(data => setFournisseurs(data))
+    .catch(err => console.error('Erreur fetch fournisseurs:', err));
+}, []);
 
-  const handleAddOrEdit = () => {
-    if (!formData.nom || !formData.email) {
-      alert("Le nom et l'email sont obligatoires.");
-      return;
+
+ const handleAddOrEdit = async () => {
+  if (!formData.nom || !formData.email) {
+    alert("Le nom et l'email sont obligatoires.");
+    return;
+  }
+
+  try {
+    const url = editingIndex !== null
+    ? `http://localhost:8000/api/fournisseurs/${fournisseurs[editingIndex].id}/`
+    : 'http://localhost:8000/api/fournisseurs/';
+
+
+    const method = editingIndex !== null ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur lors de l'enregistrement du fournisseur");
     }
+
+    const savedFournisseur = await response.json();
 
     if (editingIndex !== null) {
-      const updated = [...fournisseurs];
-      updated[editingIndex] = formData;
-      setFournisseurs(updated);
+      // Mise à jour locale après modification
+      const updatedList = [...fournisseurs];
+      updatedList[editingIndex] = savedFournisseur;
+      setFournisseurs(updatedList);
     } else {
-      setFournisseurs([...fournisseurs, formData]);
+      // Ajout local après création
+      setFournisseurs([...fournisseurs, savedFournisseur]);
     }
-    resetForm();
-  };
 
-  const handleDelete = (index) => {
+    resetForm();
+  } catch (error) {
+    console.error(error);
+    alert("Erreur lors de l'enregistrement !");
+  }
+};
+
+
+ const handleDelete = async (index) => {
+  const fournisseurToDelete = fournisseurs[index];
+  if (!window.confirm(`Voulez-vous vraiment supprimer ${fournisseurToDelete.nom} ?`)) return;
+
+  try {
+    const response = await fetch(`http://localhost:8000/fournisseurs/${fournisseurToDelete.id}/`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur suppression fournisseur');
+    }
+
     const newList = [...fournisseurs];
     newList.splice(index, 1);
     setFournisseurs(newList);
-  };
+  } catch (error) {
+    console.error(error);
+    alert('Erreur lors de la suppression');
+  }
+};
 
-   const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const handleEdit = (index) => {
     setFormData(fournisseurs[index]);
     setEditingIndex(index);

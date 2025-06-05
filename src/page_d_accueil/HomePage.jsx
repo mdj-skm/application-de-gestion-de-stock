@@ -1,4 +1,3 @@
-
 import './HomePage.css';
 import logo from '../assets/logo.png';
 import logoGestion from '../assets/logo_gestion_commandes.png';
@@ -9,28 +8,30 @@ import logoRapports from '../assets/logo_rapports.png';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
-
 function HomePage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
+    const allUsers = JSON.parse(localStorage.getItem('utilisateurs')) || [];
+
     if (!savedUsername) {
       navigate('/');
     } else {
-      setUsername(savedUsername);
+      const matchedUser = allUsers.find(u => u.nom === savedUsername);
+      if (matchedUser) {
+        setCurrentUser(matchedUser);
+      } else {
+        alert("Utilisateur non trouvé !");
+        navigate('/');
+      }
     }
   }, [navigate]);
-
-  if (username === null) {
-    return null; // ou "Chargement..." si tu préfères
-  }
 
   const handleModuleClick = (path) => {
     navigate(path);
   };
-
 
   const handleLogout = () => {
     alert('Déconnexion...');
@@ -38,13 +39,21 @@ function HomePage() {
     navigate('/');
   };
 
+  const hasAccessTo = (moduleName) => {
+    return currentUser?.modules?.includes(moduleName);
+  };
+
+  if (!currentUser) {
+    return null; // ou un message de chargement si tu préfères
+  }
+
   return (
     <div className="home-container">
       <div className="sidebar">
         <div className="profile-section">
           <div className="profile-icon">👤</div>
           <div className="username">
-            {username} <span className="status-dot"></span>
+            {currentUser.nom} <span className="status-dot"></span>
           </div>
         </div>
 
@@ -61,59 +70,51 @@ function HomePage() {
         <div className="H2">
           <h2>Choisissez votre module</h2>
         </div>
+
         <div className="module-section">
-          {/* <h2>Choisissez votre module</h2> */}
+          {hasAccessTo("Gestion client") && (
+            <div className="module-box" onClick={() => handleModuleClick('/gestion_clients')}>
+              <img src={logoGestionClients} alt="Module Gestion" className="module-logo" />
+              <h3>Gestion clients</h3>
+              <p>La gestion des clients</p>
+            </div>
+          )}
 
-          <div className="module-box" onClick={() => handleModuleClick('/gestion_clients')}>
-          <img src={logoGestionClients} alt="Module Gestion" className="module-logo" />
-          <h3>Gestion clients</h3>
-          <p>La gestion des clients</p>
-          </div>
+          {hasAccessTo("Gestion fournisseurs") && (
+            <div className="module-box" onClick={() => handleModuleClick('/gestion_fournisseurs')}>
+              <img src={logoGestionFournisseurs} alt="Module Gestion" className="module-logo" />
+              <h3>Gestion fournisseurs</h3>
+              <p>La gestion des fournisseurs</p>
+            </div>
+          )}
 
-        
+          {hasAccessTo("Gestion commande") && (
+            <div className="module-box" onClick={() => handleModuleClick('/gestion_commandes')}>
+              <img src={logoGestion} alt="Module Gestion" className="module-logo" />
+              <h3>Gestion commandes</h3>
+              <p>La gestion des commandes</p>
+            </div>
+          )}
 
-        
-          <div className="module-box" onClick={() => handleModuleClick('/gestion_fournisseurs')}>
-          <img src={logoGestionFournisseurs} alt="Module Gestion" className="module-logo" />
-          <h3>Gestion fournisseurs</h3>
-          <p>La gestion des fournisseurs</p>
+          {hasAccessTo("Rapport") && (
+            <div className="module-box" onClick={() => handleModuleClick('/rapports')}>
+              <img src={logoRapports} alt="Module Gestion" className="module-logo" />
+              <h3>Rapport</h3>
+              <p>Rapports</p>
+            </div>
+          )}
+
+          {hasAccessTo("Configuration") && (
+            <div className="module-box" onClick={() => handleModuleClick('/configuration')}>
+              <img src={logoConfiguration} alt="Module Gestion" className="module-logo" />
+              <h3>Configuration</h3>
+              <p>Configuration</p>
+            </div>
+          )}
         </div>
-        
-
-        
-          <div className="module-box" onClick={() => handleModuleClick('/gestion_commandes')}>
-          <img src={logoGestion} alt="Module Gestion" className="module-logo" />
-          <h3>Gestion commandes</h3>
-          <p>La gestion des commandes</p>
-        </div>
-        
-
-        
-          <div className="module-box" onClick={() => handleModuleClick('/rapports')}>
-          <img src={logoRapports} alt="Module Gestion" className="module-logo" />
-          <h3>Rapport</h3>
-          <p>Rapports</p>
-        </div>
-        
-
-        
-          <div className="module-box" onClick={() => handleModuleClick('/configuration')}>
-          <img src={logoConfiguration} alt="Module Gestion" className="module-logo" />
-          <h3>Configuration</h3>
-          <p>Configuration</p>
-        </div>
-        </div>
-
-
-
-        
-        
-
-
       </div>
     </div>
   );
 }
-
 
 export default HomePage;

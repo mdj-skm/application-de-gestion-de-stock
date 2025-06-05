@@ -179,3 +179,18 @@ select:focus {
   display: block;
   border-radius: 4px;
 }
+
+SelectProduit {
+  width: 100%;
+  max-width: 500px;        /* Limite la largeur à 500px */
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 10px auto;        /* Centre horizontalement */
+  display: block;
+  box-sizing: border-box;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
