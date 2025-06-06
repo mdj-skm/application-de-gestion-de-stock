@@ -58,7 +58,11 @@ const GestionClient = () => {
 
   // Mise à jour des champs du formulaire
   const handleInputChange = (e) => {
+
     const { name, value } = e.target;
+    
+    const valueToStore = name === 'montantTotal' && value === '' ? null : value;
+
     setNewClient((prevState) => ({
       ...prevState,
       [name]: value
@@ -111,11 +115,12 @@ const GestionClient = () => {
 
         setIsFormVisible(false); // Cacher le formulaire après soumission
       } else {
-        alert("Erreur lors de l'enregistrement.");
+        const errorData = await response.json();
+        alert("Erreur lors de l'enregistrement: " + (errorData.detail || JSON.stringify(errorData)));
       }
     } catch (error) {
-      console.error(error);
-      alert("Une erreur est survenue.");
+  console.error("Erreur lors de l'envoi du formulaire :", error);
+  alert("Une erreur est survenue : " + error.message);
     }
   };
 
@@ -242,7 +247,7 @@ const GestionClient = () => {
 
                   <tr>
                     <td><label>Adresse :</label></td>
-                    <td><input type="text" name="adresse" value={newClient.adresse} onChange={handleInputChange} /></td>
+                    <td><input type="text" name="adresse" value={newClient.adresse} onChange={handleInputChange} required/></td>
 
                     <td><label>Email :</label></td>
                     <td><input type="email" name="email" value={newClient.email} onChange={handleInputChange} /></td>
@@ -277,7 +282,7 @@ const GestionClient = () => {
 
                     <td><label>Mode de paiement :</label></td>
                     <td>
-                      <select name="modePaiement" value={newClient.modePaiement} onChange={handleInputChange}>
+                      <select name="modePaiement" value={newClient.modePaiement} onChange={handleInputChange} required>
                         <option value="">-- Sélectionnez --</option>
                         <option value="mtn">MTN</option>
                         <option value="orange">ORANGE</option>
