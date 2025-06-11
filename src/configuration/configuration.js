@@ -12,6 +12,7 @@ const modules = [
   "Gestion client",
   "Gestion commande",
   "Gestion fournisseurs",
+  "Gestion stocks",
   "Configuration",
   "Rapport"
 ];
@@ -64,46 +65,79 @@ const navigate = useNavigate();
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const savedUsers = localStorage.getItem('utilisateurs');
-  if (savedUsers) {
-    setUtilisateurs(JSON.parse(savedUsers));
-  }
-
-    const savedUsername = localStorage.getItem('username');
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-  }, []);
-
-  useEffect(() => {
-  localStorage.setItem('utilisateurs', JSON.stringify(utilisateurs));
-}, [utilisateurs]);
-
-
-  const handleAdd = () => {
-
-    if (editIndex !== null) {
-    // Modification
-    const updatedUsers = [...utilisateurs];
-    updatedUsers[editIndex] = formData;
-    setUtilisateurs(updatedUsers);
-    setEditIndex(null);
+  fetch('http://localhost:8000/api/configuration/utilisateurs/')
+    .then(res => res.json())
+    .then(data => {
+  // Si data est un tableau (pas d'objet avec results)
+  if (Array.isArray(data)) {
+    setUtilisateurs(data);
   } else {
-    // Création
-    setUtilisateurs([...utilisateurs, formData]);
+    setUtilisateurs(data.results || []);
+  }
+})
+
+    .catch(err => console.error(err));
+
+  const savedUsername = localStorage.getItem('username');
+  if (savedUsername) {
+    setUsername(savedUsername);
+  }
+}, []);
+
+
+
+  const handleAdd = async () => {
+  const isEdit = editIndex !== null;
+  const method = isEdit ? 'PUT' : 'POST';
+  const url = isEdit
+    ? `http://localhost:8000/api/configuration/utilisateurs/${utilisateurs[editIndex].id}/`
+    : 'http://localhost:8000/api/configuration/utilisateurs/';
+
+  const payload = {
+    ...formData,
+    mot_de_passe: formData.motDePasse // toujours en clair
+  };
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+    const errorData = await response.json();  // 👈 Affiche le vrai message d'erreur
+    console.error("Erreur backend :", errorData);
+    throw new Error("Erreur d'enregistrement");
   }
 
-    
+    const newUser = await response.json();
+
+    if (isEdit) {
+      const updatedUsers = [...utilisateurs];
+      updatedUsers[editIndex] = newUser;
+      setUtilisateurs(updatedUsers);
+      setEditIndex(null);
+    } else {
+      setUtilisateurs([...utilisateurs, newUser]);
+    }
+
     setFormData({
       nom: '',
       motDePasse: '',
       email: '',
       role: '',
       telephone: '',
-      modules: []
+      modules: [],
     });
     setShowFormPage(false);
-  };
+  } catch (error) {
+    console.error("Erreur lors de l'enregistrement :", error);
+  }
+};
+
 
   
 
@@ -226,7 +260,12 @@ const handleDelete = (index) => {
 </button>
 
               {/* <button className="btn" onClick={() => setShowFormPage(true)}>Créer un utilisateur</button> */}
-              <button className="btn">Rafraîchir</button>
+              <button className="btn" onClick={() => {
+  fetch('http://localhost:8000/api/configuration/utilisateurs/')
+    .then(res => res.json())
+    .then(data => setUtilisateurs(data.results || []))
+}}>Rafraîchir</button>
+
             </div>
           </div>
 

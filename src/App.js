@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
+import { StockProvider } from './contexts/StockContext';
 
 // Pages principales
 import LoginPage from './connexion/LoginPage'; 
 import HomePage from './page_d_accueil/HomePage'; 
+import Stocks from "./gestion_stocks/Stocks"; 
+
 
 // Modules de gestion des commandes
 import CreerCommande from "./gestion_commandes/CreerCommande";
@@ -17,7 +20,7 @@ import CommandesEnCours2 from './gestion_fournisseurs/CommandesEnCours2';
 import Clients from './gestion_clients/gestion_client'; 
 import GestionFournisseurs from "./gestion_fournisseurs/gestion_fournisseurs";
 import Rapports from "./rapports/gestion_rapport"; 
-import GestionRapport from './rapports/gestion_rapport';
+
 import Configuration from "./configuration/configuration";
 
 import CommandesValidees from './gestion_commandes/CommandesValidees';
@@ -39,6 +42,7 @@ function App() {
 
   return (
     <CommandeProvider>
+      <StockProvider>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/page_d_accueil" element={<HomePage />} />
@@ -60,6 +64,12 @@ function App() {
             <Rapports />
             </PrivateRoute>
             }/>
+
+          <Route path="/gestion_stocks" element={
+            <PrivateRoute moduleName="Gestion stocks">
+            <Stocks />
+            </PrivateRoute>
+            } />
 
           <Route path="/configuration" element={
             <PrivateRoute moduleName="Configuration">
@@ -86,6 +96,7 @@ function App() {
          <Route path="/historique" element={<HistoriqueCommandes />} />
          <Route path="/historique2" element={<HistoriqueCommandes2 />} />
        </Routes>
+       </StockProvider>
     </CommandeProvider>
   );
 }

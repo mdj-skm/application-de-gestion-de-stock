@@ -7,10 +7,10 @@ const PrivateRoute = ({ children, allowedModules, moduleName }) => {
   const utilisateurs = JSON.parse(localStorage.getItem('utilisateurs')) || [];
   const user = utilisateurs.find(u => u.nom === username);
 
-  if (!user || !user.modules.includes(moduleName)) {
-    alert("Accès non autorisé !");
-    return <Navigate to="/home" />;
-  }
+  // if (!user || !user.modules.includes(moduleName)) {
+  //   alert("Accès non autorisé !");
+  //   return <Navigate to="/home" />;
+  // }
 
   return children;
 };

@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'gestion_clients',
     'gestion_commandes',
     'gestion_fournisseurs',
+    # 'gestion_connexions',
+    'configuration',
     'corsheaders',
 ]
 

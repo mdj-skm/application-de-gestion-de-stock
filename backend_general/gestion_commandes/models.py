@@ -3,7 +3,7 @@
 from django.db import models
 
 class Commande(models.Model):
-    numero_commande = models.CharField(max_length=100)
+    numero_commande = models.CharField(max_length=100, unique=True)
     produit = models.CharField(max_length=100)
     categorie = models.CharField(max_length=100)
     quantite = models.IntegerField()

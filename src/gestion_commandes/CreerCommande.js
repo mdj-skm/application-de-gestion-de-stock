@@ -4,6 +4,7 @@ import './CreerCommande.css';
 import Sidebar from '../components/Sidebar';
 import logo from '../assets/logo.png';
 import axios from 'axios';
+import { StockContext } from '../contexts/StockContext';
 
 
 
@@ -24,6 +25,10 @@ const CreerCommande = () => {
   const [prixUnitaire, setPrixUnitaire] = useState('');
   const [erreur, setErreur] = useState('');
 
+const { fournisseurs } = useContext(StockContext);
+
+// Stock restant pour le produit sélectionné
+const stockRestant = fournisseurs.find(f => f.produit === produit)?.quantite || 0;
 
 
   // const prixTotal = quantite && prixUnitaire ? quantite * prixUnitaire : 0;
@@ -38,12 +43,24 @@ const CreerCommande = () => {
   }, []);
 
   const handleValidation = () => {
+
+    
+
+if (quantite > stockRestant) {
+  setErreur(`Quantité demandée (${quantite}) supérieure au stock restant (${stockRestant})`);
+  return;
+}
+
+
     if (!produit || !categorie || !quantite || !prixUnitaire) {
       setErreur('Veuillez remplir toutes les cases.');
       return;
     }
 
-    const nouvelleCommande = {
+    {stockRestant === 0 && <p style={{ color: 'red' }}>Stock de ce produit épuisé !</p>}
+
+
+  const nouvelleCommande = {
   numero_commande: numeroCommande,
   produit,
   categorie,
@@ -52,6 +69,7 @@ const CreerCommande = () => {
   prix_total: prixTotal,
   date_commande: new Date().toISOString(),
 };
+
 
 
 fetch("http://localhost:8000/api/commandes/", {

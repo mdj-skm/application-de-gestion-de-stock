@@ -16,9 +16,12 @@ const CommandesEnCours = () => {
     supprimerCommande(index);
   };
 
-   // Fonction pour calculer le prix total
+  // Fonction pour calculer le prix total
   const calculatePrixTotal = (prixUnitaire, quantite) => {
-    return prixUnitaire * quantite;
+    // Assure que prixUnitaire et quantite sont des nombres
+    const pu = Number(prixUnitaire) || 0;
+    const qte = Number(quantite) || 0;
+    return pu * qte;
   };
 
   return (
@@ -48,20 +51,33 @@ const CommandesEnCours = () => {
             </thead>
             <tbody>
               {commandes.map((commande, index) => {
-                const prixTotal = calculatePrixTotal(commande.prixUnitaire, commande.quantite); // Calcul dynamique du prix total
-                return (
-                <tr key={index}>
-                  <td data-label="Produit">{commande.produit}</td>
-                  <td data-label="Catégorie">{commande.categorie}</td>
-                  <td data-label="Quantité">{commande.quantite}</td>
-                  <td data-label="Prix Unitaire">{commande.prixUnitaire} FCFA</td>
-                  <td data-label="Prix Total">{commande.prixTotal} FCFA</td>
+                // On récupère le prix unitaire (avec fallback)
+                const prixUnitaire = commande.prixUnitaire ?? commande.prix_unitaire ?? 0;
+                // Calcul du prix total via fonction
+                const prixTotal = calculatePrixTotal(prixUnitaire, commande.quantite);
 
-                  <td>
-                    <button className="valider-btn"> Paiement en cours... </button>
-                    <button className="supprimer-btn" onClick={() => handleSupprimer(index)}>Supprimer</button>
-                  </td>
-                </tr>
+                return (
+                  <tr key={index}>
+                    <td data-label="Produit">{commande.produit}</td>
+                    <td data-label="Catégorie">{commande.categorie}</td>
+                    <td data-label="Quantité">{commande.quantite}</td>
+                    <td data-label="Prix Unitaire">{prixUnitaire} FCFA</td>
+                    <td data-label="Prix Total">{prixTotal} FCFA</td>
+                    <td>
+                      <button
+                        className="valider-btn"
+                        
+                      >
+                        Paiement en cours...
+                      </button>
+                      <button
+                        className="supprimer-btn"
+                        onClick={() => handleSupprimer(index)}
+                      >
+                        Supprimer
+                      </button>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>

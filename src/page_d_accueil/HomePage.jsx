@@ -5,6 +5,7 @@ import logoConfiguration from '../assets/logo_configuration.png';
 import logoGestionClients from '../assets/logo_gestion_clients.png';
 import logoGestionFournisseurs from '../assets/logo_gestion_fournisseurs.png';
 import logoRapports from '../assets/logo_rapports.png';
+import logostock from '../assets/logo_stock.png';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
@@ -12,32 +13,51 @@ function HomePage() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
-  useEffect(() => {
-    const savedUsername = localStorage.getItem('username');
-    const allUsers = JSON.parse(localStorage.getItem('utilisateurs')) || [];
 
-    if (!savedUsername) {
-      navigate('/');
+
+  useEffect(() => {
+  const savedUsername = localStorage.getItem('username');
+  const allUsers = JSON.parse(localStorage.getItem('utilisateurs')) || [];
+
+  if (!savedUsername) {
+    navigate('/');
+  } else {
+    const matchedUser = allUsers.find(u => u.nom === savedUsername);
+    if (matchedUser) {
+      setCurrentUser(matchedUser); // ✅ contient aussi les modules
     } else {
-      const matchedUser = allUsers.find(u => u.nom === savedUsername);
-      if (matchedUser) {
-        setCurrentUser(matchedUser);
-      } else {
-        alert("Utilisateur non trouvé !");
-        navigate('/');
-      }
+      alert("Utilisateur non trouvé !");
+      navigate('/');
     }
-  }, [navigate]);
+  }
+}, [navigate]);
+
+
 
   const handleModuleClick = (path) => {
     navigate(path);
   };
 
-  const handleLogout = () => {
-    alert('Déconnexion...');
-    localStorage.removeItem('username');
-    navigate('/');
-  };
+ 
+
+  const handleLogout = async () => {
+  const logId = localStorage.getItem('log_id');
+
+  if (logId) {
+    try {
+      await fetch('http://localhost:8000/api/connexions/logout/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ log_id: logId }),
+      });
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion :", error);
+    }
+  }
+
+  localStorage.clear();
+  navigate('/');
+};
 
   const hasAccessTo = (moduleName) => {
     return currentUser?.modules?.includes(moduleName);
@@ -103,6 +123,15 @@ function HomePage() {
               <p>Rapports</p>
             </div>
           )}
+
+          {hasAccessTo("Gestion stocks") && (
+            <div className="module-box" onClick={() => handleModuleClick('/gestion_stocks')}>
+              <img src={logostock} alt="Module Gestion" className="module-logo" />
+              <h3>Stock</h3>
+              <p>Stocks</p>
+            </div>
+          )}
+
 
           {hasAccessTo("Configuration") && (
             <div className="module-box" onClick={() => handleModuleClick('/configuration')}>

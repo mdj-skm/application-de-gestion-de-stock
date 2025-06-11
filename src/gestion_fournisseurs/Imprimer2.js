@@ -9,13 +9,21 @@ const Imprimer = () => {
   const { 
     commandeImpression, 
     commandesImprimees, 
-    ajouterCommandeImprimee 
+    ajouterCommandeImprimee, 
+    setCommandeImpression 
   } = useContext(CommandeContext);
   
   useEffect(() => {
-    if (commandeImpression) {
-      console.log('Commande à imprimer :', commandeImpression);
+    console.log("Composant Imprimer2 monté");
+    if (!commandeImpression) {
+    const saved = localStorage.getItem("commandeImpression");
+    if (saved) {
+      console.log("Commande récupérée depuis localStorage:", JSON.parse(saved));
+      setCommandeImpression(JSON.parse(saved));
     }
+  } else {
+    console.log('Commande à imprimer :', commandeImpression);
+  }
   }, [commandeImpression]);
 
   
@@ -59,12 +67,14 @@ const Imprimer = () => {
     if (commandeImpression) {
       genererPDF(commandeImpression);
       ajouterCommandeImprimee(commandeImpression);
+      alert('Commande imprimée avec succès.');
     }
   };
   // Pour réimprimer une commande déjà imprimée
   const handleReimprimer = (commande) => {
     genererPDF(commande);
   };
+  console.log('commandeImpression dans Imprimer:', commandeImpression);
 
 
   return (
@@ -81,6 +91,7 @@ const Imprimer = () => {
           <div>
             <p>Voici le reçu de la commande :</p>
             <table>
+              <tbody>
               <tr>
                 <td>Produit:</td>
                 <td>{commandeImpression.produit}</td>
@@ -101,6 +112,7 @@ const Imprimer = () => {
                 <td>Prix Total:</td>
                 <td>{commandeImpression.prixTotal} FCFA</td>
               </tr>
+              </tbody>
             </table>
             <button onClick={handleImprimer}>Imprimer en PDF</button>
           </div>

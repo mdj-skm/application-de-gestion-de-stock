@@ -254,7 +254,14 @@
   background-color: #005f75;
   transform: scale(1.05);
 }
+
+
+
+
+
+
 @media print {
+  /* Cacher tout sauf la zone d'impression */
   body * {
     visibility: hidden;
   }
@@ -268,63 +275,52 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: white;
-    padding: 20px;
   }
 
-  .print-button {
-    display: none;
-  }
-}
-/* Éviter les coupures du tableau à l'impression */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  .print-area, .print-area * {
-    visibility: visible;
-  }
-
-  .print-area {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    padding: 20px;
-    page-break-inside: avoid;
-  }
-
+  /* Style complet pour tableau */
   .rapport-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100% !important;
+    border-collapse: collapse !important;
     page-break-inside: avoid;
-    break-inside: avoid;
+    font-size: 12pt;
   }
 
-  .rapport-table th, .rapport-table td {
-    border: 1px solid black;
-    padding: 5px;
-    font-size: 12px;
+  /* Style pour les entêtes <th> */
+  .rapport-table th {
+    border: 1px solid #000 !important;
+    padding: 8px 10px !important;
+    background-color: #f0f0f0 !important; /* Fond gris clair pour distinguer */
+    font-weight: bold !important;
+    text-align: left !important;
+    vertical-align: middle !important;
   }
 
-  .print-button {
-    display: none;
+  /* Style pour les cellules <td> */
+  .rapport-table td {
+    border: 1px solid #000 !important;
+    padding: 6px 10px !important;
+    text-align: left !important;
+    vertical-align: middle !important;
+  }
+
+  /* Empêcher la coupure de ligne au milieu */
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* Style général */
+  body {
+    font-family: Arial, sans-serif;
+    color: #000;
+    background: #fff;
+    margin: 1cm;
+  }
+
+  /* Cacher les éléments non imprimables */
+  button, select, input, .rapport-sidebar, .filter-bar, .nav-button, .nav-acceuil {
+    display: none !important;
   }
 }
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .print-area, .print-area * {
-    visibility: visible;
-  }
-  .print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-}
+
+
 

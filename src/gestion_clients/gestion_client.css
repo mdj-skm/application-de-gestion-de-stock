@@ -7,14 +7,21 @@
 /* Sidebar */
 .gc-sidebar {
   background-color: #ec7d31;
-  width: 200px;
-  padding: 50px;
+  width: 180px;
+  height: 100vh; /* pour qu’elle occupe toute la hauteur de l'écran */
+  padding: 50px 20px;
   color: #ec7d31;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: fixed; /* REND LA SIDEBAR FIXE */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Pour qu’elle reste au-dessus du contenu si besoin */
 }
+
+
 
 .user-info {
   text-align: center;
@@ -86,6 +93,7 @@
   margin-left: 0px;
   margin-right: -30px;
   padding: 100px 30px 30px;
+  margin-left: 200px; /* même largeur que la sidebar */
 }
 
 .top-bar {
@@ -234,14 +242,27 @@
 .data-display li p strong {
   font-weight: bold;
 }
+
+
+
+
+.table-container {
+  max-height: calc(100vh - 180px); /* Ajuste selon la hauteur du header */
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .client-table {
   width: 100%;
-  border-collapse: collapse; /* Supprime les espaces entre les cellules */
-  margin-top: 20px;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 13px; /* Réduction taille du texte */
 }
 
 .client-table th, .client-table td {
-  padding: 20px;
+  padding: 10px 12px; /* Moins de padding */
   text-align: left;
   border: 1px solid #ddd;
 }
@@ -257,65 +278,62 @@
 
 .client-table tr:nth-child(even) {
   background-color: #f9f9f9;
-  margin-left: 200px;
-  margin-right: 100px;
 }
 
 .client-table tr:hover {
-  background-color: #f1e1c1; /* Met en surbrillance une ligne au survol */
+  background-color: #f1e1c1;
 }
 
-
+/* Formulaires et éléments utilisateur */
 .centered-select {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 15px 0;
 }
+
 .user-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .username {
   font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 4px 0;
+  font-size: 13px;
   color: #333;
 }
 
-
-.form-container{
-
-  background-color: #f3c3a2;
-  margin-left: 200px; /* Pour laisser la place à la sidebar */
-  margin-right: 0; /* Supprime l'espace à droite */
-  padding: 0px; /* Utilise une valeur positive */
-  background-color: transparent; /* Fond clair uniforme */
-  min-height: 1vh; /* Pour s'étendre sur toute la hauteur de l'écran */
-  width: calc(100% - 100px); /* Largeur = toute la page - sidebar */
-  box-sizing: border-box; /* Pour inclure le padding dans la largeur */
+.form-container {
+  margin-left: 200px;
+  padding: 0px 10px;
+  background-color: transparent;
+  min-height: 1vh;
+  width: calc(100% - 200px);
+  box-sizing: border-box;
   
 }
 
 select {
-  padding: 8px;
-  border-radius: 10px;
+  padding: 6px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: 13px;
   background-color: white;
-  width: 100%; /* S'adapte à la largeur de la cellule */
-  box-sizing: border-box; /* Pour que padding ne déborde pas */
+  width: 100%;
+  box-sizing: border-box;
 }
+
+/* Actions boutons */
 .action-button {
-  width: 80px;
-  height: 30px;
-  margin: 0 5px;
+  width: 70px;
+  height: 28px;
+  margin: 0 4px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .edit-button {
@@ -326,4 +344,35 @@ select {
 .delete-button {
   background-color: #f44336;
   color: white;
+}
+
+
+
+
+
+@media (max-width: 600px) {
+  .table-container {
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+
+  .client-table {
+    font-size: 12px;
+  }
+
+  .client-table th,
+  .client-table td {
+    padding: 8px 10px;
+  }
+
+  .action-button {
+    width: 60px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  select {
+    font-size: 12px;
+    padding: 5px;
+  }
 }

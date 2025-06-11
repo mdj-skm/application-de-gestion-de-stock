@@ -1,0 +1,116 @@
+
+
+
+
+/* Container principal */
+
+
+
+.header2 {
+  height: 100px;
+  background-color: #f3c3a2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky; /* reste visible en haut */
+  top: 0;
+  z-index: 10;
+}
+
+
+
+/* Contenu principal */
+.module-content2 {
+  max-width: 900px;
+  height: calc(100vh - 100px); /* ou ajuste selon la taille de ton header */
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto; /* C’est ce qui permet le défilement */
+  transform: translateX(-10%);
+}
+
+
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Tableau */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin: 0 auto; /* Centrage du tableau */
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+td {
+  color: #333;
+}
+
+/* Bouton */
+button {
+  padding: 10px 20px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #2ecc71;
+}
+
+/* Mobile */
+/* Mobile */
+@media (max-width: 768px) {
+  .module-content {
+    max-width: 90%; /* rétrécit pour petit écran */
+    margin: 0 auto;
+    transform: translateX(-5%); /* petit décalage à gauche */
+    padding: 15px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  table th, table td {
+    padding: 8px;
+  }
+}
+
+/* Très petit écran */
+@media (max-width: 480px) {
+  .module-content {
+    max-width: 95%;
+    margin: 0 auto;
+    transform: translateX(-3%); /* très léger décalage à gauche */
+    padding: 10px;
+  }
+
+  table {
+    font-size: 0.8rem;
+    overflow-x: auto;
+    display: block;
+  }
+
+  table th, table td {
+    padding: 6px;
+  }
+}
+

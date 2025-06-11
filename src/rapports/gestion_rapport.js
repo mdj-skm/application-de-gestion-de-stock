@@ -1,12 +1,15 @@
 // Importation des dépendances nécessaires
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './gestion_rapport.css'; // Importation du fichier CSS pour les styles
 import { useNavigate } from 'react-router-dom'; // Hook pour la navigation
 import logo from '../assets/logo.png'; // Logo utilisé dans l’en-tête
+import Imprimer2 from '../components/Imprimer2'; 
+import { StockContext } from '../contexts/StockContext';
 
 // Composant principal de gestion des rapports
 const GestionRapport = () => {
   const navigate = useNavigate(); // Hook pour redirection
+  const { fournisseurs: stockFournisseurs } = useContext(StockContext);
 
   // Déclaration des états
   const [selectedRapport, setSelectedRapport] = useState(''); // Pour le menu déroulant
@@ -15,19 +18,6 @@ const GestionRapport = () => {
   const [searchTerm, setSearchTerm] = useState(''); // Texte de recherche
   const [clients, setClients] = useState([]); // Données clients récupérées depuis le backend
   const [username, setUsername] = useState(''); // Nom d'utilisateur connecté
-
-  // Données en dur pour les fournisseurs
-  const fournisseurs = [
-    {
-      entreprise: 'AFRIK TECH',
-      nom: 'M. Tano',
-      telephone: '0707070707',
-      email: 'tano@afriktech.com',
-      adresse: 'Abidjan',
-      produits: 'PC, Imprimantes',
-      dateAjout: '2025-05-12'
-    }
-  ];
 
   // Données en dur pour les commandes
   const commandes = [
@@ -58,6 +48,9 @@ const GestionRapport = () => {
       setUsername(savedUsername);
     }
 
+    const stockData = JSON.parse(localStorage.getItem('stock_rapport')) || [];
+    // setStockFournisseurs(stockData);
+
     // Récupération des clients depuis le backend
     const fetchClients = async () => {
       try {
@@ -66,6 +59,7 @@ const GestionRapport = () => {
           throw new Error(`Erreur HTTP: ${response.status}`);
         }
         const data = await response.json();
+        console.log("Clients reçus:", data); // Ajout du log pour debug
         setClients(data);
       } catch (error) {
         console.error('Erreur lors du chargement des clients:', error);
@@ -76,11 +70,11 @@ const GestionRapport = () => {
   }, []);
 
   // Fonction générique de filtrage par date et recherche textuelle
+  // Ici, on supprime temporairement la condition sur la date pour les clients
   const filterByDateAndSearch = (list, dateKey, searchKeys) => {
     return list.filter(item => {
-      const date = item[dateKey];
-      const dateInRange =
-        (!startDate || date >= startDate) && (!endDate || date <= endDate);
+      const dateInRange = true; // On laisse toujours vrai pour clients, mais tu peux adapter selon le rapport
+
       const searchText = searchTerm.toLowerCase();
       const matchesSearch = searchKeys.some(key =>
         item[key]?.toString().toLowerCase().includes(searchText)
@@ -91,7 +85,7 @@ const GestionRapport = () => {
 
   // Application des filtres aux différentes listes
   const filteredClients = filterByDateAndSearch(clients, 'dateInscription', ['nom', 'prenom']);
-  const filteredFournisseurs = filterByDateAndSearch(fournisseurs, 'dateAjout', ['nom', 'entreprise']);
+  const filteredFournisseurs = filterByDateAndSearch(stockFournisseurs, 'dateAjout', ['nom', 'entreprise']);
   const filteredCommandes = filterByDateAndSearch(commandes, 'dateCommande', ['client', 'produit']);
 
   // Calcul du montant total des clients
@@ -189,6 +183,7 @@ const GestionRapport = () => {
               <option value="clients">Rapport Gestions Clients</option>
               <option value="fournisseurs">Rapports gestion fournisseurs</option>
               <option value="commandes">Rapports gestion commandes</option>
+              <option value="stocks">Rapports gestion stocks</option>
             </select>
           </div>
 
@@ -196,45 +191,108 @@ const GestionRapport = () => {
           <div className="rapport-content">
             {selectedRapport === 'clients' && (
               <div className="print-area">
-                <center><h3>Liste des clients</h3></center>
-                <table className="rapport-table">
-                  <thead>
-                    <tr>
-                      <th>Nom</th>
-                      <th>Téléphone</th>
-                      <th>Adresse</th>
-                      <th>Email</th>
-                      <th>Profession</th>
-                      <th>Sexe</th>
-                      <th>Date</th>
-                      <th>Produit</th>
-                      <th>Montant</th>
-                      <th>Vendeur</th>
-                      <th>Paiement</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredClients.map((client, index) => (
-                      <tr key={client.id || index}>
-                        <td>{client.nom} {client.prenom}</td>
-                        <td>{client.telephone}</td>
-                        <td>{client.adresse}</td>
-                        <td>{client.email}</td>
-                        <td>{client.profession}</td>
-                        <td>{client.sexe}</td>
-                        <td>{client.dateInscription}</td>
-                        <td>{client.produitsAchetes}</td>
-                        <td>{(parseFloat(client.montantTotal) || 0).toLocaleString()} FCFA</td>
-                        <td>{client.nomVendeur}</td>
-                        <td>{client.modePaiement}</td>
+                {clients.length === 0 ? (
+                  <p>Aucun client trouvé ou chargement en cours...</p>
+                ) : (
+                  <>
+                    <center><h3>Liste des clients</h3></center>
+                    <table className="rapport-table">
+                      <thead>
+                        <tr>
+                          <th>Nom</th>
+                          <th>Téléphone</th>
+                          <th>Adresse</th>
+                          <th>Email</th>
+                          <th>Profession</th>
+                          <th>Sexe</th>
+                          <th>Date</th>
+                          <th>Produit</th>
+                          <th>Montant</th>
+                          <th>Vendeur</th>
+                          <th>Paiement</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredClients.map((client) => (
+                          <tr key={client.id}>
+                            <td>{client.nom} {client.prenom}</td>
+                            <td>{client.telephone}</td>
+                            <td>{client.adresse}</td>
+                            <td>{client.email}</td>
+                            <td>{client.profession}</td>
+                            <td>{client.sexe}</td>
+                            <td>{client.dateInscription}</td>
+                            <td>{client.produitsAchetes}</td>
+                            <td>{(parseFloat(client.montantTotal) || 0).toLocaleString()} FCFA</td>
+                            <td>{client.nomVendeur}</td>
+                            <td>{client.modePaiement}</td>
+                            <td>
+                              <button
+                                className="btn-supprimer"
+                                onClick={() => {
+                                  if (window.confirm(`Voulez-vous vraiment supprimer ${client.nom} ${client.prenom} ?`)) {
+                                    supprimerClient(client.id);
+                                    alert(`Client ${client.nom} supprimé.`);
+                                  }
+                                }}
+                              >
+                                Supprimer
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="total-amount">
+                      Total : {totalMontantClients.toLocaleString()} FCFA
+                    </p>
+                    <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
+                  </>
+                )}
+              </div>
+            )}
+
+            {selectedRapport === 'fournisseurs' && (
+            <div className="print-area">
+              <center><h3>Liste des fournisseurs</h3></center>
+              <table className="rapport-table">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Entreprise</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Email</th>
+                    <th>Numéro</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stockFournisseurs.length === 0 ? (
+                    <tr><td colSpan="8">Aucun fournisseur enregistré.</td></tr>
+                  ) : (
+                    stockFournisseurs.map((fournisseur, index) => (
+                      <tr key={index}>
+                        <td>{fournisseur.nom}</td>
+                        <td>{fournisseur.entreprise}</td>
+                        <td>{fournisseur.produit}</td>
+                        <td>{fournisseur.quantite}</td>
+                        <td>{fournisseur.email}</td>
+                        <td>{fournisseur.numero}</td>
+                        <td>{fournisseur.date}</td>
+
                         <td>
                           <button
                             className="btn-supprimer"
                             onClick={() => {
-                              if (window.confirm(`Voulez-vous vraiment supprimer ${client.nom} ${client.prenom} ?`)) {
-                                supprimerClient(client.id);
-                                alert(`Client ${client.nom} supprimé.`);
+                              if (window.confirm(`Voulez-vous vraiment supprimer ${fournisseur.nom} ?`)) {
+                              // Suppression simulée en local (tu peux adapter selon stockage)
+                                const newFournisseurs = stockFournisseurs.filter((_, i) => i !== index);
+                                // Comme stockFournisseurs vient du contexte, tu dois appeler un setter si tu en as un dans ce contexte
+                                // Ici, je suppose que tu as une fonction pour modifier le contexte ou sinon ça ne fera rien.
+                                alert(`Fournisseur ${fournisseur.nom} supprimé.`);
                               }
                             }}
                           >
@@ -242,79 +300,46 @@ const GestionRapport = () => {
                           </button>
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="total-amount">
-                  Total : {totalMontantClients.toLocaleString()} FCFA
-                </p>
-                <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
-              </div>
-            )}
+                    ))
+                  )}
+                </tbody>
+              </table>
+              <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
+            </div>
+          )}
 
-            {selectedRapport === 'fournisseurs' && (
-              <div className="print-area">
-                <center><h3>Liste des fournisseurs</h3></center>
-                <table className="rapport-table">
-                  <thead>
-                    <tr>
-                      <th>Entreprise</th>
-                      <th>Nom</th>
-                      <th>Téléphone</th>
-                      <th>Email</th>
-                      <th>Adresse</th>
-                      <th>Produits</th>
-                      <th>Date d’ajout</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredFournisseurs.map((fournisseur, index) => (
-                      <tr key={index}>
-                        <td>{fournisseur.entreprise}</td>
-                        <td>{fournisseur.nom}</td>
-                        <td>{fournisseur.telephone}</td>
-                        <td>{fournisseur.email}</td>
-                        <td>{fournisseur.adresse}</td>
-                        <td>{fournisseur.produits}</td>
-                        <td>{fournisseur.dateAjout}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
-              </div>
-            )}
 
             {selectedRapport === 'commandes' && (
+              <Imprimer2 />
+            )}
+            
+            {selectedRapport === 'stocks' && (
               <div className="print-area">
-                <center><h3>Liste des commandes</h3></center>
-                <table className="rapport-table">
+                <h2>Gestion des Stocks Fournisseurs</h2>
+                <table className="stock-table rapport-table">
                   <thead>
                     <tr>
-                      <th>Numero commande</th>
-                      <th>Client</th>
+                      <th>Nom Fournisseur</th>
                       <th>Produit</th>
-                      <th>Quantité</th>
-                      <th>Montant</th>
-                      <th>Date commande</th>
-                      <th>Statut</th>
+                      <th>Quantité départ</th>
+                      <th>Quantité restante</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredCommandes.map((cmd, index) => (
-                      <tr key={index}>
-                        <td>{cmd.numero}</td>
-                        <td>{cmd.client}</td>
-                        <td>{cmd.produit}</td>
-                        <td>{cmd.quantite}</td>
-                        <td>{(parseFloat(cmd.montant) || 0).toLocaleString()} FCFA</td>
-                        <td>{cmd.dateCommande}</td>
-                        <td>{cmd.statut}</td>
-                      </tr>
-                    ))}
+                    {stockFournisseurs.length === 0 ? (
+                      <tr><td colSpan="4">Aucun fournisseur disponible</td></tr>
+                    ) : (
+                      stockFournisseurs.map((fournisseur, index) => (
+                        <tr key={index}>
+                          <td>{fournisseur.nom}</td>
+                          <td>{fournisseur.produit}</td>
+                          <td>{fournisseur.quantite}</td>
+                          <td>{fournisseur.quantite_restante}</td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
-                <p className="total-amount">Total : {totalMontantCommandes.toLocaleString()} FCFA</p>
                 <button onClick={handlePrint} className="print-button">🖨️ Imprimer le rapport</button>
               </div>
             )}

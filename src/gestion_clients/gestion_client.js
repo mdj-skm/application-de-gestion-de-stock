@@ -189,7 +189,7 @@ const GestionClient = () => {
       {/* Contenu principal */}
       <main className="gc-main-content">
         <div className="top-bar">
-          <h2>GESTION CLIENTS</h2>
+          <h2 className="top-title">GESTION CLIENTS</h2>
         </div>
 
         {/* Barre de filtres */}
@@ -232,7 +232,8 @@ const GestionClient = () => {
           <div className="form-container2">
             <h3><center>Ajouter un client</center></h3>
             <form onSubmit={handleSubmit}>
-              <table>
+              <div class="table-container">
+              <table class="client-table">
                 <tbody>
                   <tr>
                     <td><label>Nom :</label></td>
@@ -293,6 +294,7 @@ const GestionClient = () => {
                   </tr>
                 </tbody>
               </table>
+              </div>
               <button type="submit">Ajouter Client</button>
             </form>
           </div>

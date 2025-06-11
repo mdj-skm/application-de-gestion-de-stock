@@ -1,31 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import './LoginPage.css';
-import logo from '../assets/logo.png'; // Ajoute ton logo ici
-
-
+import logo from '../assets/logo.png';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
- const handleLogin = () => {
-  const savedUsers = JSON.parse(localStorage.getItem('utilisateurs')) || [];
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/configuration/login_custom/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
 
-  const userFound = savedUsers.find(
-    (user) =>
-      user.nom === username && user.motDePasse === password
-  );
+      const data = await response.json();
 
-  if (userFound) {
-    localStorage.setItem('username', username); // utile pour l'affichage
-    navigate('./page_d_accueil');
-  } else {
-    alert("Nom d'utilisateur ou mot de passe incorrect !");
-  }
-};
+      if (response.ok) {
+  localStorage.setItem('username', username);
+  localStorage.setItem('user_data', JSON.stringify(data.user));
+  localStorage.setItem('utilisateurs', JSON.stringify([data.user])); // <-- important
+  navigate('/page_d_accueil');
+}
 
+ else {
+        alert(data.message || "Nom d'utilisateur ou mot de passe incorrect !");
+      }
+    } catch (error) {
+      alert("Erreur lors de la connexion. Veuillez réessayer plus tard.");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -60,4 +67,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginPage;

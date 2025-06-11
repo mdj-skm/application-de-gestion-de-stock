@@ -5,6 +5,7 @@ class Fournisseur(models.Model):
     entreprise = models.CharField(max_length=100)
     produit = models.CharField(max_length=100)
     quantite = models.IntegerField()
+    quantite_restante = models.IntegerField(default=0) 
     email = models.EmailField()
     numero = models.CharField(max_length=20)
     date = models.DateField()

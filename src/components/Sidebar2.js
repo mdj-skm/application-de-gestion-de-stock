@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useContext,useState, useEffect } from 'react'; 
+import { CommandeContext } from '../contexts/CommandeContext';
 import './Sidebar2.css'; 
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+  const { viderCommandesAImprimer } = useContext(CommandeContext); 
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
@@ -23,8 +25,8 @@ const Sidebar = () => {
         <button className="btn" onClick={() => navigate('/commandes_livrees2')}>Commande effectuée</button>
         <button className="btn" onClick={() => navigate('/imprimer2')}>Imprimé</button>
         <button className="btn" onClick={() => navigate('/historique2')}>Voir Historique</button>
-        <button className="btn">Réinitialiser</button>
-      {/* <button onClick={() => window.location.reload()}>Reinitialise</button> */}
+        <button className="btn" onClick={() => viderCommandesAImprimer()}>Réinitialiser</button> 
+      
     </div>
   );
 };

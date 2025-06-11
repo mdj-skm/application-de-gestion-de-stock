@@ -5,14 +5,19 @@ import './CommandesEnCours2.css';
 import logo from '../assets/logo.png';
 
 const CommandesEnCours = () => {
-  const { commandes, validerCommande } = useContext(CommandeContext);
+  const { commandes, validerCommande, viderCommandesAImprimer, supprimerCommande } = useContext(CommandeContext);
   const [module, setModule] = useState("en cours");
 
   const handleValider = (index) => {
     validerCommande(index);
   };
 
-   // Fonction pour calculer le prix total
+  const handleSupprimer = (index) => {
+    supprimerCommande(index);
+    viderCommandesAImprimer(); // <-- Vide aussi les fichiers à imprimer
+  };
+
+  // Fonction pour calculer le prix total
   const calculatePrixTotal = (prixUnitaire, quantite) => {
     return prixUnitaire * quantite;
   };
@@ -44,21 +49,23 @@ const CommandesEnCours = () => {
             </thead>
             <tbody>
               {commandes.map((commande, index) => {
-                const prixTotal = calculatePrixTotal(commande.prixUnitaire, commande.quantite); // Calcul dynamique du prix total
-                return (
-                <tr key={index}>
-                  <td data-label="Produit">{commande.produit}</td>
-                  <td data-label="Catégorie">{commande.categorie}</td>
-                  <td data-label="Quantité">{commande.quantite}</td>
-                  <td data-label="Prix Unitaire">{commande.prixUnitaire} FCFA</td>
-                  <td data-label="Prix Total">{commande.prixTotal} FCFA</td>
+                const prixUnitaire = commande.prixUnitaire ?? commande.prix_unitaire ?? 0;
+                const prixTotal = commande.prixTotal ?? prixUnitaire * commande.quantite;
 
-                  <td>
-                    <button className="valider-btn" onClick={() => handleValider(index)}>
-                      Payé
-                    </button>
-                  </td>
-                </tr>
+
+                return (
+                  <tr key={index}>
+                    <td data-label="Produit">{commande.produit}</td>
+                    <td data-label="Catégorie">{commande.categorie}</td>
+                    <td data-label="Quantité">{commande.quantite}</td>
+                    <td data-label="Prix Unitaire">{prixUnitaire} FCFA</td>
+                    <td data-label="Prix Total">{prixTotal} FCFA</td>
+                    <td>
+                      <button className="valider-btn" onClick={() => handleValider(index)}>
+                        Payé
+                      </button>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>

@@ -9,58 +9,83 @@ export const CommandeProvider = ({ children }) => {
   const [historique, setHistorique] = useState([]);
   const [commandeImpression, setCommandeImpression] = useState(null);
 
-    // Nouvel état pour garder la liste des commandes imprimées
-   const [commandesImprimees, setCommandesImprimees] = useState(() => {
+  // Nouvel état pour garder la liste des commandes imprimées
+  const [commandesImprimees, setCommandesImprimees] = useState(() => {
     const saved = localStorage.getItem('commandesImprimees');
     return saved ? JSON.parse(saved) : [];
   });
 
-   // Garder synchronisé le localStorage à chaque changement de commandesImprimees
+  // Synchronisation localStorage commandesImprimees
   useEffect(() => {
     localStorage.setItem('commandesImprimees', JSON.stringify(commandesImprimees));
   }, [commandesImprimees]);
-  
+
+  // Ajouter une commande
   const ajouterCommande = (commande) => {
-    setCommandes([...commandes, commande]);
+    setCommandes(prev => [...prev, commande]);
     setHistorique(prev => [...prev, { ...commande, statut: 'En cours' }]);
   };
 
-  const validerCommande = (index) => {
-    const commande = commandes[index];
-    setCommandes(commandes.filter((_, i) => i !== index));
-    setCommandesValidees([...commandesValidees, commande]);
-    setHistorique(prev => [...prev, { ...commande, statut: 'Validée' }]);
+  // Vider toutes les commandes à imprimer (réinitialiser)
+  const viderCommandesAImprimer = () => {
+    setCommandeImpression(null);
+    setCommandesImprimees([]);
+    localStorage.removeItem('commandeImpression');
+    localStorage.removeItem('commandesImprimees');
   };
 
+  // Valider une commande
+  const validerCommande = (index) => {
+    const commande = commandes[index];
+    const prixUnitaire = commande.prixUnitaire ?? commande.prix_unitaire ?? 0;
+    const prixTotal = prixUnitaire * commande.quantite;
+
+    const commandeAvecPrix = {
+      ...commande,
+      prixUnitaire,
+      prixTotal,
+    };
+
+    setCommandes(prev => prev.filter((_, i) => i !== index));
+    setCommandesValidees(prev => [...prev, commandeAvecPrix]);
+    setHistorique(prev => [...prev, { ...commandeAvecPrix, statut: 'Validée' }]);
+  };
+
+  // Livrer une commande
   const livrerCommande = (index) => {
     const commande = commandesValidees[index];
-    setCommandesValidees(commandesValidees.filter((_, i) => i !== index));
-    setCommandesLivrees([...commandesLivrees, commande]);
+    setCommandesValidees(prev => prev.filter((_, i) => i !== index));
+    setCommandesLivrees(prev => [...prev, commande]);
     setHistorique(prev => [...prev, { ...commande, statut: 'Livrée' }]);
     setCommandeImpression(commande);
   };
 
+  // Supprimer une commande (en cours)
   const supprimerCommande = (index) => {
-  setCommandes(prevCommandes => prevCommandes.filter((_, i) => i !== index));
+    setCommandes(prev => prev.filter((_, i) => i !== index));
   };
 
-
-  // Fonction pour ajouter une commande à la liste des imprimées
+  // Ajouter une commande à la liste des commandes imprimées
   const ajouterCommandeImprimee = (commande) => {
     setCommandesImprimees(prev => [...prev, commande]);
   };
 
   return (
     <CommandeContext.Provider value={{
-        commandesValidees,
-        commandeImpression,
-        commandesImprimees,       // expose la liste des commandes imprimées
-        ajouterCommandeImprimee,  // expose la fonction pour ajouter une commande imprimée
-        setCommandeImpression, // Permet de définir la commande à imprimer
-        livrerCommande,
+      commandes,
+      commandesValidees,
+      commandesLivrees,
+      historique,
+      commandeImpression,
+      commandesImprimees,
 
-      commandes, commandesValidees, commandesLivrees, historique,
-      ajouterCommande, validerCommande, supprimerCommande, livrerCommande
+      ajouterCommande,
+      validerCommande,
+      supprimerCommande,
+      livrerCommande,
+      ajouterCommandeImprimee,
+      setCommandeImpression,
+      viderCommandesAImprimer,
     }}>
       {children}
     </CommandeContext.Provider>
