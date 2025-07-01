@@ -1,97 +1,292 @@
-/* Structure générale */
-.login-container {
-    display: flex;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
+/* === Conteneur principal === */
+.login-containerL {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #fefefe, #f5f5f5);
+  overflow: hidden;
+}
+
+/* === Sidebar === */
+.sidebarL {
+ position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
+}
+
+
+
+
+
+/* === Contenu principal === */
+.blockL {
+  margin-left: 250px;
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 110vh; 
+  /* margin: 0px ; */
+  background-color: #ffc7c7;
+}
+
+/* === En-tête avec logo === */
+.headerL {
+  background-color: #ffc7c7;
+    border: 5px solid #eee8e8;
+    border: 3px dashed #007bff; /* bordure bleue en pointillés */
+    border-radius: 8px; /* coins arrondis */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    animation: slideDown 1s ease; /*animation du logo */
+}
+
+.logo {
+  height: 60px;
+  animation: float 3s ease-in-out infinite;
+}
+
+
+/* debut icone de la sidebar  */
+.profile-iconL {
+  font-size: 50px;
+  color: white;
+  height: 80px;         /* hauteur adaptée au font-size */
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;   /* rond si c’est une icône circulaire */
+  background-color: #444; /* optionnel, contraste */
+  margin-bottom: 10px;  /* espace sous l’icône */
+  flex-shrink: 0;
+}
+/* fin icone de la sidebar  */
+
+.company-nameL h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Formulaire === */
+.login-form {
+  width: 100%;
+  max-width: 480px;
+  background: #ffc7c7;
+  padding: 40px 50px;
+  border-radius: 16px;
   
-  /* Barre latérale orange */
-  .sidebar {
-    width: 15%;
-    background-color: #ec7d31;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;              /* grand espace entre les éléments */
   
-  .profile-icon {
-    font-size: 50px;
-    color: white;
-    margin-top: -800px;
-    height: 800px;
-  }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-form h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+/* Conteneur du formulaire, centré verticalement & horizontalement */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centre verticalement */
+  align-items: center;     /* centre horizontalement */
+  height: 100vh;           /* pleine hauteur de la page */
+  padding: 20px;
   
-  /* Partie droite */
-  .main-content {
-    width: 85%;
-    background-color: #fef1d5;
-    display: flex;
+  background-color: #ffc7c7;  /* optionnel, pour mieux voir le formulaire */
+}
+
+/* Styles des inputs */
+.login-form input {
+  width: 100%;
+  max-width: 400px;        /* max largeur raisonnable */
+  margin-bottom: 20px;     /* espace entre les champs */
+  padding: 18px 20px;
+  font-size: 20px;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Animation au focus */
+.login-form input:focus {
+  border-color: #ec7d31;
+  box-shadow: 0 0 12px rgba(236, 125, 49, 0.5);
+  outline: none;
+  transform: scale(1.05); /* léger zoom */
+}
+
+/* Styles du bouton */
+.login-form button {
+  width: 100%;
+  max-width: 400px;
+  padding: 18px 20px;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  background-color: #ec7d31;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Animation au hover du bouton */
+.login-form button:hover {
+  background-color: #d6601f;
+  box-shadow: 0 4px 15px rgba(214, 96, 31, 0.7);
+  transform: scale(1.05); /* léger zoom */
+}
+
+
+
+ /* === RESPONSIVE === */
+@media (max-width: 880px) {
+  .sidebarL {
+    width: 300px; /* taille minimale pour éviter le chevauchement */
+  }
+
+  .main-content2 {
+    margin-left: 180px; /* égale à la sidebar */
+    width: calc(100% - 180px);
+  }
+}
+@media (max-width: 690px) {
+  .sidebarL {
+    width: 250px; /* taille minimale pour éviter le chevauchement */
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebarL {
+    width: 250px;
+  }
+
+  .main-content2 {
+    margin-left: 180px;
+    width: calc(100% - 150px);
+  }
+}
+
+
+
+
+/* === Animations === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .login-containerL {
     flex-direction: column;
-    align-items: center;
-    padding-top: 30px;
   }
+
   
-  /* En-tête */
-  .header {
-    background-color: #f3c7a3;
+
+  .blockL {
     width: 100%;
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    background-color: #f3c7a3;
-    
-  }
-  
-  .logo {
-  width: 100px;
-  height: auto;
-  margin: 0 auto; 
-  background-color: transparent;
-  
-  }
-  
-  .company-name {
-    
-    padding: 50px;
-    font-weight: bold;
-    background-color: transparent;
-    color: white;
-    margin-left: 20px;
-    letter-spacing: 10px;
-  }
-  
-  /* Formulaire de connexion */
-  .login-form {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .login-form h2 {
-    margin-bottom: 20px;
-  }
-  
-  .login-form input {
-    margin: 10px 0;
     padding: 20px;
-    border-radius: 20px;
-    border: 3px solid black;
-    width: 300px;
+  }
+
+  .headerL {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .company-nameL h1 {
+    font-size: 28px;
     text-align: center;
   }
-  
+}
+
+
+/* Responsive : écrans moyens (tablettes) */
+@media (max-width: 1024px) {
+  .blockL {
+    margin-left: 150px;
+    padding: 1.5rem;
+    min-height: 100vh;
+  }
+}
+
+/* Responsive : petits écrans (mobiles) */
+@media (max-width: 400px) {
+  .blockL {
+    margin-left: 0px;       /* Supprime toute marge inutile */
+    padding: 0.5rem;        /* Réduit l'espace intérieur */
+    width: 100%;            /* Prend toute la largeur disponible */
+    transform: scale(0.9);  /* Réduit visuellement la taille du contenu */
+    transform-origin: top center; /* Centre la réduction vers le haut */
+    min-height: auto;
+    text-align: center;     /* Centre le texte si besoin */
+  }
+}
+
+
+@media (max-width: 550px) {
+  .login-form input,
   .login-form button {
-    margin-top: 30px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: 3px solid black;
-    background-color: orange;
-    cursor: pointer;
+    max-width: 65%;         /* presque toute la largeur */
+    font-size: 14px;        /* texte plus petit */
+    padding: 10px 14px;     /* moins de padding */
+    margin-bottom: 12px;    /* espace réduit entre les champs */
   }
-  .login-form button:hover {
-    transform: scale(1.05); /* Légèrement plus grand */
+  .login-form h2 {
+    max-width: 50%;         /* presque toute la largeur */
+    font-size: 24px;        /* texte plus petit */
+    padding: 1px 14px;     /* moins de padding */
+    margin-bottom: 12px;    /* espace réduit entre les champs */
   }
-  
+
+  .login-form {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

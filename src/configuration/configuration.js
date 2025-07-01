@@ -9,12 +9,16 @@ import logo from '../assets/logo.png';
 
 
 const modules = [
-  "Gestion client",
-  "Gestion commande",
   "Gestion fournisseurs",
+  "Gestion commande",
+  "gestion caisse",
+  "Gestion client",
   "Gestion stocks",
+  "Gestion corbeil",
+  "Rapport",
+  "Gestion statistiques",
   "Configuration",
-  "Rapport"
+  "Gestion utilisateurs",
 ];
 
 // Composant pour afficher les checkboxes des modules

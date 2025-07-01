@@ -1,0 +1,14 @@
+.bienvenue-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #4facfe 0%, #00F2FE 100%);
+}
+
+.bienvenue-texte {
+font-size: 3rem;
+color: white;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+text-shadow: 2px 2px 5px rgba(red, green, blue, alpha);
+}

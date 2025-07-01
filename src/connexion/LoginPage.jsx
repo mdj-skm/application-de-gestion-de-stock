@@ -8,46 +8,29 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/api/configuration/login_custom/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
+  const handleLogin = () => {
+    // On stocke juste un nom d’utilisateur pour l’exemple
+    localStorage.setItem('username', username);
 
-      const data = await response.json();
-
-      if (response.ok) {
-  localStorage.setItem('username', username);
-  localStorage.setItem('user_data', JSON.stringify(data.user));
-  localStorage.setItem('utilisateurs', JSON.stringify([data.user])); // <-- important
-  navigate('/page_d_accueil');
-}
-
- else {
-        alert(data.message || "Nom d'utilisateur ou mot de passe incorrect !");
-      }
-    } catch (error) {
-      alert("Erreur lors de la connexion. Veuillez réessayer plus tard.");
-      console.error(error);
-    }
+    // 👉 Redirection immédiate sans aucune vérification
+    navigate('/page_d_accueil');
   };
 
   return (
-    <div className="login-container">
-      <div className="sidebar">
-        <div className="profile-icon">👤</div>
+    <div className="login-containerL">
+      <div className="sidebarL">
+        <div className="profile-iconL">👤</div>
       </div>
 
-      <div className="main-content">
-        <div className="header">
+      <div className="blockL">
+        <div className="headerL">
           <img src={logo} alt="Logo" className="logo" />
-          <div className="company-name"><h1>G.E.S</h1></div>
+          <div className="company-nameL"><h1>G.E.S</h1></div>
         </div>
 
         <div className="login-form">
           <h2>Connectez vous</h2>
+          <hr class="magic-bar" />
           <input
             type="text"
             placeholder="Nom d’utilisateur"

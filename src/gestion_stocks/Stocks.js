@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { StockContext } from '../contexts/StockContext';
 import './stock.css';
 
@@ -18,17 +18,19 @@ function Stocks() {
           </tr>
         </thead>
         <tbody>
-          {fournisseurs.length === 0 ? (
-            <tr><td colSpan="4">Aucun fournisseur disponible</td></tr>
-          ) : (
-            fournisseurs.map(fournisseur => (
-              <tr key={fournisseur.id}>
+          {fournisseurs && fournisseurs.length > 0 ? (
+            fournisseurs.map((fournisseur, index) => (
+              <tr key={index}>
                 <td>{fournisseur.nom}</td>
                 <td>{fournisseur.produit}</td>
                 <td>{fournisseur.quantite}</td>
                 <td>{fournisseur.quantite_restante}</td>
               </tr>
             ))
+          ) : (
+            <tr>
+              <td colSpan="4">Aucun fournisseur disponible</td>
+            </tr>
           )}
         </tbody>
       </table>

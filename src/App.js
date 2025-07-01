@@ -14,23 +14,29 @@ import Stocks from "./gestion_stocks/Stocks";
 import CreerCommande from "./gestion_commandes/CreerCommande";
 import GestionCommandes from "./gestion_commandes/GestionCommandes";
 import CommandesEnCours from './gestion_commandes/CommandesEnCours';
-import CommandesEnCours2 from './gestion_fournisseurs/CommandesEnCours2';
+import CommandesEnCours2 from './gestion_caisse/CommandesEnCours2';
 
 // Autres modules
 import Clients from './gestion_clients/gestion_client'; 
+import GestionCaisse from "./gestion_caisse/CommandesEnCours2";
 import GestionFournisseurs from "./gestion_fournisseurs/gestion_fournisseurs";
+import GestionCorbeil from "./gestion_corbeil/index"
+import GestionStatistiques from"./gestion_statistiques/index";
+import GestionUtilisateurs from "./gestion_utilisateurs/index";
 import Rapports from "./rapports/gestion_rapport"; 
-
 import Configuration from "./configuration/configuration";
 
+
+
+
 import CommandesValidees from './gestion_commandes/CommandesValidees';
-import CommandesValidees2 from './gestion_fournisseurs/CommandesValidees2';
+import CommandesValidees2 from './gestion_caisse/CommandesValidees2';
 import CommandesLivrees from './gestion_commandes/CommandesLivrees';
-import CommandesLivrees2 from './gestion_fournisseurs/CommandesLivrees2';
+import CommandesLivrees2 from './gestion_caisse/CommandesLivrees2';
 import Imprimer from './gestion_commandes/Imprimer';
-import Imprimer2 from './gestion_fournisseurs/Imprimer2';
+import Imprimer2 from './gestion_caisse/Imprimer2';
 import HistoriqueCommandes from './gestion_commandes/Historique';
-import HistoriqueCommandes2 from './gestion_fournisseurs/Historique2';
+import HistoriqueCommandes2 from './gestion_caisse/Historique2';
 
 // Contexte
 import { CommandeProvider } from './contexts/CommandeContext';
@@ -47,15 +53,21 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/page_d_accueil" element={<HomePage />} />
 
+          <Route path="/gestion_fournisseurs" element={
+            <PrivateRoute moduleName="Gestion fournisseurs">
+            <GestionFournisseurs />
+            </PrivateRoute>
+            }/>
+            
           <Route path="/gestion_clients" element={
             <PrivateRoute moduleName="Gestion client">
             <Clients />
             </PrivateRoute>
             }/>
 
-          <Route path="/gestion_fournisseurs" element={
-            <PrivateRoute moduleName="Gestion fournisseurs">
-            <GestionFournisseurs />
+          <Route path="/gestion_caisse" element={
+            <PrivateRoute moduleName="Gestion caisse">
+            <GestionCaisse />
             </PrivateRoute>
             }/>
 
@@ -76,6 +88,25 @@ function App() {
             <Configuration />
             </PrivateRoute>
             }/>
+
+          <Route path="gestion_corbeil" element={
+            <PrivateRoute moduleName="Gestion corbeil">
+            <GestionCorbeil />
+            </PrivateRoute>
+            }/>
+
+          <Route path="/gestion_statistiques" element={
+            <PrivateRoute moduleName="Gestion statistiques">
+            <GestionStatistiques />
+            </PrivateRoute>
+            }/>
+          
+          <Route path="/gestion_utilisateurs" element={
+            <PrivateRoute moduleName="Gestion utilisateurs">
+            <GestionUtilisateurs />
+            </PrivateRoute>
+            }/>
+
           
          <Route path="/commande/creer" element={<CreerCommande />} />
 
