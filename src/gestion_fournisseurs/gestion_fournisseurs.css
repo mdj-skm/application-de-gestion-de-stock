@@ -1,22 +1,22 @@
-/* Reset */
-body, html {
+/* gestion_fournisseurs_b.css */
+
+body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
+  background-color: #ffc7c7;
+  font-family: Arial, sans-serif;
 }
 
-/* Structure principale */
-.container {
+
+.container-b {
   display: flex;
   height: 100vh;
-  overflow: hidden;
+  width: 100%;
 }
 
-/* Sidebar */
-.sidebar {
-  background-color: #ff7f50;
+
+.sidebar-b {
+  background-color: #9350ff;
   padding: 20px;
   width: 220px;
   display: flex;
@@ -25,17 +25,17 @@ body, html {
   color: white;
 }
 
-.user-info {
+.user-info-b {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.user-icon {
+.user-icon-b {
   font-size: 40px;
   margin-bottom: 5px;
 }
 
-.status-dot {
+.status-dot-b {
   width: 10px;
   height: 10px;
   background-color: limegreen;
@@ -43,8 +43,7 @@ body, html {
   margin: 5px auto;
 }
 
-/* Main content */
-.main-content {
+.main-content-b {
   flex: 1;
   padding: 20px;
   display: flex;
@@ -52,44 +51,124 @@ body, html {
   overflow-y: auto;
 }
 
-.header {
+.header-b {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  background-color: #ffc7c7;
+  border: 6px dashed transparent;
+  border-image-slice: 1;
+  border-image-source: repeating-conic-gradient(
+    from 0deg,
+    #007bff 0deg 10deg,
+    transparent 10deg 20deg
+  );
+  animation: rotateBorder 3s linear infinite;
+}
+
+@keyframes rotateBorder {
+  0% {
+    border-image-source: repeating-conic-gradient(
+      from 0deg,
+      #007bff 0deg 10deg,
+      transparent 10deg 20deg
+    );
+  }
+  100% {
+    border-image-source: repeating-conic-gradient(
+      from 360deg,
+      #007bff 0deg 10deg,
+      transparent 10deg 20deg
+    );
+  }
+}
+
+.header-content-b {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .logo {
-  width: 100px;
-    height: auto;
-    padding: 5px;
-    margin: 0 auto;
-    display: block;
-  
+  width: 80px;
+  height: auto;
+  display: block;
 }
 
-.company-name {
-  font-size: 18px;
-  font-weight: 600;
+.company-name-b h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
 }
 
-/* Top bar */
-.top-bar {
+.top-bar-b {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 20px; /* espace doux entre le titre et les boutons */
   margin: 20px 0;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-wrap: wrap; /* autorise le passage à la ligne si l'écran est petit */
 }
 
-.actions {
+/* Style spécial pour G et F */
+.g-b {
+  color: #ff4500;
+  font-weight: bold;
+  animation: clignote 1.5s infinite;
+}
+
+.f-b {
+  color: #007bff;
+  font-weight: bold;
+  animation: clignote 1.5s infinite;
+}
+
+/* Animation clignotante */
+@keyframes clignote {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* Titre de la section Fournisseurs */
+.titre-fournisseur-b {
+  margin: 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Titre formulaire Ajouter/Modifier */
+.titre-formulaire-b {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+
+
+.top-bar-b h2 {
+  margin: 0;
+  white-space: nowrap;
+}
+
+
+
+.actions-b {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* pour garder les boutons sur une seule ligne */
+  align-items: center;
 }
 
-/* Buttons */
-.btn, .btn-sm, .btn-small {
+
+.btn-b, .btn-sm-b {
   padding: 8px 16px;
   background-color: #ff7f50;
   color: white;
@@ -99,60 +178,52 @@ body, html {
   transition: background-color 0.3s ease;
 }
 
-.btn-sm {
+.btn-sm-b {
   padding: 4px 10px;
   font-size: 12px;
 }
 
-.btn-small {
-  padding: 6px 12px;
-  font-size: 14px;
-}
-
-.btn:hover,
-.btn-sm:hover,
-.btn-small:hover {
+.btn-b:hover,
+.btn-sm-b:hover {
   background-color: #e96c3f;
 }
 
-/* Dropdown */
-.dropdown {
+.dropdown-b {
+  min-width: 160px;
   padding: 6px;
   font-size: 14px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  background-color: white;
 }
 
-/* Table */
-.data-table {
+
+.data-table-b {
   overflow-x: auto;
 }
 
-.data-table table {
+.data-table-b table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   background-color: rgb(245, 152, 12);
 }
 
-.data-table th, .data-table td {
+.data-table-b th, .data-table-b td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: left;
   font-size: 14px;
 }
 
-.data-table th {
+.data-table-b th {
   background-color: #eee;
 }
 
-.data-table tbody tr:nth-child(even) {
+.data-table-b tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Form page */
-.form-page {
+.form-page-b {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -161,7 +232,7 @@ body, html {
   padding: 20px;
 }
 
-.form-container {
+.form-container-b {
   background-color: white;
   padding: 30px;
   border-radius: 12px;
@@ -170,50 +241,32 @@ body, html {
   max-width: 500px;
 }
 
-.form-container h2 {
+.form-container-b h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.form {
+.form-b {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.form input {
+.form-b input {
   padding: 10px;
   font-size: 14px;
-  border: 1px solid  rgb(245, 152, 12);
+  border: 1px solid rgb(245, 152, 12);
   border-radius: 6px;
 }
 
-/* Form buttons */
-.form-buttons {
+.form-buttons-b {
   display: flex;
   justify-content: center;
   gap: 12px;
   margin-top: 20px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .top-bar, .actions {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .sidebar {
-    width: 180px;
-    padding: 15px;
-  }
-
-  .btn, .btn-sm, .btn-small, .dropdown {
-    width: 100%;
-  }
-}
-
-.notification {
+.notification-b {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
@@ -229,4 +282,20 @@ body, html {
   10% { opacity: 1; transform: translateY(0); }
   90% { opacity: 1; }
   100% { opacity: 0; transform: translateY(-10px); }
+}
+
+@media (max-width: 768px) {
+  .top-bar-b, .actions-b {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sidebar-b {
+    width: 180px;
+    padding: 15px;
+  }
+
+  .btn-b, .btn-sm-b, .dropdown-b {
+    width: 100%;
+  }
 }

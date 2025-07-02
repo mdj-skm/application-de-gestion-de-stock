@@ -21,7 +21,7 @@ import Clients from './gestion_clients/gestion_client';
 import GestionCaisse from "./gestion_caisse/CommandesEnCours2";
 import GestionFournisseurs from "./gestion_fournisseurs/gestion_fournisseurs";
 import GestionCorbeil from "./gestion_corbeil/index"
-import GestionStatistiques from"./gestion_statistiques/index";
+import GestionStatistiques from"./gestion_statistiques/statistiques";
 import GestionUtilisateurs from "./gestion_utilisateurs/index";
 import Rapports from "./rapports/gestion_rapport"; 
 import Configuration from "./configuration/configuration";

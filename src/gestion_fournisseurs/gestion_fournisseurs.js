@@ -12,11 +12,10 @@ export default function GestionFournisseurs() {
   const [formData, setFormData] = useState({
     nom: '',
     entreprise: '',
-    produit: '',
-    quantite: '',
     email: '',
     numero: '',
     date: new Date().toISOString().split('T')[0],
+    produits: [{ nom: '', quantite: '' }],
   });
 
   const [username, setUsername] = useState('');
@@ -37,14 +36,20 @@ export default function GestionFournisseurs() {
     setFormData({
       nom: '',
       entreprise: '',
-      produit: '',
-      quantite: '',
       email: '',
       numero: '',
       date: new Date().toISOString().split('T')[0],
+      produits: [{ nom: '', quantite: '' }],
     });
     setEditingIndex(null);
     setShowFormPage(false);
+  };
+
+  const ajouterProduit = () => {
+    setFormData({
+      ...formData,
+      produits: [...formData.produits, { nom: '', quantite: '' }],
+    });
   };
 
   const handleAddOrEdit = () => {
@@ -80,58 +85,56 @@ export default function GestionFournisseurs() {
 
   if (showFormPage) {
     return (
-      <div className="form-page">
-        <div className="form-container">
-          <h2>{editingIndex !== null ? "Modifier" : "Ajouter"} un fournisseur</h2>
-          <div className="form">
+      <div className="form-page-b">
+        <div className="form-container-b">
+          <h2 className="titre-formulaire-b">
+            {editingIndex !== null ? (
+              <>
+                <span className="g-b">M</span>odifier un <span className="f-b">F</span>ournisseur
+              </>
+            ) : (
+              <>
+                <span className="g-b">A</span>jouter un <span className="f-b">F</span>ournisseur
+              </>
+            )}
+          </h2>
+          <div className="form-b">
             <input placeholder="Nom" value={formData.nom} onChange={e => setFormData({ ...formData, nom: e.target.value })} />
             <input placeholder="Entreprise" value={formData.entreprise} onChange={e => setFormData({ ...formData, entreprise: e.target.value })} />
-
-            <select
-              value={formData.produit}
-              onChange={e => setFormData({ ...formData, produit: e.target.value })}
-            >
-              <option value="">-- Choisir un produit --</option>
-              <option value="lait">lait</option>
-              <option value="sucre">sucre</option>
-              <option value="riz">riz</option>
-              <option value="huile">huile</option>
-              <option value="eau minérale">eau minérale</option>
-              <option value="sardine">sardine</option>
-              <option value="sel">sel</option>
-              <option value="chaussure">chaussure</option>
-              <option value="teeshirt">teeshirt</option>
-              <option value="pantalon">pantalon</option>
-              <option value="casquette">casquette</option>
-              <option value="moto">moto</option>
-              <option value="velo">velo</option>
-              <option value="voiture">voiture</option>
-              <option value="ventilateur">ventilateur</option>
-              <option value="climatiseur">climatiseur</option>
-              <option value="ampoule">ampoule</option>
-              <option value="matelas">matelas</option>
-              <option value="natte">natte</option>
-              <option value="tv plasma">tv plasma</option>
-              <option value="chaise">chaise</option>
-              <option value="ordinateur bureau">ordinateur bureau</option>
-              <option value="ordinateur portable">ordinateur portable</option>
-              <option value="téléphone">téléphone</option>
-              <option value="chargeur">chargeur</option>
-              <option value="tablette">tablette</option>
-              <option value="savon">savon</option>
-              <option value="parfum">parfum</option>
-            </select>
-
-            <input placeholder="Quantité" value={formData.quantite} onChange={e => setFormData({ ...formData, quantite: e.target.value })} />
             <input placeholder="Email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
             <input placeholder="Numéro" value={formData.numero} onChange={e => setFormData({ ...formData, numero: e.target.value })} />
             <input type="date" value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })} />
+
+            <h4>Produits attribués</h4>
+            {formData.produits.map((produit, index) => (
+              <div key={index}>
+                <input
+                  placeholder="Nom du produit"
+                  value={produit.nom}
+                  onChange={e => {
+                    const newProduits = [...formData.produits];
+                    newProduits[index].nom = e.target.value;
+                    setFormData({ ...formData, produits: newProduits });
+                  }}
+                />
+                <input
+                  placeholder="Quantité"
+                  value={produit.quantite}
+                  onChange={e => {
+                    const newProduits = [...formData.produits];
+                    newProduits[index].quantite = e.target.value;
+                    setFormData({ ...formData, produits: newProduits });
+                  }}
+                />
+              </div>
+            ))}
+            <button onClick={ajouterProduit}>Ajouter un produit</button>
           </div>
-          <div className="form-buttons">
-            <button className="btn" onClick={handleAddOrEdit}>
+          <div className="form-buttons-b">
+            <button className="btn-b" onClick={handleAddOrEdit}>
               {editingIndex !== null ? "Mettre à jour" : "Enregistrer"}
             </button>
-            <button className="btn" onClick={resetForm}>Annuler</button>
+            <button className="btn-b" onClick={resetForm}>Annuler</button>
           </div>
         </div>
       </div>
@@ -139,41 +142,44 @@ export default function GestionFournisseurs() {
   }
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <div className="user-info">
-          <div className="user-icon">👤</div>
+    <div className="container-b">
+      <div className="sidebar-b">
+        <div className="user-info-b">
+          <div className="user-icon-b">👤</div>
           <div>{username}</div>
-          <div className="status-dot"></div>
+          <div className="status-dot-b"></div>
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
-        
       </div>
 
-      <div className="main-content">
-        <div className="header">
-          <img src={logo} alt="Logo" className="logo" />
-          <div className="company-name"><h1>G.E.S</h1></div>
+      <div className="main-content-b">
+        <div className="header-b">
+          <div className="header-content-b">
+            <img src={logo} alt="Logo" className="logo" />
+            <div className="company-name-b"><h1>G.E.S</h1></div>
+          </div>
         </div>
 
-        <div className="content">
-          {message && <div className="notification">{message}</div>}
+        <div className="content-b">
+          {message && <div className="notification-b">{message}</div>}
 
-          <div className="top-bar">
-            <h2>Gestion des fournisseurs</h2>
-            <div className="actions">
-              <button className="btn" onClick={() => setShowFormPage(true)}>Ajouter</button>
-              <select className="dropdown">
+          <div className="top-bar-b">
+            <h2 className="titre-fournisseur-b">
+              <span className="g-b">G</span>estion des <span className="f-b">F</span>ournisseurs
+            </h2>
+            <div className="actions-b">
+              <button className="btn-b" onClick={() => setShowFormPage(true)}>Ajouter</button>
+              <select className="dropdown-b">
                 <option value="">Liste des fournisseurs</option>
                 {fournisseurs.map((f, i) => (
                   <option key={i} value={f.nom}>{f.nom}</option>
                 ))}
               </select>
-              <button className="btn" onClick={() => window.location.reload()}>Rafraîchir</button>
+              <button className="btn-b" onClick={() => window.location.reload()}>Rafraîchir</button>
             </div>
           </div>
 
-          <div className="data-table">
+          <div className="data-table-b">
             {fournisseurs.length === 0 ? (
               <p>Aucun fournisseur ajouté.</p>
             ) : (
@@ -182,11 +188,10 @@ export default function GestionFournisseurs() {
                   <tr>
                     <th>Nom</th>
                     <th>Entreprise</th>
-                    <th>Produit</th>
-                    <th>Quantité</th>
                     <th>Email</th>
                     <th>Numéro</th>
                     <th>Date</th>
+                    <th>Produits</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -195,14 +200,19 @@ export default function GestionFournisseurs() {
                     <tr key={index}>
                       <td>{f.nom}</td>
                       <td>{f.entreprise}</td>
-                      <td>{f.produit}</td>
-                      <td>{f.quantite}</td>
                       <td>{f.email}</td>
                       <td>{f.numero}</td>
                       <td>{f.date}</td>
                       <td>
-                        <button className="btn-sm" onClick={() => handleEdit(index)}>Modifier</button>
-                        <button className="btn-sm" onClick={() => handleDelete(index)}>Supprimer</button>
+                        <ul>
+                          {f.produits.map((p, i) => (
+                            <li key={i}>{p.nom} - {p.quantite}</li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td>
+                        <button className="btn-sm-b" onClick={() => handleEdit(index)}>Modifier</button>
+                        <button className="btn-sm-b" onClick={() => handleDelete(index)}>Supprimer</button>
                       </td>
                     </tr>
                   ))}
