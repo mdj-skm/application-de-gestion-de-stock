@@ -127,8 +127,8 @@ function HomePage() {
           {hasAccessTo("Gestion corbeil") && (
             <div className="module-box" onClick={() => handleModuleClick('/gestion_corbeil')}>
               <img src={logoCorbeil} alt="Module Gestion" className="module-logo" />
-              <h3>Gestion corbeil</h3>
-              <p>La gestion de la corbeil</p>
+              <h3>Corbeille</h3>
+              <p>La gestion de la Corbeille</p>
             </div>
           )}
 

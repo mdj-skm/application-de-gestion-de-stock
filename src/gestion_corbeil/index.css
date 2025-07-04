@@ -1,14 +1,108 @@
 .bienvenue-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #4facfe 0%, #00F2FE 100%);
+  display: flex;
+  justify-content: flex-start; /* Aligné vers le haut */
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background: white;
+  padding-top: 50px;
+}
+
+.bienvenue-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Espace entre le texte et le select */
 }
 
 .bienvenue-texte {
-font-size: 3rem;
-color: white;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-text-shadow: 2px 2px 5px rgba(red, green, blue, alpha);
+  font-size: 3rem;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  margin: 0;
+}
+
+.loader {
+  border: 8px solid rgba(200, 200, 200, 0.2);
+  border-top: 8px solid rgb(236, 7, 7);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 10px rgba(236, 7, 7, 0.3);
+  margin-top: 100px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.dropdown-select {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  outline: none;
+  transition: 0.3s;
+}
+
+.dropdown-select:hover {
+  border-color: #666;
+}
+
+.dropdown-select:focus {
+  border-color: #ec0707;
+}
+.table-clients {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 30px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table-clients th,
+.table-clients td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.table-clients th {
+  background-color: #0729ec;
+  color: white;
+}
+
+.table-clients tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-clients tr:hover {
+  background-color: #f1f1f1;
+}
+.btn-restaurer {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-restaurer:hover {
+  background-color: #219150;
+}
+.montant-global {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+  width: 30%;
+  max-width: 1200px;
 }
