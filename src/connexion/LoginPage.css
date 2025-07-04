@@ -7,22 +7,6 @@
   overflow: hidden;
 }
 
-/* === Sidebar === */
-.sidebarL {
- position: fixed;         /* Fixe la barre latérale */
-  top: 0;
-  left: 0;
-  width: 20%;
-  height: 100vh;           /* Prend toute la hauteur de l'écran */
-  background-color:  #007BFF;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  z-index: 1000;           /* Pour rester au-dessus du contenu */
-}
-
-
 
 
 
@@ -37,22 +21,43 @@
   box-sizing: border-box;
   min-height: 110vh; 
   /* margin: 0px ; */
-  background-color: #ffc7c7;
+  background-color: white;
+  margin-left: 7%;
 }
+
+
 
 /* === En-tête avec logo === */
 .headerL {
-  background-color: #ffc7c7;
-    border: 5px solid #eee8e8;
-    border: 3px dashed #007bff; /* bordure bleue en pointillés */
-    border-radius: 8px; /* coins arrondis */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    animation: slideDown 1s ease; /*animation du logo */
+  display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 100%;           /* ou une largeur fixe, ex: 600px */
+max-width: 1500px;     /* limite pour écrans larges */
+margin: 0 auto;       /* centre horizontalement */
+padding-right: 5rem; /* plus grand que padding-left */
+padding-left: 2rem;
+margin-left: -8%;
+animation: rotateBorder 3s linear infinite;
+ 
+
 }
 
-.logo {
-  height: 60px;
+.logoL {
+height: 80px;
   animation: float 3s ease-in-out infinite;
+  margin-left: 0%;
 }
 
 
@@ -77,15 +82,17 @@
   font-size: 36px;
   font-weight: bold;
   color: #333;
+  margin-left: 5%;
 }
 
 /* === Formulaire === */
 .login-form {
-  width: 100%;
+  width: 80%;
   max-width: 480px;
-  background: #ffc7c7;
+  background: white;
   padding: 40px 50px;
-  border-radius: 16px;
+  border-radius: 15px;
+  margin-left: -10%;
   
   text-align: center;
   display: flex;
@@ -108,10 +115,10 @@
   flex-direction: column;
   justify-content: center; /* centre verticalement */
   align-items: center;     /* centre horizontalement */
-  height: 100vh;           /* pleine hauteur de la page */
-  padding: 20px;
-  
-  background-color: #ffc7c7;  /* optionnel, pour mieux voir le formulaire */
+  height: 60vh;           /* pleine hauteur de la page */
+   padding: 20px; 
+  transform: translateY(40px); /* décale vers le bas */
+  background-color: white;  /* optionnel, pour mieux voir le formulaire */
 }
 
 /* Styles des inputs */

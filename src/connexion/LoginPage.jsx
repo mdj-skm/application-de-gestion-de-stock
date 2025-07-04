@@ -18,13 +18,11 @@ function LoginPage() {
 
   return (
     <div className="login-containerL">
-      <div className="sidebarL">
-        <div className="profile-iconL">👤</div>
-      </div>
+      
 
       <div className="blockL">
         <div className="headerL">
-          <img src={logo} alt="Logo" className="logo" />
+          <img src={logo} alt="Logo" className="logoL" />
           <div className="company-nameL"><h1>G.E.S</h1></div>
         </div>
 

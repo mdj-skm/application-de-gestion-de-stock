@@ -70,13 +70,13 @@ const CommandesValidees = () => {
   });
 
   return (
-    <div className="commandes-validees-container">
-      <div className="sidebar">
+    <div className="commandes-validees-containerCVA">
+      <div className="sidebarCVA">
         <Sidebar />
       </div>
       <div className="commandes-en-cours-container">
-        <div className="header">
-          <img src={logo} alt="Logo" className="logo" />
+        <div className="headerCVA">
+          <img src={logo} alt="Logo" className="logoCVA" />
           <div className="company-name"><h1>G.E.S</h1></div>
         </div>
 

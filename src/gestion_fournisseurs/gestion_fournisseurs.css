@@ -9,20 +9,48 @@ body {
 
 
 .container-b {
+  margin-left: 200px;
+  padding: 2rem;
+  flex: 1;
   display: flex;
-  height: 100vh;
-  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 100vh; 
+  /* margin: 0px ; */
+  background-color: #fdfdfd;
+  margin-left: 350px;
 }
 
 
 .sidebar-b {
-  background-color: #9350ff;
-  padding: 20px;
-  width: 220px;
+  position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
+}
+
+.sidebar-b button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: orange;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.sidebar-b button:hover {
+  background-color: green;
+    transform: scale(1.05);
 }
 
 .user-info-b {
@@ -31,8 +59,18 @@ body {
 }
 
 .user-icon-b {
-  font-size: 40px;
-  margin-bottom: 5px;
+  font-size: 50px;
+  font-size: 50px;
+  color: white;
+  height: 80px;         /* hauteur adaptée au font-size */
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;   /* rond si c’est une icône circulaire */
+  background-color: #444; /* optionnel, contraste */
+  margin-bottom: 10px;  /* espace sous l’icône */
+  flex-shrink: 0;
 }
 
 .status-dot-b {
@@ -53,20 +91,23 @@ body {
 
 .header-b {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  background-color: #ffc7c7;
-  border: 6px dashed transparent;
-  border-image-slice: 1;
-  border-image-source: repeating-conic-gradient(
-    from 0deg,
-    #007bff 0deg 10deg,
-    transparent 10deg 20deg
-  );
-  animation: rotateBorder 3s linear infinite;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 70vw;          /* ← presque toute la largeur visible */
+max-width: 1800px;    /* ← limite sur les très grands écrans */
+margin: 0 auto;       /* ← CENTRÉ horizontalement */
+animation: rotateBorder 3s linear infinite;
 }
 
 @keyframes rotateBorder {

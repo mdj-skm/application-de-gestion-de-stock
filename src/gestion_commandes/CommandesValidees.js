@@ -16,14 +16,14 @@ const CommandesValidees = () => {
   };
 
   return (
-    <div className="commandes-validees-container">
-      <div className="sidebar">
+    <div className="commandes-validees-containerCV">
+      <div className="sidebarCV">
         <Sidebar />
       </div>
       <div className="commandes-en-cours-container">
-        <div className="header">
-            <img src={logo} alt="Logo" className="logo" />
-            <div className="company-name"><h1>G.E.S</h1></div>
+        <div className="headerCV">
+            <img src={logo} alt="Logo" className="logoCV" />
+            <div className="company-nameCV"><h1>G.E.S</h1></div>
         </div>
       <h2>Commandes Validées</h2>
       {commandesValidees.length === 0 ? (

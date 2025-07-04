@@ -9,14 +9,14 @@ const CommandesLivrees = () => {
   const { commandesLivrees } = useContext(CommandeContext);
 
   return (
-    <div className="layout-container">
-      <div className="sidebar">
+    <div className="layout-containerCL">
+      <div className="sidebarCL">
           <Sidebar />
       </div>
       <div className="module-content">
-      <div className="header">
-            <img src={logo} alt="Logo" className="logo" />
-            <div className="company-name"><h1>G.E.S</h1></div>
+      <div className="headerCL">
+            <img src={logo} alt="Logo" className="logoCL" />
+            <div className="company-nameCL"><h1>G.E.S</h1></div>
         </div>
       <h2>Commandes Livrées</h2>
       {commandesLivrees.length === 0 ? (
@@ -42,7 +42,6 @@ const CommandesLivrees = () => {
                 <td data-label="Prix Unitaire">{commande.prixUnitaire} FCFA</td>
                 <td data-label="Prix Total">{commande.prixTotal} FCFA</td>
                 <td data-label="Statut" style={{ color: 'blue' }}>Livré</td>
-
               </tr>
             ))}
           </tbody>

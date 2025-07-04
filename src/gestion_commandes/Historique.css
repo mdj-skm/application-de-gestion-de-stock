@@ -4,30 +4,54 @@
 }
 
 /* Sidebar à gauche */
-.historique-container .sidebar {
-  width: 250px;
-  background-color: #ec7d31;
-  color: white;
-  padding: 1rem 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  overflow-y: auto;
+.historique-containerHI{
+margin-left: 50px;
+  padding: 2rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
+  box-sizing: border-box;
+  min-height: 100vh; 
+  /* margin: 0px ; */
+  background-color: #fdfdfd;
 }
 
-.header {
-    background-color: #f3c3a2;
-    width: 100%;
-    padding: 50px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+
+.sidebarCM {
+   position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
+}
+
+.headerHI {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 60vw;          /* ← presque toute la largeur visible */
+max-width: 1800px;    /* ← limite sur les très grands écrans */
+margin: 0 auto;       /* ← CENTRÉ horizontalement */
+margin-top: -25px; /* remonte le header */
+animation: rotateBorder 3s linear infinite;
   }
 
 /* Contenu principal */
@@ -71,4 +95,11 @@ th {
 
 td {
   background-color: #fff;
+}
+
+
+.logoHI {
+  height: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-left: 40%;
 }

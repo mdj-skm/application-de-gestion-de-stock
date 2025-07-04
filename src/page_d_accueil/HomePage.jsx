@@ -72,7 +72,7 @@ function HomePage() {
 
       <div className="block">
         <div className="headerH">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logoH" />
         <div className="company-name"><h1>G.E.S</h1></div>
         </div>
 

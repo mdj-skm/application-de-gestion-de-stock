@@ -1,30 +1,34 @@
 /* Layout principal : sidebar + contenu */
-.layout-container {
+.layout-containerCE {
+  margin-left: -20px;
+  padding: 2rem;
+  flex: 1;
   display: flex;
-  height: 100vh;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  min-height: 100vh; 
+  /* margin: 0px ; */
+  background-color: #fdfdfd;
 }
 
 /* Sidebar fixe à gauche */
-.sidebar {
-  width: 200px;
-  background-color: #ec7d31;
-  color: white;
-  height: 100vh;
-  position: fixed;
+.sidebarCM {
+  position: fixed;         /* Fixe la barre latérale */
   top: 0;
   left: 0;
-  overflow-y: auto;
-  z-index: 10;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
 }
 
 /* Contenu principal à droite, prend tout l’espace restant */
-.commandes-en-cours-container {
+.commandes-en-cours-containerCE {
   margin-left: 335px; /* espace pour la sidebar */
   width: calc(100% - 200px);
   min-height: 100vh;
@@ -38,31 +42,43 @@
 }
 
 /* Header centré horizontalement, collé en haut */
-.header {
-  width: 100%;
-  background-color: #f3c3a2;
-  padding: 1.5rem 0;
-  display: flex;
-  justify-content: center; /* centré horizontalement */
-  align-items: center;
-  gap: 1rem;
-  box-sizing: border-box;
+.headerCE {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 60vw;          /* ← presque toute la largeur visible */
+max-width: 1800px;    /* ← limite sur les très grands écrans */
+margin: 0 auto;       /* ← CENTRÉ horizontalement */
+animation: rotateBorder 3s linear infinite;
 }
 
 /* Logo */
-.logo {
-  height: 50px;
+.logoCE {
+  height: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-left: 0%;
 }
 
 /* Nom de l'entreprise */
-.company-name h1 {
+.company-nameCE h1 {
   font-size: 2rem;
   color: #333;
   margin: 0;
 }
 
 /* Titre centré sous le header */
-.commandes-en-cours-container h2 {
+.commandes-en-cours-containerCE h2 {
   margin-top: 2rem;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
@@ -73,7 +89,7 @@
 }
 
 /* Message quand aucune commande */
-.commandes-en-cours-container p {
+.commandes-en-cours-containerCE p {
   font-size: 1rem;
   color: #666;
   text-align: center;
@@ -126,11 +142,11 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .sidebar {
+  .sidebarCE {
     width: 150px;
   }
 
-  .commandes-en-cours-container {
+  .commandes-en-cours-containerCE {
     margin-left: 150px;
     width: calc(100% - 150px);
   }
@@ -153,4 +169,24 @@
 
 .supprimer-btn:hover {
   background-color: #c0392b;
+}
+
+/* Réduire la largeur de la sidebar sur les petits écrans */
+@media (max-width: 768px) {
+  .sidebarCM {
+    width: 180px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebarCM {
+    width: 120px;
+    padding: 10px;
+  }
+
+  .sidebarCM button {
+    font-size: 12px;
+    padding: 8px;
+  }
 }

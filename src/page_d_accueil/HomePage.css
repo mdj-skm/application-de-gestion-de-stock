@@ -75,6 +75,7 @@
   }
   .menu-buttonH:hover {
     transform: scale(1.05); /* Légèrement plus grand */
+    background-color: green;
   }
   
 
@@ -91,12 +92,12 @@
 
   .logout-buttonH:hover {
     transform: scale(1.05);
+    background-color: rgb(214, 54, 54);
   }
   
   .menu-buttonH.active {
     font-weight: bold;
     font-size: 18px;
-    background-color: orange;
   }
   
   /* fin SIDEBAR et son contenu  */
@@ -113,19 +114,43 @@
   box-sizing: border-box;
   min-height: 110vh; 
   /* margin: 0px ; */
-  background-color: #ffc7c7;
+  background-color: white;
+  margin-left: 18%;
   }
   /* fin le corps de la page  */
 
+  .logoH {
+  height: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-left: 40%;
+}
+
   /* debut, entete avec le logo  */
   .headerH {
-    background-color: #ffc7c7;
-    border: 5px solid #eee8e8;
-    border: 3px dashed #007bff; /* bordure bleue en pointillés */
-    border-radius: 8px; /* coins arrondis */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    animation: slideDown 1s ease; /*animation du logo */
-  }
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 80%;           /* ou une largeur fixe, ex: 600px */
+max-width: 1400px;     /* limite pour écrans larges */
+margin: 0 auto;       /* centre horizontalement */
+padding-right: 5rem; /* plus grand que padding-left */
+padding-left: 2rem;
+margin-left: 7%;
+  animation: rotateBorder 3s linear infinite;
+ 
+}
+
   /* fin, entete avec le logo  */
 
   /* debut barre animée en haut  */

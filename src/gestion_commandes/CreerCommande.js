@@ -81,11 +81,11 @@ const CreerCommande = () => {
   };
 
   return (
-    <div className="commande-container">
+    <div className="commande-containerCC">
       <Sidebar />
-      <div className="header">
-        <img src={logo} alt="Logo" className="logo" />
-        <div className="company-name"><h1>G.E.S</h1></div>
+      <div className="headerCC">
+        <img src={logo} alt="Logo" className="logoCC" />
+        <div className="company-nameCC"><h1>G.E.S</h1></div>
       </div>
 
       <h2>Créer une commande</h2>

@@ -8,11 +8,11 @@ const Historique = () => {
   const { historique } = useContext(CommandeContext);
 
   return (
-    <div className="historique-container">
+    <div className="historique-containerHI">
         <Sidebar />
       <div className="main-content">
-      <div className="header">
-            <img src={logo} alt="Logo" className="logo" />
+      <div className="headerHI">
+            <img src={logo} alt="Logo" className="logoHI" />
             <div className="company-name"><h1>G.E.S</h1></div>
       </div>  
       <h2>Historique des commandes</h2>

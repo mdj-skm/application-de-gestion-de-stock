@@ -7,22 +7,10 @@
 }
 
 /* Sidebar fixe */
-.sidebar {
-  width: 200px;
-  background-color: #ec7d31;
-  color: white;
-  padding: 1rem 0.5rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 10;
-}
 
 /* Conteneur du formulaire à droite */
-.commande-container {
-  margin-left: 250px;
+.commande-containerCC {
+  margin-left: 320px;
   padding: 2rem;
   flex: 1;
   display: flex;
@@ -36,7 +24,7 @@
 }
 
 /* Titre */
-.commande-container h2 {
+.commande-containerCC h2 {
   font-size: 2rem;
   margin-bottom: 20px;
   color: #333;
@@ -44,7 +32,7 @@
 }
 
 /* Champs de formulaire */
-.commande-container input {
+.commande-containerCC input {
   width: 90%;
   max-width: 500px;
   padding: 12px;
@@ -64,7 +52,7 @@
 }
 
 /* Prix total */
-.commande-container p {
+.commande-containerCC p {
   font-size: 1.1rem;
   margin-top: 10px;
   color: #333;
@@ -91,27 +79,27 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .sidebar {
+  .sidebarCM {
     width: 150px;
   }
 
-  .commande-container {
+  .commande-containerCC {
     margin-left: 200px;
     padding: 1rem;
   }
 
-  .commande-container h2 {
+  .commande-containerCC h2 {
     font-size: 1.5rem;
   }
 
-  .commande-container input,
-  .commande-container button {
+  .commande-containerCC input,
+  .commande-containerCC button {
     font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .sidebar {
+  .sidebarCM {
     position: static;
     width: 100%;
     height: auto;
@@ -119,19 +107,19 @@
     justify-content: center;
   }
 
-  .commande-container {
+  .commande-containerCC {
     margin-left: 0;
     width: 100%;
     padding: 1rem;
   }
 
-  .commande-container h2 {
+  .commande-containerCC h2 {
     font-size: 1.3rem;
   }
 
-  .commande-container input,
+  .commande-containerCC input,
   /* .commande-container select, */
-  .commande-container button {
+  .commande-containerCC button {
     font-size: 0.95rem;
     padding: 10px;
   }
@@ -193,4 +181,42 @@ SelectProduit {
   background-color: white;
   cursor: pointer;
   transition: border-color 0.3s ease;
+}
+
+.headerCC {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 60vw;          /* ← presque toute la largeur visible */
+max-width: 1800px;    /* ← limite sur les très grands écrans */
+margin: 0 auto;       /* ← CENTRÉ horizontalement */
+animation: rotateBorder 3s linear infinite;
+}
+
+.logoCC {
+  height: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-left: 0%;
+}
+
+.sidebarCC button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: orange;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: inline-block;
 }

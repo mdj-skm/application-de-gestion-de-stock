@@ -79,11 +79,11 @@ const Imprimer = () => {
 
   return (
     
-    <div className="layout-container">
+    <div className="layout-containerIMP">
       <Sidebar />
       <div className="module-content">
-        <div className="header">
-            <img src={logo} alt="Logo" className="logo" />
+        <div className="headerIMP">
+            <img src={logo} alt="Logo" className="logoIMP" />
             <div className="company-name"><h1>G.E.S</h1></div>
         </div>
         <h2>Module Imprimer</h2>

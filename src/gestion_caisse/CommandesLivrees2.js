@@ -9,13 +9,13 @@ const CommandesLivrees = () => {
   const { commandesLivrees } = useContext(CommandeContext);
 
   return (
-    <div className="layout-container">
-      <div className="sidebar">
+    <div className="layout-containerCLI">
+      <div className="sidebarCLI">
           <Sidebar />
       </div>
       <div className="module-content">
-      <div className="header">
-            <img src={logo} alt="Logo" className="logo" />
+      <div className="headerCLI">
+            <img src={logo} alt="Logo" className="logoCLI" />
             <div className="company-name"><h1>G.E.S</h1></div>
         </div>
       <h2>Commandes éffectuées</h2>

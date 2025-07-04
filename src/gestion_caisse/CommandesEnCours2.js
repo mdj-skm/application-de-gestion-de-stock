@@ -23,14 +23,14 @@ const CommandesEnCours = () => {
   };
 
   return (
-    <div className="layout-container">
-      <div className="sidebar">
+    <div className="layout-containerCEC">
+      <div className="sidebarCEC">
         <Sidebar setModule={setModule} />
       </div>
-      <div className="commandes-en-cours-container">
-        <div className="header">
-          <img src={logo} alt="Logo" className="logo" />
-          <div className="company-name"><h1>G.E.S</h1></div>
+      <div className="commandes-en-cours-containerCEC">
+        <div className="headerCEC">
+          <img src={logo} alt="Logo" className="logoCEC" />
+          <div className="company-nameCEC"><h1>G.E.S</h1></div>
         </div>
         <h2>Commandes en attentes</h2>
         {commandes.length === 0 ? (

@@ -12,12 +12,12 @@ const GestionCommandes = () => {
   }
 
   return (
-    <div className="layout-container">
+    <div className="layout-containerCOM">
       <Sidebar />
-      <div className="commandes-en-cours-container">
-        <div className="header">
-          <img src={logo} alt="Logo" className="logo" />
-          <div className="company-name"><h1>G.E.S</h1></div>
+      <div className="commandes-en-cours-containerCOM">
+        <div className="headerCOM">
+          <img src={logo} alt="Logo" className="logoCOM" />
+          <div className="company-nameCOM"><h1>G.E.S</h1></div>
         </div>
         <h2>Commandes en cours</h2>
         {commandes.length === 0 ? (

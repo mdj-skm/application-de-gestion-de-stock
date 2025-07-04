@@ -1,0 +1,135 @@
+/* Layout principal : sidebar + contenu */
+.layout-containerCLI {
+  margin-left: 50px;
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 100vh; 
+  /* margin: 0px ; */
+  background-color: #fdfdfd;
+}
+
+/* Sidebar fixe à gauche */
+.sidebarCLI {
+  position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
+}
+
+/* Contenu principal à droite */
+.module-content {
+  margin-left: 200px; /* espace pour la sidebar */
+  width: calc(100% - 200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  min-height: 100vh;
+  padding: 0; /* aucune marge intérieure */
+  box-sizing: border-box;
+}
+
+/* Header en haut, centré */
+.headerCLI {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 60vw;          /* ← presque toute la largeur visible */
+max-width: 1800px;    /* ← limite sur les très grands écrans */
+margin: 0 auto;       /* ← CENTRÉ horizontalement */
+margin-top: -10px; /* remonte le header */
+animation: rotateBorder 3s linear infinite;
+}
+
+/* Logo */
+.logoCLI {
+  height: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-left: 40%;
+}
+
+/* Nom de l'entreprise */
+.company-name h1 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Titre de la section */
+.module-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Message vide */
+.module-content p {
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+/* Tableau des commandes */
+table {
+  width: 90%;
+  max-width: 1000px;
+  margin: 1rem auto 2rem auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* En-têtes et cellules */
+th, td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 1rem;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebarCLI {
+    width: 150px;
+  }
+
+  .module-content {
+    margin-left: 150px;
+    width: calc(100% - 150px);
+  }
+
+  table {
+    width: 100%;
+  }
+}

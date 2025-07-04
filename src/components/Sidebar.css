@@ -1,24 +1,25 @@
-.sidebar {
-  background-color: #ec7d31;
-  padding: 20px;
-  width: 250px;
-  min-height: 100vh;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  color: white;
+.sidebarCM {
+  position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  font-family: Arial, sans-serif;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
 }
 
-.sidebar p {
+.sidebarCM p {
   font-weight: bold;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.sidebar .dot {
+.sidebarCM .dot {
   height: 10px;
   width: 10px;
   background-color: #0f0;
@@ -27,36 +28,37 @@
   margin-left: 10px;
 }
 
-.sidebar button {
-  background-color: white;
-  color: orange;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.sidebarCM button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: orange;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: inline-block;
 }
 
-.sidebar button:hover {
-  background-color: #ffe0b2;
+.sidebarCM button:hover {
+  background-color: green;
     transform: scale(1.05);
 }
 
 /* Réduire la largeur de la sidebar sur les petits écrans */
 @media (max-width: 768px) {
-  .sidebar {
+  .sidebarCM {
     width: 180px;
     padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
-  .sidebar {
+  .sidebarCM {
     width: 120px;
     padding: 10px;
   }
 
-  .sidebar button {
+  .sidebarCM button {
     font-size: 12px;
     padding: 8px;
   }
@@ -78,4 +80,27 @@
   background-color: green;
   border-radius: 50%;
   margin-left: 8px;
+}
+
+.profil-iconCM {
+  font-size: 50px;
+  font-size: 50px;
+  color: white;
+  height: 80px;         /* hauteur adaptée au font-size */
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;   /* rond si c’est une icône circulaire */
+  background-color: #444; /* optionnel, contraste */
+  margin-bottom: 10px;  /* espace sous l’icône */
+  flex-shrink: 0;
+}
+.username {
+  font-size: 20px;
+  margin: 0;
+  line-height: 1.2;
+  color: white;
+  display: flex;
+  align-items: center;
 }

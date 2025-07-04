@@ -225,10 +225,10 @@ const handleDelete = (index) => {
 
 
   return (
-    <div className="container">
-      <div className="sidebar">
+    <div className="containerCON">
+      <div className="sidebarCON">
         <div className="user-info">
-          <div className="user-icon">👤</div>
+          <div className="user-iconCON">👤</div>
           <div>{username}</div>
           <div className="status-dot"></div>
         </div>
@@ -243,8 +243,8 @@ const handleDelete = (index) => {
       </div>
 
       <div className="main-content">
-        <div className="header">
-          <img src={logo} alt="Logo" className="logo" />
+        <div className="headerCON">
+          <img src={logo} alt="Logo" className="logoCON" />
           <div className="company-name"><h1>G.E.S</h1></div>
         </div>
 

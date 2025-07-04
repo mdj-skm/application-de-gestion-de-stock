@@ -1,16 +1,16 @@
 /* GestionCommandes.css */
 
-.commandes-en-cours-container {
+.commandes-en-cours-containerCOM {
   max-width: 1250px;
   margin: 0px ;
   padding: 0px;
-  background-color: blanchedalmond; 
+  background-color: white; 
   border-radius: 0px;
   /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.commandes-en-cours-container h2 {
+.commandes-en-cours-containerCOM h2 {
   text-align: center;
   margin-bottom: 30px;
   color: #333;
@@ -101,44 +101,90 @@ p {
 
 
 /* Layout général avec sidebar */
-layout-container {
+.layout-containerCOM {
+  margin-left: 250px;
+  padding: 2rem;
+  flex: 1;
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 110vh; 
+  /* margin: 0px ; */
+  background-color: white;
+  margin-left: 18%;
 }
 
 /* Sidebar : largeur fixe */
 .sidebar {
-  width: 250px;
-  background-color: #ec7d31; /* orange vif */
-  color: white;
-  padding: 1rem;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  height: 100vh;
-  position: fixed;
+   position: fixed;         /* Fixe la barre latérale */
   top: 0;
   left: 0;
-  overflow-y: auto;
-  z-index: 2;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
 }
 
 /* Contenu principal */
-.commandes-en-cours-container {
+.commandes-en-cours-containerCOM {
   flex: 1;
   padding: 2rem;
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
-  .layout-container {
+  .layout-containerCOM {
     flex-direction: column;
   }
 
   .sidebar {
-    width: 100%;
+  position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
   }
 
-  .commandes-en-cours-container {
+  .commandes-en-cours-containerCOMS {
     padding: 15px;
   }
+}
+
+.headerCOM {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 60vw;          /* ← presque toute la largeur visible */
+max-width: 1800px;    /* ← limite sur les très grands écrans */
+margin: 0 auto;       /* ← CENTRÉ horizontalement */
+animation: rotateBorder 3s linear infinite;
+
+}
+
+.logoCOM {
+  height: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-left: 0%;
 }
