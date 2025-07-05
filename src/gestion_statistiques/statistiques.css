@@ -1,14 +1,189 @@
-.bienvenue-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #4facfe 0%, #00F2FE 100%);
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
 }
 
-.bienvenue-texte {
-font-size: 3rem;
-color: white;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-text-shadow: 2px 2px 5px rgba(red, green, blue, alpha);
+.container-o {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar-o {
+  background-color: #9350ff;
+  padding: 20px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+.user-info-o {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.user-icon-o {
+  font-size: 50px;
+  color: white;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #444;
+  margin-bottom: 10px;
+}
+
+.status-dot-o {
+  width: 10px;
+  height: 10px;
+  background-color: limegreen;
+  border-radius: 50%;
+  margin: 5px auto;
+}
+
+.sidebar-o button {
+  background: white;
+  color: #9350ff;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.main-content-o {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  overflow-y: auto;
+}
+
+/* Header identique à Fournisseur */
+.header-o {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  background-color: #ffe5b4;
+  border: 6px dashed transparent;
+  border-image-slice: 1;
+  border-image-source: repeating-conic-gradient(
+    from 0deg,
+    #007bff 0deg 10deg,
+    transparent 10deg 20deg
+  );
+  animation: rotateBorder 3s linear infinite;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+@keyframes rotateBorder {
+  0% {
+    border-image-source: repeating-conic-gradient(
+      from 0deg,
+      #007bff 0deg 10deg,
+      transparent 10deg 20deg
+    );
+  }
+  100% {
+    border-image-source: repeating-conic-gradient(
+      from 360deg,
+      #007bff 0deg 10deg,
+      transparent 10deg 20deg
+    );
+  }
+}
+
+.logo-o {
+  width: 40px;
+  height: 40px;
+}
+
+.company-name-o {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}
+
+/* Titre Statistiques */
+.stats-title-container-o {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stats-icon-o {
+  font-size: 24px;
+}
+
+.clignote-o {
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.stats-title-o {
+  font-size: 24px;
+  margin: 0;
+}
+
+.green-letter-o {
+  color: green;
+}
+
+.orange-letter-o {
+  color: orange;
+}
+
+/* Graphique */
+.graph-container-o {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Légende centrée et jolie */
+.legend-stats-o {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.legend-item-o {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f9f9f9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+  font-size: 14px;
+}
+
+.color-box-o {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
 }
