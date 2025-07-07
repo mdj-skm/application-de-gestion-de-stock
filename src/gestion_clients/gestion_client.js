@@ -3,6 +3,8 @@ import './gestion_client.css'; // Importation du fichier CSS spécifique
 import { useNavigate } from 'react-router-dom'; // Hook pour la navigation entre les pages
 import logo from '../assets/logo.png'; // Importation du logo
 
+
+
 const GestionClient = () => {
   const navigate = useNavigate(); // Initialisation de la fonction de navigation
 
@@ -189,7 +191,7 @@ const GestionClient = () => {
       {/* Contenu principal */}
       <main className="gc-main-content">
         <div className="top-bar">
-          <h2 className="top-title">GESTION CLIENTS</h2>
+          <center><h2 className="top-title">GESTION CLIENTS</h2></center>
         </div>
 
         {/* Barre de filtres */}
