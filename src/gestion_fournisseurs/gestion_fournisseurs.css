@@ -73,12 +73,21 @@ body {
   flex-shrink: 0;
 }
 
+.username-b {
+  font-size: 20px;
+  margin: 0;
+  line-height: 1.2;
+  color: white;
+  display: flex;
+  align-items: center;
+}
 .status-dot-b {
-  width: 10px;
+  width: 12px;
   height: 10px;
-  background-color: limegreen;
+  background-color: rgb(15, 240, 15);
   border-radius: 50%;
-  margin: 5px auto;
+  margin-left: 9px;
+  margin-top: 6px;
 }
 
 .main-content-b {
@@ -104,9 +113,11 @@ border-image-source: repeating-conic-gradient(
   #007bff 0deg 10deg,
   transparent 10deg 20deg
 );
-width: 70vw;          /* ← presque toute la largeur visible */
+width: 72vw;          /* ← presque toute la largeur visible */
 max-width: 1800px;    /* ← limite sur les très grands écrans */
 margin: 0 auto;       /* ← CENTRÉ horizontalement */
+margin-top: -20px;
+margin-left: -10px;
 animation: rotateBorder 3s linear infinite;
 }
 
@@ -127,16 +138,34 @@ animation: rotateBorder 3s linear infinite;
   }
 }
 
+.input-quantite {
+  width: 478px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-quantite:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
 .header-content-b {
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.logo {
+.logoFO {
   width: 80px;
   height: auto;
   display: block;
+  margin-left: -40px;
+  animation: float 3s ease-in-out infinite;
 }
 
 .company-name-b h1 {

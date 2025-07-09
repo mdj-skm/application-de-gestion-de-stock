@@ -11,50 +11,61 @@ import logoGestionFournisseurs from '../assets/logo_gestion_fournisseurs.png';
 import logoRapports from '../assets/logo_rapports.png';
 import logostock from '../assets/logo_stock.png';
 import { useNavigate } from 'react-router-dom';
-// import React from 'react';
 import React, { useState, useEffect } from 'react';
 
 function HomePage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+  const [modules, setModules] = useState([]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('username');
     if (storedUser) {
       setUsername(storedUser);
+      const historiqueConnexions = JSON.parse(localStorage.getItem('historiqueConnexions')) || [];
+      const historiqueDeconnexions = JSON.parse(localStorage.getItem('historiqueDeconnexions')) || [];
+
+      const derniereConnexion = [...historiqueConnexions].reverse().find(c => c.nom === storedUser);
+      const derniereDeconnexion = [...historiqueDeconnexions].reverse().find(d => d.nom === storedUser);
+
+      const estDejaConnecte = derniereConnexion && (
+        !derniereDeconnexion ||
+        new Date(`1970-01-01T${derniereConnexion.heureConnexion}`) > new Date(`1970-01-01T${derniereDeconnexion.heureDeconnexion}`)
+      );
+
+      if (!estDejaConnecte) {
+        const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        historiqueConnexions.push({ nom: storedUser, heureConnexion: now });
+        localStorage.setItem('historiqueConnexions', JSON.stringify(historiqueConnexions));
+      }
+
+      // Nouvelle ligne ici pour récupérer les modules autorisés depuis localStorage
+      const storedModules = localStorage.getItem('modules_autorises');
+      if (storedModules) {
+        setModules(JSON.parse(storedModules));
+      }
     }
   }, []);
 
-  // Simulation utilisateur connecté
-  const currentUser = {
-    // nom: "Utilisateur",
-    nom: username || 'Utilisateur',
-    modules: [
-      "Gestion fournisseurs",
-      "Gestion commande",
-      "Gestion caisses",
-      "Gestion clients",
-      "Gestion stocks",
-      "Gestion corbeil",
-      "Rapport",
-      "Gestion statistiques",
-      "Configuration",
-      "Gestion utilisateurs",
-    ]
-  };
-
-  
   const handleModuleClick = (path) => {
     navigate(path);
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    const historiqueDeconnexions = JSON.parse(localStorage.getItem('historiqueDeconnexions')) || [];
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    historiqueDeconnexions.push({ nom: username, heureDeconnexion: now });
+    localStorage.setItem('historiqueDeconnexions', JSON.stringify(historiqueDeconnexions));
+
+    localStorage.removeItem('username');
+    localStorage.removeItem('modules_autorises');
+
     navigate('/');
   };
 
+  // On remplace la vérification par cette fonction basée sur le state modules
   const hasAccessTo = (moduleName) => {
-    return currentUser.modules.includes(moduleName);
+    return modules.includes(moduleName);
   };
 
   return (
@@ -63,7 +74,7 @@ function HomePage() {
         <div className="profile-section">
           <div className="profile-iconH">👤</div>
           <div className="usernameH">
-            {currentUser.nom} <span className="status-dotH"></span>
+            {username || 'Utilisateur'} <span className="status-dotH"></span>
           </div>
         </div>
         <button className="menu-buttonH active">Accueil</button>
@@ -72,18 +83,17 @@ function HomePage() {
 
       <div className="block">
         <div className="headerH">
-        <img src={logo} alt="Logo" className="logoH" />
-        <div className="company-name"><h1>G.E.S</h1></div>
+          <img src={logo} alt="Logo" className="logoH" />
+          <div className="company-name"><h1>G.E.S</h1></div>
         </div>
-
 
         <div className="H2">
           <h2>Choisissez votre module</h2>
-          <hr class="magic-bar" />
+          <hr className="magic-bar" />
         </div>
 
         <div className="module-section">
-          
+
           {hasAccessTo("Gestion fournisseurs") && (
             <div className="module-box" onClick={() => handleModuleClick('/gestion_fournisseurs')}>
               <img src={logoGestionFournisseurs} alt="Module Gestion" className="module-logo" />
@@ -100,7 +110,7 @@ function HomePage() {
             </div>
           )}
 
-          {hasAccessTo("Gestion caisses") && (
+          {hasAccessTo("gestion caisse") && (
             <div className="module-box" onClick={() => handleModuleClick('/gestion_caisse')}>
               <img src={logoCaisse} alt="Module Gestion" className="module-logo" />
               <h3>Gestion caisse</h3>
@@ -108,7 +118,7 @@ function HomePage() {
             </div>
           )}
 
-          {hasAccessTo("Gestion clients") && (
+          {hasAccessTo("Gestion client") && (
             <div className="module-box" onClick={() => handleModuleClick('/gestion_clients')}>
               <img src={logoGestionClients} alt="Module Gestion" className="module-logo" />
               <h3>Gestion clients</h3>
@@ -132,8 +142,6 @@ function HomePage() {
             </div>
           )}
 
-
-
           {hasAccessTo("Rapport") && (
             <div className="module-box" onClick={() => handleModuleClick('/rapports')}>
               <img src={logoRapports} alt="Module Gestion" className="module-logo" />
@@ -142,7 +150,6 @@ function HomePage() {
             </div>
           )}
 
-
           {hasAccessTo("Gestion statistiques") && (
             <div className="module-box" onClick={() => handleModuleClick('/gestion_statistiques')}>
               <img src={logoStatistiques} alt="Module Gestion" className="module-logo" />
@@ -150,8 +157,6 @@ function HomePage() {
               <p>La gestion des statistiques</p>
             </div>
           )}
-
-          
 
           {hasAccessTo("Configuration") && (
             <div className="module-box" onClick={() => handleModuleClick('/configuration')}>

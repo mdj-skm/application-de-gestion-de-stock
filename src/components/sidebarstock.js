@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import './Sidebar.css'; 
+import './sidebarstock.css'; 
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -15,8 +15,10 @@ const Sidebar = () => {
 
   return (
     <div className="sidebarCM">
-      <div className="profil-iconCM">👤</div>
-      {username} <span className="status-dot"></span>
+      <div className="profil-icon-st">👤</div>
+      <div className='username-st'>
+         {username} <span className="status-dot-st"></span>
+         </div>
       <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
       
     </div>

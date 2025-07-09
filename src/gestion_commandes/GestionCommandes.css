@@ -176,9 +176,11 @@ border-image-source: repeating-conic-gradient(
   #007bff 0deg 10deg,
   transparent 10deg 20deg
 );
-width: 60vw;          /* ← presque toute la largeur visible */
+width: 70vw;          /* ← presque toute la largeur visible */
 max-width: 1800px;    /* ← limite sur les très grands écrans */
 margin: 0 auto;       /* ← CENTRÉ horizontalement */
+margin-left: 30px;
+margin-top: -25px;
 animation: rotateBorder 3s linear infinite;
 
 }

@@ -16,14 +16,6 @@ const CommandesEnCours = () => {
     supprimerCommande(index);
   };
 
-  // Fonction pour calculer le prix total
-  const calculatePrixTotal = (prixUnitaire, quantite) => {
-    // Assure que prixUnitaire et quantite sont des nombres
-    const pu = Number(prixUnitaire) || 0;
-    const qte = Number(quantite) || 0;
-    return pu * qte;
-  };
-
   return (
     <div className="layout-containerCE">
       <div className="sidebarCM">
@@ -35,51 +27,44 @@ const CommandesEnCours = () => {
           <div className="company-nameCE"><h1>G.E.S</h1></div>
         </div>
         <h2>Commandes en cours</h2>
+
         {commandes.length === 0 ? (
           <p>Aucune commande en cours, Voir Commande validées.</p>
         ) : (
-          <table className="commande-table">
+          <table className="commande-tableCEC">
             <thead>
               <tr>
+                <th>N° Commande</th>
                 <th>Produit</th>
                 <th>Catégorie</th>
                 <th>Quantité</th>
                 <th>Prix Unitaire</th>
                 <th>Prix Total</th>
-                <th>Action</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {commandes.map((commande, index) => {
-                // On récupère le prix unitaire (avec fallback)
-                const prixUnitaire = commande.prixUnitaire ?? commande.prix_unitaire ?? 0;
-                // Calcul du prix total via fonction
-                const prixTotal = calculatePrixTotal(prixUnitaire, commande.quantite);
-
-                return (
-                  <tr key={index}>
-                    <td data-label="Produit">{commande.produit}</td>
-                    <td data-label="Catégorie">{commande.categorie}</td>
-                    <td data-label="Quantité">{commande.quantite}</td>
-                    <td data-label="Prix Unitaire">{prixUnitaire} FCFA</td>
-                    <td data-label="Prix Total">{prixTotal} FCFA</td>
+              {commandes.map((commande, commandeIndex) =>
+                commande.produits.map((produit, produitIndex) => (
+                  <tr key={`${commandeIndex}-${produitIndex}`}>
+                    <td>{commande.numero_commande}</td>
+                    <td>{produit.produit}</td>
+                    <td>{produit.categorie}</td>
+                    <td>{produit.quantite}</td>
+                    <td>{produit.prix_unitaire} FCFA</td>
+                    <td>{produit.prix_total} FCFA</td>
                     <td>
-                      <button
-                        className="valider-btn"
-                        
-                      >
-                        Paiement en cours...
-                      </button>
+                      <button className="valider-btn">Paiement en cours...</button>
                       <button
                         className="supprimer-btn"
-                        onClick={() => handleSupprimer(index)}
+                        onClick={() => handleSupprimer(commandeIndex)}
                       >
                         Supprimer
                       </button>
                     </td>
                   </tr>
-                );
-              })}
+                ))
+              )}
             </tbody>
           </table>
         )}

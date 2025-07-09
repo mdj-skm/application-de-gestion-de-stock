@@ -77,12 +77,21 @@ height: 80px;
   flex-shrink: 0;
 }
 
-.status-dot {
-  width: 10px;
+.username-CON {
+   font-size: 20px;
+  margin: 0;
+  line-height: 1.2;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.status-dot-CON {
+   width: 12px;
   height: 10px;
-  background-color: limegreen;
+  background-color: rgb(15, 240, 15);
   border-radius: 50%;
-  margin: 5px auto;
+  margin-left: 9px;
+  margin-top: 6px;
 }
 
 .main-content {
@@ -107,10 +116,12 @@ border-image-source: repeating-conic-gradient(
   #007bff 0deg 10deg,
   transparent 10deg 20deg
 );
-width: 60vw;          /* ← presque toute la largeur visible */
+width: 72vw;          /* ← presque toute la largeur visible */
 max-width: 1800px;    /* ← limite sur les très grands écrans */
 margin: 0 auto;       /* ← CENTRÉ horizontalement */
 animation: rotateBorder 3s linear infinite;
+margin-top: -20px;
+margin-left: 47px;
 }
 
 .top-bar {

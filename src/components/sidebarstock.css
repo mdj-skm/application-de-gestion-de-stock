@@ -65,8 +65,6 @@
 }
 
 
-
-
 .username-display {
   font-weight: bold;
   color: #2c3e50;
@@ -74,15 +72,25 @@
   align-items: center;
 }
 
-.status-dot {
-  width: 10px;
-  height: 10px;
-  background-color: green;
-  border-radius: 50%;
-  margin-left: 8px;
+.username-st {
+  font-size: 20px;
+  margin: 0;
+  line-height: 1.2;
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
-.profil-iconCM {
+.status-dot-st {
+  width: 12px;
+  height: 10px;
+  background-color: rgb(15, 240, 15);
+  border-radius: 50%;
+  margin-left: 9px;
+  margin-top: 6px;
+}
+
+.profil-icon-st {
   font-size: 50px;
   font-size: 50px;
   color: white;

@@ -1,5 +1,5 @@
-.sidebar2 {
- position: fixed;         /* Fixe la barre latérale */
+.sidebarU {
+  position: fixed;         /* Fixe la barre latérale */
   top: 0;
   left: 0;
   width: 20%;
@@ -12,14 +12,14 @@
   z-index: 1000;           /* Pour rester au-dessus du contenu */
 }
 
-.sidebar2 p {
+.sidebarU p {
   font-weight: bold;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.sidebar2 .dot {
+.sidebarU .dot {
   height: 10px;
   width: 10px;
   background-color: #0f0;
@@ -28,8 +28,8 @@
   margin-left: 10px;
 }
 
-.sidebar2 button {
- margin: 10px 0;
+.sidebarU button {
+    margin: 10px 0;
     padding: 10px 20px;
     border-radius: 20px;
     border: 1px solid black;
@@ -39,36 +39,44 @@
     display: inline-block;
 }
 
-
-
-.sidebar2 button:hover {
-  background-color: green;
+.sidebarU button:hover {
+  background-color: #ffe0b2;
     transform: scale(1.05);
 }
 
 /* Réduire la largeur de la sidebar sur les petits écrans */
 @media (max-width: 768px) {
-  .sidebar2 {
+  .sidebarU {
     width: 180px;
     padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
-  .sidebar2 {
+  .sidebarU {
     width: 120px;
     padding: 10px;
   }
 
-  .sidebar2 button {
+  .sidebarU button {
     font-size: 12px;
     padding: 8px;
   }
 }
 
 
-.usernameSI2 {
-  font-size: 20px;
+
+
+.username-display {
+  font-weight: bold;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+}
+
+
+.username-SU {
+   font-size: 20px;
   margin: 0;
   line-height: 1.2;
   color: white;
@@ -76,14 +84,7 @@
   align-items: center;
 }
 
-.username-display {
-  font-weight: bold;
-  color: #fdfdfd;
-  display: flex;
-  align-items: center;
-}
-
-.status-dot2 {
+.status-dot-SU {
   width: 12px;
   height: 10px;
   background-color: rgb(15, 240, 15);
@@ -92,7 +93,7 @@
   margin-top: 6px;
 }
 
-.user-iconSI2 {
+.profil-iconU {
   font-size: 50px;
   font-size: 50px;
   color: white;

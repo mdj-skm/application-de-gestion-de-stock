@@ -141,12 +141,12 @@ border-image-source: repeating-conic-gradient(
   #007bff 0deg 10deg,
   transparent 10deg 20deg
 );
-width: 80%;           /* ou une largeur fixe, ex: 600px */
+width: 88%;           /* ou une largeur fixe, ex: 600px */
 max-width: 1400px;     /* limite pour écrans larges */
 margin: 0 auto;       /* centre horizontalement */
 padding-right: 5rem; /* plus grand que padding-left */
 padding-left: 2rem;
-margin-left: 7%;
+margin-left: 3%;
   animation: rotateBorder 3s linear infinite;
  
 }

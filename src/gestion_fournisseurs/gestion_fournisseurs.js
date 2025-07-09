@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './gestion_fournisseurs.css';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
+import { StockContext } from '../contexts/StockContext';
 
 export default function GestionFournisseurs() {
   const navigate = useNavigate();
-  const [fournisseurs, setFournisseurs] = useState([]);
+  const { fournisseurs, setFournisseurs, refreshFournisseurs } = useContext(StockContext);
+
   const [message, setMessage] = useState('');
   const [showFormPage, setShowFormPage] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -22,9 +24,7 @@ export default function GestionFournisseurs() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('username');
-    if (storedUser) {
-      setUsername(storedUser);
-    }
+    if (storedUser) setUsername(storedUser);
   }, []);
 
   const showMessage = (msg) => {
@@ -58,12 +58,24 @@ export default function GestionFournisseurs() {
       return;
     }
 
+    const produitsAvecQuantiteRestante = formData.produits.map(p => ({
+      ...p,
+      quantite_restante: p.quantite_restante ?? p.quantite,
+    }));
+
+    const fournisseurAvecQuantite = { ...formData, produits: produitsAvecQuantiteRestante };
+
     if (editingIndex !== null) {
       const updated = [...fournisseurs];
-      updated[editingIndex] = formData;
+      updated[editingIndex] = fournisseurAvecQuantite;
       setFournisseurs(updated);
+      localStorage.setItem('fournisseurs', JSON.stringify(updated));
+      showMessage("Fournisseur mis à jour avec succès.");
     } else {
-      setFournisseurs([...fournisseurs, formData]);
+      const updated = [...fournisseurs, fournisseurAvecQuantite];
+      setFournisseurs(updated);
+      localStorage.setItem('fournisseurs', JSON.stringify(updated));
+      showMessage("Fournisseur ajouté avec succès.");
     }
 
     resetForm();
@@ -74,6 +86,8 @@ export default function GestionFournisseurs() {
       const newList = [...fournisseurs];
       newList.splice(index, 1);
       setFournisseurs(newList);
+      localStorage.setItem('fournisseurs', JSON.stringify(newList));
+      showMessage("Fournisseur supprimé.");
     }
   };
 
@@ -99,25 +113,55 @@ export default function GestionFournisseurs() {
             )}
           </h2>
           <div className="form-b">
-            <input placeholder="Nom" value={formData.nom} onChange={e => setFormData({ ...formData, nom: e.target.value })} />
-            <input placeholder="Entreprise" value={formData.entreprise} onChange={e => setFormData({ ...formData, entreprise: e.target.value })} />
-            <input placeholder="Email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-            <input placeholder="Numéro" value={formData.numero} onChange={e => setFormData({ ...formData, numero: e.target.value })} />
-            <input type="date" value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })} />
+            <input
+              placeholder="Nom"
+              value={formData.nom}
+              onChange={e => setFormData({ ...formData, nom: e.target.value })}
+            />
+            <input
+              placeholder="Entreprise"
+              value={formData.entreprise}
+              onChange={e => setFormData({ ...formData, entreprise: e.target.value })}
+            />
+            <input
+              placeholder="Email"
+              value={formData.email}
+              onChange={e => setFormData({ ...formData, email: e.target.value })}
+            />
+            <input
+              placeholder="Numéro"
+              value={formData.numero}
+              onChange={e => setFormData({ ...formData, numero: e.target.value })}
+            />
+            <input
+              type="date"
+              value={formData.date}
+              onChange={e => setFormData({ ...formData, date: e.target.value })}
+            />
 
             <h4>Produits attribués</h4>
             {formData.produits.map((produit, index) => (
               <div key={index}>
-                <input
-                  placeholder="Nom du produit"
+                <select
                   value={produit.nom}
                   onChange={e => {
                     const newProduits = [...formData.produits];
                     newProduits[index].nom = e.target.value;
                     setFormData({ ...formData, produits: newProduits });
                   }}
-                />
+                >
+                  <option value="">-- Choisir un produit --</option>
+                  {[
+                    "lait", "sucre", "riz", "huile", "eau minérale", "sardine", "sel", "chaussure",
+                    "teeshirt", "pantalon", "casquette", "moto", "velo", "voiture", "ventilateur",
+                    "climatiseur", "ampoule", "matelas", "natte", "tv plasma", "chaise", "ordinateur bureau",
+                    "ordinateur portable", "téléphone", "chargeur", "tablette", "savon", "parfum"
+                  ].map(p => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
                 <input
+                  className="input-quantite"
                   placeholder="Quantité"
                   value={produit.quantite}
                   onChange={e => {
@@ -146,8 +190,10 @@ export default function GestionFournisseurs() {
       <div className="sidebar-b">
         <div className="user-info-b">
           <div className="user-icon-b">👤</div>
-          <div>{username}</div>
-          <div className="status-dot-b"></div>
+          <div className='username-b'>
+         {username} <span className="status-dot-b"></span>
+         </div>
+          
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
       </div>
@@ -155,7 +201,7 @@ export default function GestionFournisseurs() {
       <div className="main-content-b">
         <div className="header-b">
           <div className="header-content-b">
-            <img src={logo} alt="Logo" className="logo" />
+            <img src={logo} alt="Logo" className="logoFO" />
             <div className="company-name-b"><h1>G.E.S</h1></div>
           </div>
         </div>
@@ -175,7 +221,7 @@ export default function GestionFournisseurs() {
                   <option key={i} value={f.nom}>{f.nom}</option>
                 ))}
               </select>
-              <button className="btn-b" onClick={() => window.location.reload()}>Rafraîchir</button>
+              <button className="btn-b" onClick={refreshFournisseurs}>Rafraîchir</button>
             </div>
           </div>
 

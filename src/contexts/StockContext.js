@@ -7,78 +7,70 @@ export const StockProvider = ({ children }) => {
 
   const fetchFournisseurs = async () => {
     try {
+      const cached = localStorage.getItem('fournisseurs');
+      if (cached) {
+        const cachedFournisseurs = JSON.parse(cached);
+        const fournisseursAvecQuantiteRestante = cachedFournisseurs.map(fournisseur => ({
+          ...fournisseur,
+          produits: fournisseur.produits.map(produit => ({
+            ...produit,
+            quantite_restante: produit.quantite_restante ?? produit.quantite,
+          })),
+        }));
+        setFournisseurs(fournisseursAvecQuantiteRestante);
+        return;
+      }
       const response = await fetch('http://localhost:8000/api/fournisseurs/');
       if (!response.ok) throw new Error('Erreur chargement fournisseurs');
       const data = await response.json();
-      setFournisseurs(data);
-      localStorage.setItem('fournisseurs', JSON.stringify(data));
+
+      const dataAvecQuantiteRestante = data.map(fournisseur => ({
+        ...fournisseur,
+        produits: fournisseur.produits.map(produit => ({
+          ...produit,
+          quantite_restante: produit.quantite,
+        })),
+      }));
+
+      setFournisseurs(dataAvecQuantiteRestante);
+      localStorage.setItem('fournisseurs', JSON.stringify(dataAvecQuantiteRestante));
     } catch (err) {
       console.error("Erreur chargement fournisseurs:", err);
     }
   };
 
-  const refreshFournisseurs = async () => {
-  try {
-    const updatedFournisseurs = await fetch('http://localhost:8000/api/fournisseurs/');
-    if (!updatedFournisseurs.ok) throw new Error('Erreur lors du rafraîchissement des fournisseurs');
-    const data = await updatedFournisseurs.json();
-    setFournisseurs(data);
-    localStorage.setItem('fournisseurs', JSON.stringify(data));
-  } catch (err) {
-    console.error("Erreur lors du rafraîchissement des fournisseurs:", err);
-  }
-};
+  // Met à jour le stock automatiquement après validation d'une commande
+  const mettreAJourStockAprèsCommande = (commande) => {
+    const nouveauxFournisseurs = fournisseurs.map((fournisseur) => {
+      const produitsMisAJour = fournisseur.produits.map((produit) => {
+        const articleCommande = commande.produits.find(p => p.produit === produit.nom || p.produit === produit.nom);
+        if (articleCommande) {
+          const quantiteActuelle = parseInt(produit.quantite_restante ?? produit.quantite);
+          const nouvelleQuantite = Math.max(0, quantiteActuelle - parseInt(articleCommande.quantite));
+          return {
+            ...produit,
+            quantite_restante: nouvelleQuantite,
+          };
+        }
+        return produit;
+      });
+      return { ...fournisseur, produits: produitsMisAJour };
+    });
 
+    setFournisseurs(nouveauxFournisseurs);
+    localStorage.setItem('fournisseurs', JSON.stringify(nouveauxFournisseurs));
+  };
 
   useEffect(() => {
     fetchFournisseurs();
   }, []);
 
-  const updateFournisseur = async (fournisseur) => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/fournisseurs/${fournisseur.id}/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(fournisseur),
-      });
-
-      if (!response.ok) throw new Error('Erreur mise à jour fournisseur');
-      return await response.json();
-    } catch (err) {
-      console.error("Erreur API:", err);
-      throw err;
-    }
-  };
-
-  // Fonction pour diminuer la quantité d’un produit chez un fournisseur
-  const livrerProduit = async (nomFournisseur, nomProduit, quantiteLivree) => {
-  const updatedFournisseurs = await Promise.all(
-    fournisseurs.map(async (fournisseur) => {
-      if (fournisseur.nom === nomFournisseur && fournisseur.produit === nomProduit) {
-        const nouvelleQuantite = Math.max(0, fournisseur.quantite_restante - quantiteLivree);
-        const updatedFournisseur = { ...fournisseur, quantite_restante: nouvelleQuantite };
-
-        try {
-          await updateFournisseur(updatedFournisseur);
-        } catch (err) {
-          console.error("Erreur lors de la mise à jour du stock :", err);
-        }
-
-        return updatedFournisseur;
-      }
-      return fournisseur;
-    })
-  );
-
-  setFournisseurs(updatedFournisseurs);
-};
-
-  
-
   return (
-    <StockContext.Provider value={{ fournisseurs, setFournisseurs, livrerProduit,refreshFournisseurs }}>
+    <StockContext.Provider value={{
+      fournisseurs,
+      setFournisseurs,
+      mettreAJourStockAprèsCommande,
+    }}>
       {children}
     </StockContext.Provider>
   );

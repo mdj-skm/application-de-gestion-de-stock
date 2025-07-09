@@ -163,15 +163,18 @@ const GestionClient = () => {
       {/* Barre latérale gauche */}
       <aside className="gc-sidebar">
         <div className="user-info">
-          <div className="user-icon">👤</div>
-          <p className="username">{username}</p>
-          <div className="status-indicator" />
+          <div className="user-iconGC">👤</div>
+          <div className='username-GC'>
+         {username} <span className="status-dot-GC"></span>
+         </div>
+          {/* <p className="usernameGC">{username}</p>
+          <div className="status-indicator" /> */}
         </div>
-        <button className="logout-button" onClick={() => navigate('/page_d_accueil')}>
+        <button className="logout-buttonGC" onClick={() => navigate('/page_d_accueil')}>
           Accueil
         </button>
         <button
-          className="logout-button"
+          className="logout-buttonGC2"
           onClick={() => {
             alert('Déconnexion...');
             localStorage.removeItem('username'); // Suppression de la session
@@ -184,7 +187,7 @@ const GestionClient = () => {
 
       {/* En-tête */}
       <header className="gc-header">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logoGC" />
         <div className="company-name"><h1>G.E.S</h1></div>
       </header>
 

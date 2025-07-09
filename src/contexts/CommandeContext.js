@@ -1,4 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { StockContext } from './StockContext';
+import { CaisseContext } from './CaisseContext';
 
 export const CommandeContext = createContext();
 
@@ -8,85 +10,159 @@ export const CommandeProvider = ({ children }) => {
   const [commandesLivrees, setCommandesLivrees] = useState([]);
   const [historique, setHistorique] = useState([]);
   const [commandeImpression, setCommandeImpression] = useState(null);
+  const [commandesImprimees, setCommandesImprimees] = useState([]);
+  const [aImprimer, setAImprimer] = useState([]);
 
-  // Nouvel état pour garder la liste des commandes imprimées
-  const [commandesImprimees, setCommandesImprimees] = useState(() => {
-    const saved = localStorage.getItem('commandesImprimees');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { mettreAJourStockAprèsCommande } = useContext(StockContext);
+  const { ajouterPaiement } = useContext(CaisseContext); // 🔥 Paiement caisse
 
-  // Synchronisation localStorage commandesImprimees
+  const viderToutesLesDonnees = () => {
+    setCommandes([]);
+    setCommandesValidees([]);
+    setCommandesLivrees([]);
+    setHistorique([]);
+    setAImprimer([]);
+    setCommandesImprimees([]);
+    setCommandeImpression(null);
+
+    localStorage.removeItem('commandes');
+    localStorage.removeItem('commandesValidees');
+    localStorage.removeItem('commandesLivrees');
+    localStorage.removeItem('historique');
+    localStorage.removeItem('aImprimer');
+    localStorage.removeItem('commandesImprimees');
+    localStorage.removeItem('commandeImpression');
+  };
+
   useEffect(() => {
-    localStorage.setItem('commandesImprimees', JSON.stringify(commandesImprimees));
-  }, [commandesImprimees]);
+    const savedHistorique = localStorage.getItem("historique");
+    if (savedHistorique) setHistorique(JSON.parse(savedHistorique));
 
-  // Ajouter une commande
+    const savedLivrees = localStorage.getItem("commandesLivrees");
+    if (savedLivrees) setCommandesLivrees(JSON.parse(savedLivrees));
+
+    const savedImprimees = localStorage.getItem("commandesImprimees");
+    if (savedImprimees) setCommandesImprimees(JSON.parse(savedImprimees));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("historique", JSON.stringify(historique));
+  }, [historique]);
+
+  useEffect(() => {
+    localStorage.setItem('aImprimer', JSON.stringify(aImprimer));
+  }, [aImprimer]);
+
   const ajouterCommande = (commande) => {
     setCommandes(prev => [...prev, commande]);
     setHistorique(prev => [...prev, { ...commande, statut: 'En cours' }]);
   };
 
-  // Vider toutes les commandes à imprimer (réinitialiser)
-  const viderCommandesAImprimer = () => {
-    setCommandeImpression(null);
-    setCommandesImprimees([]);
-    localStorage.removeItem('commandeImpression');
-    localStorage.removeItem('commandesImprimees');
-  };
+  const validerCommande = (commandeIndex, produitIndex) => {
+    const commande = commandes[commandeIndex];
+    if (!commande) return;
 
-  // Valider une commande
-  const validerCommande = (index) => {
-    const commande = commandes[index];
-    const prixUnitaire = commande.prixUnitaire ?? commande.prix_unitaire ?? 0;
-    const prixTotal = prixUnitaire * commande.quantite;
+    const produitValide = commande.produits[produitIndex];
+    if (!produitValide) return;
 
-    const commandeAvecPrix = {
+    const montant = produitValide.prix_total;
+    if (montant) {
+      ajouterPaiement(montant); // ✅ Paiement vers la caisse
+    }
+
+    const commandeValidee = {
       ...commande,
-      prixUnitaire,
-      prixTotal,
+      produits: [produitValide],
     };
 
-    setCommandes(prev => prev.filter((_, i) => i !== index));
-    setCommandesValidees(prev => [...prev, commandeAvecPrix]);
-    setHistorique(prev => [...prev, { ...commandeAvecPrix, statut: 'Validée' }]);
+    mettreAJourStockAprèsCommande(commandeValidee); // ✅ mise à jour stock
+
+    const nouvelleListeProduits = commande.produits.filter((_, i) => i !== produitIndex);
+    if (nouvelleListeProduits.length === 0) {
+      setCommandes(prev => prev.filter((_, i) => i !== commandeIndex));
+    } else {
+      setCommandes(prev => {
+        const copie = [...prev];
+        copie[commandeIndex] = { ...commande, produits: nouvelleListeProduits };
+        return copie;
+      });
+    }
+
+    setCommandesValidees(prev => [...prev, commandeValidee]);
+    setHistorique(prev => [...prev, { ...commandeValidee, statut: 'Validée' }]);
   };
 
-  // Livrer une commande
-  const livrerCommande = (index) => {
-    const commande = commandesValidees[index];
-    setCommandesValidees(prev => prev.filter((_, i) => i !== index));
-    setCommandesLivrees(prev => [...prev, commande]);
-    setHistorique(prev => [...prev, { ...commande, statut: 'Livrée' }]);
-    setCommandeImpression(commande);
+  const ajouterCommandeLivree = (commande) => {
+    setCommandesLivrees(prev => {
+      const nouvelles = [...prev, commande];
+      localStorage.setItem("commandesLivrees", JSON.stringify(nouvelles));
+      return nouvelles;
+    });
+    setHistorique(prev => [...prev, { ...commande, statut: 'Livré' }]);
   };
 
-  // Supprimer une commande (en cours)
+  const livrerCommande = (commandeLivree) => {
+    setCommandesLivrees(prev => {
+      const updated = [...prev, commandeLivree];
+      localStorage.setItem("commandesLivrees", JSON.stringify(updated));
+      return updated;
+    });
+    setHistorique(prev => [...prev, { ...commandeLivree, statut: 'Livré' }]);
+  };
+
   const supprimerCommande = (index) => {
     setCommandes(prev => prev.filter((_, i) => i !== index));
   };
 
-  // Ajouter une commande à la liste des commandes imprimées
   const ajouterCommandeImprimee = (commande) => {
-    setCommandesImprimees(prev => [...prev, commande]);
+    setCommandesImprimees(prev => {
+      const updated = [...prev, commande];
+      localStorage.setItem("commandesImprimees", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const supprimerCommandeValidee = (numeroCommande, nomProduit) => {
+    const nouvellesValidees = commandesValidees
+      .map(commande => {
+        if (commande.numero_commande !== numeroCommande) return commande;
+
+        const produitsRestants = commande.produits.filter(
+          produit => produit.produit !== nomProduit
+        );
+
+        if (produitsRestants.length === 0) return null;
+
+        return { ...commande, produits: produitsRestants };
+      })
+      .filter(Boolean);
+
+    setCommandesValidees(nouvellesValidees);
+    localStorage.setItem("commandesValidees", JSON.stringify(nouvellesValidees));
   };
 
   return (
-    <CommandeContext.Provider value={{
-      commandes,
-      commandesValidees,
-      commandesLivrees,
-      historique,
-      commandeImpression,
-      commandesImprimees,
-
-      ajouterCommande,
-      validerCommande,
-      supprimerCommande,
-      livrerCommande,
-      ajouterCommandeImprimee,
-      setCommandeImpression,
-      viderCommandesAImprimer,
-    }}>
+    <CommandeContext.Provider
+      value={{
+        commandes,
+        commandesValidees,
+        commandesLivrees,
+        historique,
+        ajouterCommande,
+        validerCommande,
+        supprimerCommande,
+        livrerCommande,
+        ajouterCommandeLivree,
+        supprimerCommandeValidee,
+        commandeImpression,
+        setCommandeImpression,
+        commandesImprimees,
+        ajouterCommandeImprimee,
+        aImprimer,
+        setAImprimer,
+        viderToutesLesDonnees,
+      }}
+    >
       {children}
     </CommandeContext.Provider>
   );

@@ -5,14 +5,18 @@ import './Imprimer2.css';
 import { jsPDF } from "jspdf";
 import logo from '../assets/logo.png';
 
+
 const Imprimer = () => {
   const { 
     commandeImpression, 
     commandesImprimees, 
     ajouterCommandeImprimee, 
-    setCommandeImpression 
+    setCommandeImpression,
+    viderToutesLesDonnees 
   } = useContext(CommandeContext);
   
+
+
   useEffect(() => {
     console.log("Composant Imprimer2 monté");
     if (!commandeImpression) {

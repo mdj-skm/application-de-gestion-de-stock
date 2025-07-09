@@ -1,12 +1,9 @@
-
 import React, { useState, useEffect  } from 'react';
 import './configuration.css';
 
 import { useNavigate } from 'react-router-dom';
 
 import logo from '../assets/logo.png';
-
-
 
 const modules = [
   "Gestion fournisseurs",
@@ -64,68 +61,40 @@ export default function Configuration() {
     modules: []
   });
 
-
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
 
+  // Chargement des utilisateurs + username au démarrage depuis localStorage
   useEffect(() => {
-  fetch('http://localhost:8000/api/configuration/utilisateurs/')
-    .then(res => res.json())
-    .then(data => {
-  // Si data est un tableau (pas d'objet avec results)
-  if (Array.isArray(data)) {
-    setUtilisateurs(data);
-  } else {
-    setUtilisateurs(data.results || []);
-  }
-})
+    const savedUsers = localStorage.getItem('utilisateurs');
+    if (savedUsers) {
+      setUtilisateurs(JSON.parse(savedUsers));
+    }
 
-    .catch(err => console.error(err));
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
 
-  const savedUsername = localStorage.getItem('username');
-  if (savedUsername) {
-    setUsername(savedUsername);
-  }
-}, []);
+  // Sauvegarde des utilisateurs dans localStorage à chaque modification
+  useEffect(() => {
+    localStorage.setItem('utilisateurs', JSON.stringify(utilisateurs));
+  }, [utilisateurs]);
 
+  const handleAdd = () => {
+    if (!formData.nom || !formData.motDePasse || !formData.email || !formData.role) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
 
-
-  const handleAdd = async () => {
-  const isEdit = editIndex !== null;
-  const method = isEdit ? 'PUT' : 'POST';
-  const url = isEdit
-    ? `http://localhost:8000/api/configuration/utilisateurs/${utilisateurs[editIndex].id}/`
-    : 'http://localhost:8000/api/configuration/utilisateurs/';
-
-  const payload = {
-    ...formData,
-    mot_de_passe: formData.motDePasse // toujours en clair
-  };
-
-  try {
-    const response = await fetch(url, {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-    const errorData = await response.json();  // 👈 Affiche le vrai message d'erreur
-    console.error("Erreur backend :", errorData);
-    throw new Error("Erreur d'enregistrement");
-  }
-
-    const newUser = await response.json();
-
-    if (isEdit) {
+    if (editIndex !== null) {
       const updatedUsers = [...utilisateurs];
-      updatedUsers[editIndex] = newUser;
+      updatedUsers[editIndex] = formData;
       setUtilisateurs(updatedUsers);
       setEditIndex(null);
     } else {
-      setUtilisateurs([...utilisateurs, newUser]);
+      setUtilisateurs([...utilisateurs, formData]);
     }
 
     setFormData({
@@ -137,39 +106,29 @@ const navigate = useNavigate();
       modules: [],
     });
     setShowFormPage(false);
-  } catch (error) {
-    console.error("Erreur lors de l'enregistrement :", error);
-  }
-};
-
-
-  
+  };
 
   const handleEdit = (index) => {
-  setFormData(utilisateurs[index]);
-  setEditIndex(index);
-  setShowFormPage(true);
-};
+    setFormData(utilisateurs[index]);
+    setEditIndex(index);
+    setShowFormPage(true);
+  };
 
-const handleDelete = (index) => {
+  const handleDelete = (index) => {
     const updatedList = [...utilisateurs];
     updatedList.splice(index, 1);
     setUtilisateurs(updatedList);
   };
 
-  
-
-   const handleModuleChange = (newModules) => {
+  const handleModuleChange = (newModules) => {
     setFormData(prev => ({ ...prev, modules: newModules }));
   };
-    
-  
 
-   if (showFormPage) {
+  if (showFormPage) {
     return (
       <div className="form-page">
         <div className="form-container">
-          <h2>Créer un utilisateur</h2>
+          <h2>{editIndex !== null ? "Modifier l'utilisateur" : "Créer un utilisateur"}</h2>
           <div className="form">
             <input 
               placeholder="Nom d'utilisateur" 
@@ -178,13 +137,11 @@ const handleDelete = (index) => {
             />
 
             <input
-            type="password"
-            placeholder="Mot de passe"
-            value={formData.motDePasse}
-            onChange={e => setFormData({ ...formData, motDePasse: e.target.value })}
+              type="password"
+              placeholder="Mot de passe"
+              value={formData.motDePasse}
+              onChange={e => setFormData({ ...formData, motDePasse: e.target.value })}
             />
-
-
 
             <input 
               placeholder="Email" 
@@ -207,7 +164,6 @@ const handleDelete = (index) => {
               onChange={e => setFormData({ ...formData, telephone: e.target.value })} 
             />
 
-            {/* Affichage des modules avec cases à cocher */}
             <ModuleCheckboxList 
               selectedModules={formData.modules} 
               onChange={handleModuleChange} 
@@ -223,23 +179,21 @@ const handleDelete = (index) => {
     );
   }
 
-
   return (
     <div className="containerCON">
       <div className="sidebarCON">
         <div className="user-info">
           <div className="user-iconCON">👤</div>
-          <div>{username}</div>
-          <div className="status-dot"></div>
+          <div className='username-CON'>
+         {username} <span className="status-dot-CON"></span>
+         </div>
         </div>
         <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
 
         <button onClick={() => {
-        setShowFormPage(false);
-        setShowUserTable(true);
+          setShowFormPage(false);
+          setShowUserTable(true);
         }}>Utilisateur</button>
-
-        {/* <button className="">Utilisateur</button> */}
       </div>
 
       <div className="main-content">
@@ -252,24 +206,22 @@ const handleDelete = (index) => {
           <div className="top-bar">
             <h2>Configuration des utilisateurs</h2>
             <div className="actions">
-
               <button
-              className="btn"
-              onClick={() => {
-              setShowFormPage(true);
-              setShowUserTable(false); // 👈 Ajout
-             }}
->
-  Créer un utilisateur
-</button>
-
-              {/* <button className="btn" onClick={() => setShowFormPage(true)}>Créer un utilisateur</button> */}
+                className="btn"
+                onClick={() => {
+                  setShowFormPage(true);
+                  setShowUserTable(false);
+                }}
+              >
+                Créer un utilisateur
+              </button>
               <button className="btn" onClick={() => {
-  fetch('http://localhost:8000/api/configuration/utilisateurs/')
-    .then(res => res.json())
-    .then(data => setUtilisateurs(data.results || []))
-}}>Rafraîchir</button>
-
+                // Reload utilisateurs depuis localStorage
+                const savedUsers = localStorage.getItem('utilisateurs');
+                if (savedUsers) {
+                  setUtilisateurs(JSON.parse(savedUsers));
+                }
+              }}>Rafraîchir</button>
             </div>
           </div>
 

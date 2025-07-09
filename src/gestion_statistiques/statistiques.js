@@ -1,45 +1,41 @@
-import React from 'react';
-import './statistiques.css';
-import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png';
-
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts';
+import React, { useContext } from 'react';
+// import { CommandeContext } from '../contexts/CommandeContext';
+import { StockContext } from '../contexts/StockContext';
+import { CaisseContext } from '../contexts/CaisseContext';
+// import { UtilisateurContext } from '../contexts/UtilisateurContext';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { BarChart2 } from 'lucide-react';
-
-const data = [
-  { nom: 'Caisse', valeur: 150 },
-  { nom: 'Commandes', valeur: 254 },
-  { nom: 'Utilisateurs', valeur: 38 },
-  { nom: 'Stocks', valeur: 127 },
-];
+import logo from '../assets/logo.png';
+import './statistiques.css';
+import Sidebar from '../components/sidebarstock'; 
 
 const couleurs = ['#3498db', '#e67e22', '#2ecc71', '#9b59b6'];
 
 export default function Statistiques() {
-  const navigate = useNavigate();
-  const username = localStorage.getItem("username") || "Utilisateur";
+  // const { commandes } = useContext(CommandeContext);
+  const { fournisseurs } = useContext(StockContext);
+  const { caisse } = useContext(CaisseContext);
+  // const { utilisateurs } = useContext(UtilisateurContext);
+
+  const totalCaisse = caisse.reduce((acc, p) => acc + Number(p.montant), 0);
+  // const totalCommandes = commandes.length;
+  // const totalUtilisateurs = utilisateurs.length;
+  const totalStock = fournisseurs.reduce((acc, f) =>
+    acc + f.produits.reduce((a, p) => a + Number(p.quantite_restante ?? p.quantite), 0), 0
+  );
+
+  const data = [
+    { nom: 'Caisse', valeur: totalCaisse },
+    // { nom: 'Commandes', valeur: totalCommandes },
+    // { nom: 'Utilisateurs', valeur: totalUtilisateurs },
+    { nom: 'Stocks', valeur: totalStock },
+  ];
 
   return (
     <div className="container-o">
-      <div className="sidebar-o">
-        <div className="user-info-o">
-          <div className="user-icon-o">👤</div>
-          <div>{username}</div>
-          <div className="status-dot-o"></div>
-        </div>
-        <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
-        <button>Statistiques</button>
+      <div className="sidebarST">
+        <Sidebar />
       </div>
-
       <div className="main-content-o">
         <div className="header-o">
           <img src={logo} alt="Logo" className="logo-o" />
@@ -61,25 +57,13 @@ export default function Statistiques() {
               <XAxis dataKey="nom" />
               <YAxis />
               <Tooltip />
-             <Bar dataKey="valeur" radius={[8, 8, 0, 0]}>
-  {data.map((entry, index) => (
-    <Cell key={`cell-${index}`} fill={couleurs[index % couleurs.length]} />
-  ))}
-</Bar>
+              <Bar dataKey="valeur" radius={[8, 8, 0, 0]}>
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={couleurs[index % couleurs.length]} />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </div>
-
-        <div className="legend-stats-o">
-          {data.map((item, index) => (
-            <div className="legend-item-o" key={index}>
-              <span
-                className="color-box-o"
-                style={{ backgroundColor: couleurs[index % couleurs.length] }}
-              ></span>
-              {item.nom}
-            </div>
-          ))}
         </div>
       </div>
     </div>

@@ -1,18 +1,29 @@
-.rapport-container {
+.rapport-containerRA {
+   margin-left: 50px;
+  padding: 2rem;
+  flex: 1;
   display: flex;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 100vh; 
+  /* margin: 0px ; */
+  background-color: #fdfdfd;
+  margin-left: 330px;
 }
 
 .rapport-sidebar {
-  background-color: orange;
-  width: 200px;
-  padding: 50px;
-  color: white;
+  position: fixed;         /* Fixe la barre latérale */
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;           /* Prend toute la hauteur de l'écran */
+  background-color:  #007BFF;
   display: flex;
   flex-direction: column;
-  align-items: center;        /* Centrage horizontal */
-  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;           /* Pour rester au-dessus du contenu */
 }
 
 .user-info {
@@ -22,69 +33,106 @@
   margin-bottom: 40px;
 }
 
-.user-icon {
+.user-iconRA {
   font-size: 50px;
-    color: white;
-     height: 80px;
+  font-size: 50px;
+  color: white;
+  height: 80px;         /* hauteur adaptée au font-size */
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;   /* rond si c’est une icône circulaire */
+  background-color: #444; /* optionnel, contraste */
+  margin-bottom: 10px;  /* espace sous l’icône */
+  flex-shrink: 0;
 }
 
-.username {
-   color: white;
-  font-size: 14px;
-  font-weight: bold;
+.username-RA {
+   font-size: 20px;
+  margin: 0;
+  line-height: 1.2;
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
-.status-indicator {
-  width: 10px;
+.status-dot-RA {
+  width: 12px;
   height: 10px;
-  background-color: limegreen;
+  background-color: rgb(15, 240, 15);
   border-radius: 50%;
-  margin-top: 5px;
+  margin-left: 9px;
+  margin-top: 6px;
 }
 
-.nav-accueil:hover {
+.nav-acceuilRA {
+  margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: orange;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+.nav-accueilRA:hover {
   transform: scale(1.05);
+  background-color: rgb(214, 54, 54);
 }
 
-.nav-button {
-  margin-top: 20px;
-  padding: 10px 15px;
-  background-color: white;
-  color: black;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+.nav-buttonRA {
+  margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: orange;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: inline-block;
 }
 
-.nav-button:hover {
+.nav-buttonRA:hover {
   transform: scale(1.05);
 }
 
 .rapport-main {
   flex: 1;
-  background-color: #ffeecc;
+  background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
 }
 
 .rapport-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f4b183;
-  padding: 10px 20px;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+background-color: #ffc7c7;
+border: 6px dashed transparent;
+border-image-slice: 1;
+border-image-source: repeating-conic-gradient(
+  from 0deg,
+  #007bff 0deg 10deg,
+  transparent 10deg 20deg
+);
+width: 140%;           /* ou une largeur fixe, ex: 600px */
+max-width: 1400px;     /* limite pour écrans larges */
+margin: 0 auto;       /* centre horizontalement */
+padding-right: 5rem; /* plus grand que padding-left */
+padding-left: 2rem;
+margin-left: -28%;
+  animation: rotateBorder 3s linear infinite;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 18px;
-  
-  color: white;
-  padding: 5px 10px;
-  margin-right: 10px;
+.logoRA {
+   width: 80px;
+  height: auto;
+  display: block;
+  margin-left: 500px;
+  animation: float 3s ease-in-out infinite;
 }
 
 .company-name {
@@ -110,6 +158,8 @@
 
 .rapport-body {
   padding: 20px;
+  background-color: #fdfdfd;
+  margin-top: 100px;
 }
 
 .rapport-body h2 {

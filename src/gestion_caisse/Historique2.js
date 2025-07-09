@@ -7,6 +7,20 @@ import logo from '../assets/logo.png';
 const Historique = () => {
   const { historique } = useContext(CommandeContext);
 
+  // Fonction pour colorer selon statut
+  const couleurStatut = (statut) => {
+    switch (statut?.toLowerCase()) {
+      case 'livré':
+        return 'blue';
+      case 'validée':
+        return 'green';
+      case 'en cours':
+        return 'orange';
+      default:
+        return 'black';
+    }
+  };
+
   return (
     <div className="historique-containerHIT">
       <Sidebar />
@@ -15,7 +29,9 @@ const Historique = () => {
           <img src={logo} alt="Logo" className="logoHIT" />
           <div className="company-name"><h1>G.E.S</h1></div>
         </div>  
+
         <h2>Historique des commandes</h2>
+
         {historique.length === 0 ? (
           <p>Aucune commande dans l'historique.</p>
         ) : (
@@ -28,21 +44,29 @@ const Historique = () => {
                 <th>Prix Unitaire</th>
                 <th>Prix Total</th>
                 <th>Statut</th>
-                <th>Date</th>
               </tr>
             </thead>
             <tbody>
-              {historique.map((commande, index) => (
-                <tr key={index}>
-                  <td>{commande.produit}</td>
-                  <td>{commande.categorie}</td>
-                  <td>{commande.quantite}</td>
-                  <td>{commande.prixUnitaire} FCFA</td>
-                  <td>{commande.prixTotal} FCFA</td>
-                  <td>{commande.statut}</td>
-                  <td>{commande.date}</td>
-                </tr>
-              ))}
+              {historique.flatMap((commande, index) => {
+                const produits = commande.produits || [commande];
+                return produits.map((produit, idx) => {
+                  const prixUnitaire = parseInt(produit.prix_unitaire || produit.prixUnitaire || 0);
+                  const quantite = parseInt(produit.quantite || 0);
+                  const prixTotal = prixUnitaire * quantite;
+                  const statut = commande.statut || "Inconnu";
+
+                  return (
+                    <tr key={`${index}-${idx}`}>
+                      <td>{produit.produit}</td>
+                      <td>{produit.categorie}</td>
+                      <td>{quantite}</td>
+                      <td>{prixUnitaire} FCFA</td>
+                      <td>{prixTotal} FCFA</td>
+                      <td style={{ color: couleurStatut(statut) }}>{statut}</td>
+                    </tr>
+                  );
+                });
+              })}
             </tbody>
           </table>
         )}

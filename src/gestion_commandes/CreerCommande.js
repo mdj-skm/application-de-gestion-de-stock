@@ -14,7 +14,7 @@ const genererNumeroCommande = () => {
 
 const CreerCommande = () => {
   const { ajouterCommande } = useContext(CommandeContext);
-  const { fournisseurs, setFournisseurs } = useContext(StockContext);
+  const { fournisseurs } = useContext(StockContext);
 
   const [numeroCommande, setNumeroCommande] = useState('');
   const [produit, setProduit] = useState('');
@@ -22,60 +22,107 @@ const CreerCommande = () => {
   const [quantite, setQuantite] = useState('');
   const [prixUnitaire, setPrixUnitaire] = useState('');
   const [erreur, setErreur] = useState('');
-
-  const stockRestant = fournisseurs.find(f => f.produit === produit)?.quantite || 0;
-
-  const prixTotal = Number(quantite) && Number(prixUnitaire)
-    ? Number(quantite) * Number(prixUnitaire)
-    : 0;
+  const [autresProduits, setAutresProduits] = useState([]);
 
   useEffect(() => {
-    const numero = genererNumeroCommande();
-    setNumeroCommande(numero);
+    setNumeroCommande(genererNumeroCommande());
   }, []);
 
+  const produitsAttribues = [...new Set(
+    fournisseurs.flatMap(f => f.produits.map(p => p.nom).filter(Boolean))
+  )];
+
+  const ajouterAutreProduit = () => {
+    setAutresProduits([
+      ...autresProduits,
+      { produit: '', categorie: '', quantite: '', prixUnitaire: '' }
+    ]);
+  };
+
+  const modifierAutreProduit = (index, champ, valeur) => {
+    const copie = [...autresProduits];
+    copie[index][champ] = valeur;
+    setAutresProduits(copie);
+  };
+
+  const prixPrincipal = Number(quantite) * Number(prixUnitaire) || 0;
+  const prixTotalAutres = autresProduits.reduce((total, ligne) => {
+    const qte = Number(ligne.quantite);
+    const pu = Number(ligne.prixUnitaire);
+    return total + (qte && pu ? qte * pu : 0);
+  }, 0);
+
+  const prixTotalGeneral = prixPrincipal + prixTotalAutres;
+
   const handleValidation = () => {
-    if (quantite > stockRestant) {
-      setErreur(`Quantité demandée (${quantite}) supérieure au stock restant (${stockRestant})`);
+    // Vérif champs du 1er produit
+    if (!produit || !categorie || !quantite || !prixUnitaire) {
+      setErreur("Veuillez remplir tous les champs du premier produit.");
       return;
     }
 
-    if (!produit || !categorie || !quantite || !prixUnitaire) {
-      setErreur('Veuillez remplir toutes les cases.');
+    // Vérif champs des autres produits
+    for (let i = 0; i < autresProduits.length; i++) {
+      const p = autresProduits[i];
+      if (!p.produit || !p.categorie || !p.quantite || !p.prixUnitaire) {
+        setErreur(`Veuillez remplir tous les champs de la ligne ${i + 2}`);
+        return;
+      }
+    }
+
+    // Vérif dépassement de stock pour le produit principal
+    const fMain = fournisseurs.find(f => f.produits.some(p => p.nom === produit));
+    const pMain = fMain?.produits.find(p => p.nom === produit);
+    if (pMain && parseInt(quantite) > parseInt(pMain.quantite_restante ?? pMain.quantite)) {
+      setErreur(`Quantité demandée pour "${produit}" dépasse le stock disponible (${pMain.quantite_restante ?? pMain.quantite})`);
       return;
     }
+
+    // Vérif dépassement de stock pour les autres
+    for (let i = 0; i < autresProduits.length; i++) {
+      const ligne = autresProduits[i];
+      const f = fournisseurs.find(f => f.produits.some(p => p.nom === ligne.produit));
+      const p = f?.produits.find(p => p.nom === ligne.produit);
+      if (p && parseInt(ligne.quantite) > parseInt(p.quantite_restante ?? p.quantite)) {
+        setErreur(`Ligne ${i + 2} : Quantité de "${ligne.produit}" dépasse le stock disponible (${p.quantite_restante ?? p.quantite})`);
+        return;
+      }
+    }
+
+    // Regroupe tous les produits en un tableau unique
+    const produits = [
+      {
+        produit,
+        categorie,
+        quantite: parseInt(quantite),
+        prix_unitaire: parseFloat(prixUnitaire),
+        prix_total: prixPrincipal,
+      },
+      ...autresProduits.map((p) => ({
+        produit: p.produit,
+        categorie: p.categorie,
+        quantite: parseInt(p.quantite),
+        prix_unitaire: parseFloat(p.prixUnitaire),
+        prix_total: Number(p.quantite) * Number(p.prixUnitaire),
+      })),
+    ];
 
     const nouvelleCommande = {
       numero_commande: numeroCommande,
-      produit,
-      categorie,
-      quantite: parseInt(quantite),
-      prix_unitaire: parseFloat(prixUnitaire),
-      prix_total: prixTotal,
+      produits,
+      prix_total: prixTotalGeneral,
       date_commande: new Date().toISOString(),
       statut: 'En attente',
     };
 
-    // ✅ Ajouter la commande dans le contexte
     ajouterCommande(nouvelleCommande);
 
-    // ✅ Mettre à jour localement le stock
-    const fournisseursMisAJour = fournisseurs.map(f =>
-      f.produit === produit
-        ? {
-            ...f,
-            quantite: f.quantite - parseInt(quantite),
-            quantite_restante: f.quantite_restante - parseInt(quantite)
-          }
-        : f
-    );
-    setFournisseurs(fournisseursMisAJour);
-
-    // ✅ Réinitialiser les champs
+    // Réinitialiser le formulaire
     setProduit('');
     setCategorie('');
     setQuantite('');
     setPrixUnitaire('');
+    setAutresProduits([]);
     setErreur('');
     setNumeroCommande(genererNumeroCommande());
   };
@@ -90,44 +137,21 @@ const CreerCommande = () => {
 
       <h2>Créer une commande</h2>
 
-      <input
-        type="text"
-        value={numeroCommande}
-        disabled
-        className="numero-commande"
-      />
+      <input type="text" value={numeroCommande} disabled className="numero-commande" />
 
+      {/* Produit principal */}
       <select value={produit} onChange={e => setProduit(e.target.value)}>
         <option value="">-- Choisir un produit --</option>
-        <option value="lait">lait</option>
-        <option value="sucre">sucre</option>
-        <option value="riz">riz</option>
-        <option value="huile">huile</option>
-        <option value="eau minérale">eau minérale</option>
-        <option value="sardine">sardine</option>
-        <option value="sel">sel</option>
-        <option value="chaussure">chaussure</option>
-        <option value="teeshirt">teeshirt</option>
-        <option value="pantalon">pantalon</option>
-        <option value="casquette">casquette</option>
-        <option value="moto">moto</option>
-        <option value="velo">velo</option>
-        <option value="voiture">voiture</option>
-        <option value="ventilateur">ventilateur</option>
-        <option value="climatiseur">climatiseur</option>
-        <option value="ampoule">ampoule</option>
-        <option value="matelas">matelas</option>
-        <option value="natte">natte</option>
-        <option value="tv plasma">tv plasma</option>
-        <option value="chaise">chaise</option>
-        <option value="ordinateur bureau">ordinateur bureau</option>
-        <option value="ordinateur portable">ordinateur portable</option>
-        <option value="téléphone">téléphone</option>
-        <option value="chargeur">chargeur</option>
-        <option value="tablette">tablette</option>
-        <option value="savon">savon</option>
-        <option value="parfum">parfum</option>
+        {produitsAttribues.map(p => (
+          <option key={p} value={p}>{p}</option>
+        ))}
       </select>
+
+      {produit && (
+        <div style={{ fontStyle: 'italic', marginBottom: '5px' }}>
+          Fournisseur : {fournisseurs.find(f => f.produits.some(p => p.nom === produit))?.nom || 'Non attribué'}
+        </div>
+      )}
 
       <select value={categorie} onChange={e => setCategorie(e.target.value)}>
         <option value="">-- Sélectionnez une catégorie --</option>
@@ -139,28 +163,40 @@ const CreerCommande = () => {
         <option value="Autres">Autres</option>
       </select>
 
-      <input
-        type="number"
-        placeholder="Quantité"
-        value={quantite}
-        onChange={e => setQuantite(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Prix unitaire"
-        value={prixUnitaire}
-        onChange={e => setPrixUnitaire(e.target.value)}
-      />
+      <input type="number" placeholder="Quantité" value={quantite} onChange={e => setQuantite(e.target.value)} />
+      <input type="number" placeholder="Prix unitaire" value={prixUnitaire} onChange={e => setPrixUnitaire(e.target.value)} />
 
-      <input
-        type="text"
-        value={`Total = ${prixTotal} FCFA`}
-        disabled
-      />
+      {/* Autres produits */}
+      {autresProduits.map((ligne, index) => (
+        <div key={index} className="ligne-produit">
+          <select value={ligne.produit} onChange={e => modifierAutreProduit(index, 'produit', e.target.value)}>
+            <option value="">-- Choisir un produit --</option>
+            {produitsAttribues.map(p => (
+              <option key={p} value={p}>{p}</option>
+            ))}
+          </select>
 
+          <select value={ligne.categorie} onChange={e => modifierAutreProduit(index, 'categorie', e.target.value)}>
+            <option value="">-- Catégorie --</option>
+            <option value="Electronique">Electronique</option>
+            <option value="Vêtements">Vêtements</option>
+            <option value="Alimentation">Alimentation</option>
+            <option value="Ménage">Ménage</option>
+            <option value="Automobile">Automobile</option>
+            <option value="Autres">Autres</option>
+          </select>
+
+          <input type="number" placeholder="Quantité" value={ligne.quantite} onChange={e => modifierAutreProduit(index, 'quantite', e.target.value)} />
+          <input type="number" placeholder="Prix unitaire" value={ligne.prixUnitaire} onChange={e => modifierAutreProduit(index, 'prixUnitaire', e.target.value)} />
+        </div>
+      ))}
+
+      <button onClick={ajouterAutreProduit}>+ Ajouter une autre commande</button>
+
+      <input type="text" value={`Total général = ${prixTotalGeneral.toLocaleString()} FCFA`} disabled />
       {erreur && <p className="erreur" style={{ color: 'red' }}>{erreur}</p>}
 
-      <button onClick={handleValidation}>Valider</button>
+      <button onClick={handleValidation}>Valider la commande</button>
     </div>
   );
 };

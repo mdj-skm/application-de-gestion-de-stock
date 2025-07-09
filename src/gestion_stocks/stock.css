@@ -9,6 +9,7 @@
   min-height: 100vh; 
   /* margin: 0px ; */
   background-color: #fdfdfd;
+  margin-left: 330px;
 }
 
 .sidebarST{
@@ -40,7 +41,7 @@ border-image-source: repeating-conic-gradient(
   #007bff 0deg 10deg,
   transparent 10deg 20deg
 );
-width: 60vw;          /* ← presque toute la largeur visible */
+width: 70vw;          /* ← presque toute la largeur visible */
 max-width: 1800px;    /* ← limite sur les très grands écrans */
 margin: 0 auto;       /* ← CENTRÉ horizontalement */
 animation: rotateBorder 3s linear infinite;
@@ -66,7 +67,7 @@ animation: rotateBorder 3s linear infinite;
 }
 
 .stock-table th {
-  background-color: #f2f2f2;
+  background-color: #007BFF;
 }
 
 button {

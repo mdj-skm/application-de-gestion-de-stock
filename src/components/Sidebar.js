@@ -15,16 +15,15 @@ const Sidebar = () => {
 
   return (
     <div className="sidebarCM">
-      <div className="profil-iconCM">👤</div>
-      {username} <span className="status-dot"></span>
+      <div className="profil-iconSI2">👤</div>
+      <div className='usernameSI2'>
+        {username} <span className="status-dotSI2"></span>
+      </div>
+      
       <button onClick={() => navigate('/page_d_accueil')}>Accueil</button>
       <button onClick={() => navigate('/commande/creer')}>Créer une commande</button>
       <button onClick={() => navigate('/commandes_en_cours')}>Commandes en cours</button>
-      <button onClick={() => navigate('/commandes_validees')}>Commandes validées</button>
       <button onClick={() => navigate('/commandes_livrees')}>Commandes livrées</button>
-      {/* <button onClick={() => navigate('/imprimer')}>Imprimer</button> */}
-      <button onClick={() => navigate('/historique')}>Voir historique</button>
-      {/* <button onClick={() => window.location.reload()}>Reinitialise</button> */}
     </div>
   );
 };

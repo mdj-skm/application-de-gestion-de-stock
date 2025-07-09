@@ -112,32 +112,26 @@ const GestionRapport = () => {
 
   // Rendu JSX
   return (
-    <div className="rapport-container">
+    <div className="rapport-containerRA">
       {/* Barre latérale */}
       <aside className="rapport-sidebar">
         <div className="user-info">
-          <div className="user-icon">👤</div>
-          <div className="username">{username}</div>
-          <div className="status-indicator" />
+          <div className="user-iconRA">👤</div>
+          <div className='username-RA'>
+         {username} <span className="status-dot-RA"></span>
+         </div>
+          
         </div>
-        <button className="nav-button" onClick={() => navigate('/page_d_accueil')}>
+        <button className="nav-buttonRA" onClick={() => navigate('/page_d_accueil')}>
           Accueil
         </button>
-        <button
-          className="nav-acceuil"
-          onClick={() => {
-            localStorage.removeItem('username');
-            navigate('/');
-          }}
-        >
-          Se déconnecter
-        </button>
+        
       </aside>
 
       {/* Contenu principal */}
       <div className="rapport-main">
         <header className="rapport-header">
-          <img src={logo} alt="Logo" className="logo" />
+          <img src={logo} alt="Logo" className="logoRA" />
           <div className="company-name"><h1>G.E.S</h1></div>
         </header>
 

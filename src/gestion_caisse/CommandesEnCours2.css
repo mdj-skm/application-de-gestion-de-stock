@@ -42,10 +42,10 @@ border-image-source: repeating-conic-gradient(
   #007bff 0deg 10deg,
   transparent 10deg 20deg
 );
-width: 60vw;          /* ← presque toute la largeur visible */
+width: 70vw;          /* ← presque toute la largeur visible */
 max-width: 1800px;    /* ← limite sur les très grands écrans */
 margin: 0 auto;       /* ← CENTRÉ horizontalement */
-margin-left: 50px;
+margin-left: 75px;
 margin-top: -20px; /* remonte le header */
 animation: rotateBorder 3s linear infinite;
   }
@@ -68,7 +68,7 @@ animation: rotateBorder 3s linear infinite;
 .logoCEC {
   height: 80px;
   animation: float 3s ease-in-out infinite;
-  margin-left: 0%;
+  margin-left: -3%;
 }
 
 .company-nameCEC h1 {
@@ -94,13 +94,13 @@ animation: rotateBorder 3s linear infinite;
 }
 
 /* Style de base du tableau */
-.commande-table {
+.commande-tableCEC2 {
   border-collapse: collapse;
   width: 90%;
   max-width: 1000px;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-left: 30px;
+  margin-left: 170px;
 }
 
 /* En-têtes et cellules */
